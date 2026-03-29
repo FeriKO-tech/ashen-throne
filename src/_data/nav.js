@@ -5,6 +5,7 @@
  */
 module.exports = [
   { label: "World",    href: "/world.html",    slug: "world"    },
+  { label: "Lore",     href: "/lore.html",     slug: "lore"     },
   { label: "Classes",  href: "/classes.html",  slug: "classes"  },
   { label: "News",     href: "/news.html",     slug: "news"     },
   { label: "Download", href: "/download.html", slug: "download" },

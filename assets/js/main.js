@@ -359,14 +359,17 @@
       setTimeout(() => { el.textContent = val; el.classList.remove('flip'); }, 150);
     }
 
+    let cdTimer;
+
     function tick() {
       const now  = Date.now();
       const diff = TARGET - now;
 
       if (diff <= 0) {
-        dEl.textContent = '00'; hEl.textContent = '00';
-        mEl.textContent = '00'; sEl.textContent = '00';
-        if (expEl) expEl.style.display = 'block';
+        clearInterval(cdTimer);
+        const grid = root.querySelector('.countdown-grid');
+        if (grid) grid.style.display = 'none';
+        if (expEl) { expEl.textContent = '\u2234 PATCH IS LIVE \u2014 Update Your Launcher'; expEl.style.display = 'block'; }
         return;
       }
 
@@ -382,7 +385,7 @@
     }
 
     tick();
-    setInterval(tick, 1000);
+    cdTimer = setInterval(tick, 1000);
   })();
 
   /* ─── SHOP CART ───────────────────────────────────────────────────────────── */
@@ -395,7 +398,7 @@
     const closeBtn = document.getElementById('cartClose');
     const itemsEl  = document.getElementById('cartItems');
     const totalEl  = document.getElementById('cartTotal');
-    if (!panel || !badge || !trigger) return;
+    if (!badge || !trigger) return;
 
     /* ── state ─────── */
     function loadCart() {
@@ -609,6 +612,34 @@
     }
 
     applyFilters();
+  })();
+
+  /* ─── NEWSLETTER VALIDATION ───────────────────────────────────────────────── */
+  (function initNewsletter() {
+    const form    = document.getElementById('newsletterForm');
+    const input   = document.getElementById('newsletterEmail');
+    const success = document.getElementById('newsletterSuccess');
+    if (!form || !input) return;
+
+    const RE_EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const val = input.value.trim();
+      if (!RE_EMAIL.test(val)) {
+        input.classList.add('newsletter-error');
+        input.focus();
+        return;
+      }
+      input.classList.remove('newsletter-error');
+      form.style.transition = 'opacity 0.25s';
+      form.style.opacity    = '0';
+      form.style.pointerEvents = 'none';
+      setTimeout(() => { form.style.display = 'none'; }, 280);
+      if (success) { success.style.display = 'block'; }
+    });
+
+    input.addEventListener('input', () => input.classList.remove('newsletter-error'));
   })();
 
 })();

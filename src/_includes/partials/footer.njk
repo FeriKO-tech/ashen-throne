@@ -32,6 +32,7 @@
           <li><a href="/shop.html">Shop</a></li>
           <li><a href="/classes.html">Classes</a></li>
           <li><a href="/world.html">World Map</a></li>
+          <li><a href="/lore.html">Lore &amp; Chronicles</a></li>
           <li><a href="/news.html">Patch Notes</a></li>
           <li><a href="/news.html">Server Status</a></li>
         </ul>
@@ -52,10 +53,11 @@
       <div class="footer-newsletter">
         <h4>War Dispatches</h4>
         <p>Get patch notes, event alerts, and lore drops delivered to your inbox.</p>
-        <div class="newsletter-form">
-          <input type="email" placeholder="Enter your email" aria-label="Email">
-          <button type="submit">Subscribe</button>
-        </div>
+        <form class="newsletter-form" id="newsletterForm" novalidate>
+          <input class="newsletter-input" id="newsletterEmail" type="email" placeholder="Enter your email" aria-label="Email address" autocomplete="email" required>
+          <button class="newsletter-btn" type="submit">Subscribe</button>
+        </form>
+        <p class="newsletter-success" id="newsletterSuccess" role="status" style="display:none;">&#10003; You&#8217;re on the list.</p>
       </div>
 
     </div>
