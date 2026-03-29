@@ -93,12 +93,37 @@ ldJsonRaw: |
   </div>
 </section>
 
+<!-- ═══════ CART WIDGET ═══════ -->
+<div class="cart-trigger-wrap">
+  <button class="cart-trigger" id="cartTrigger" aria-label="Open cart">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+    <span class="cart-badge" id="cartBadge">0</span>
+  </button>
+</div>
+
+<div class="cart-backdrop" id="cartBackdrop"></div>
+
+<div class="cart-panel" id="cartPanel" role="dialog" aria-label="War Chest">
+  <div class="cart-panel-head">
+    <h3>War Chest</h3>
+    <button class="cart-close" id="cartClose" aria-label="Close cart">&times;</button>
+  </div>
+  <div class="cart-items" id="cartItems"></div>
+  <div class="cart-foot">
+    <div class="cart-total-row">
+      <span class="cart-total-label">Total</span>
+      <div class="cart-total-val"><span class="cart-total-sym">⬡</span><span id="cartTotal">0</span></div>
+    </div>
+    <button class="btn-primary cart-checkout" type="button">Proceed to Checkout</button>
+  </div>
+</div>
+
 <!-- ═══════ SHOP ═══════ -->
 <section class="news-page" style="padding:5rem 0 6rem;" id="main-content">
   <div class="news-page-bg"></div>
   <div class="container">
 
-    <!-- FILTERS -->
+    <!-- CATEGORY FILTERS -->
     <div class="shop-filters reveal" id="shopFilters">
       <button class="btn-primary" type="button" data-filter="all">All</button>
       <button class="btn-ghost"   type="button" data-filter="armor">Armor Sets</button>
@@ -106,40 +131,104 @@ ldJsonRaw: |
       <button class="btn-ghost"   type="button" data-filter="mounts">Mounts</button>
     </div>
 
+    <!-- PRICE FILTER -->
+    <div class="shop-price-filter reveal" id="shopPriceFilters">
+      <span class="shop-price-label">Price</span>
+      <div class="shop-price-btns">
+        <button class="price-range-btn active" type="button" data-max="999999">Any</button>
+        <button class="price-range-btn" type="button" data-max="2000">⬡ 0–2,000</button>
+        <button class="price-range-btn" type="button" data-max="3500">⬡ 2,001–3,500</button>
+        <button class="price-range-btn" type="button" data-max="5000">⬡ 3,501+</button>
+      </div>
+    </div>
+
     <!-- GRID -->
     <div class="shop-grid" id="shopGrid">
-      <div class="shop-item reveal" data-category="armor">
-        <div class="shop-art"><div class="shop-art-inner" style="background:linear-gradient(150deg,rgba(139,26,26,.55) 0%,rgba(201,168,76,.22) 50%,rgba(13,12,20,1) 100%);"></div><span class="shop-badge shop-badge-new">New</span></div>
-        <div class="shop-info"><div class="shop-type">Armor Set</div><div class="shop-name">Crimson Siege Plate</div><div class="shop-price-row"><div class="shop-price"><span class="shop-coin-sym">⬡</span> 2,400</div><button class="btn-primary shop-buy" type="button" aria-label="Buy Crimson Siege Plate">Buy Now</button></div></div>
+
+      <div class="shop-item reveal" data-category="armor" data-price="2400">
+        <div class="shop-art" style="position:relative;">
+          <div class="shop-art-inner" style="background:linear-gradient(150deg,rgba(139,26,26,.55) 0%,rgba(201,168,76,.22) 50%,rgba(13,12,20,1) 100%);"></div>
+          <span class="shop-badge shop-badge-new">New</span>
+          <button class="wishlist-btn" type="button" data-wl-id="crimson-siege-plate" aria-label="Add to wishlist">
+            <svg class="wishlist-icon" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </button>
+        </div>
+        <div class="shop-info"><div class="shop-type">Armor Set</div><div class="shop-name">Crimson Siege Plate</div><div class="shop-price-row"><div class="shop-price"><span class="shop-coin-sym">⬡</span> 2,400</div><button class="btn-primary shop-buy" type="button" data-add-to-cart="crimson-siege-plate" data-name="Crimson Siege Plate" data-price="2400" data-bg="background:linear-gradient(135deg,rgba(139,26,26,.5),rgba(13,12,20,1));">Add to Cart</button></div></div>
       </div>
-      <div class="shop-item reveal reveal-delay-1" data-category="armor">
-        <div class="shop-art"><div class="shop-art-inner" style="background:linear-gradient(150deg,rgba(50,20,80,.65) 0%,rgba(100,40,160,.2) 50%,rgba(13,12,20,1) 100%);"></div></div>
-        <div class="shop-info"><div class="shop-type">Armor Set</div><div class="shop-name">Voidrift Shadow Shroud</div><div class="shop-price-row"><div class="shop-price"><span class="shop-coin-sym">⬡</span> 1,800</div><button class="btn-primary shop-buy" type="button" aria-label="Buy Voidrift Shadow Shroud">Buy Now</button></div></div>
+
+      <div class="shop-item reveal reveal-delay-1" data-category="armor" data-price="1800">
+        <div class="shop-art" style="position:relative;">
+          <div class="shop-art-inner" style="background:linear-gradient(150deg,rgba(50,20,80,.65) 0%,rgba(100,40,160,.2) 50%,rgba(13,12,20,1) 100%);"></div>
+          <button class="wishlist-btn" type="button" data-wl-id="voidrift-shadow-shroud" aria-label="Add to wishlist">
+            <svg class="wishlist-icon" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </button>
+        </div>
+        <div class="shop-info"><div class="shop-type">Armor Set</div><div class="shop-name">Voidrift Shadow Shroud</div><div class="shop-price-row"><div class="shop-price"><span class="shop-coin-sym">⬡</span> 1,800</div><button class="btn-primary shop-buy" type="button" data-add-to-cart="voidrift-shadow-shroud" data-name="Voidrift Shadow Shroud" data-price="1800" data-bg="background:linear-gradient(135deg,rgba(50,20,80,.6),rgba(13,12,20,1));">Add to Cart</button></div></div>
       </div>
-      <div class="shop-item reveal reveal-delay-2" data-category="weapons">
-        <div class="shop-art"><div class="shop-art-inner" style="background:linear-gradient(150deg,rgba(30,50,100,.55) 0%,rgba(184,197,214,.2) 50%,rgba(13,12,20,1) 100%);"></div><span class="shop-badge shop-badge-limited">Limited</span></div>
-        <div class="shop-info"><div class="shop-type">Weapon Skin</div><div class="shop-name">Eclipse Greatsword</div><div class="shop-price-row"><div class="shop-price"><span class="shop-coin-sym">⬡</span> 3,200</div><button class="btn-primary shop-buy" type="button" aria-label="Buy Eclipse Greatsword">Buy Now</button></div></div>
+
+      <div class="shop-item reveal reveal-delay-2" data-category="weapons" data-price="3200">
+        <div class="shop-art" style="position:relative;">
+          <div class="shop-art-inner" style="background:linear-gradient(150deg,rgba(30,50,100,.55) 0%,rgba(184,197,214,.2) 50%,rgba(13,12,20,1) 100%);"></div>
+          <span class="shop-badge shop-badge-limited">Limited</span>
+          <button class="wishlist-btn" type="button" data-wl-id="eclipse-greatsword" aria-label="Add to wishlist">
+            <svg class="wishlist-icon" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </button>
+        </div>
+        <div class="shop-info"><div class="shop-type">Weapon Skin</div><div class="shop-name">Eclipse Greatsword</div><div class="shop-price-row"><div class="shop-price"><span class="shop-coin-sym">⬡</span> 3,200</div><button class="btn-primary shop-buy" type="button" data-add-to-cart="eclipse-greatsword" data-name="Eclipse Greatsword" data-price="3200" data-bg="background:linear-gradient(135deg,rgba(30,50,100,.5),rgba(13,12,20,1));">Add to Cart</button></div></div>
       </div>
-      <div class="shop-item reveal" data-category="weapons">
-        <div class="shop-art"><div class="shop-art-inner" style="background:linear-gradient(150deg,rgba(80,70,50,.5) 0%,rgba(201,168,76,.15) 50%,rgba(13,12,20,1) 100%);"></div></div>
-        <div class="shop-info"><div class="shop-type">Weapon Skin</div><div class="shop-name">Ashen Spellstaff</div><div class="shop-price-row"><div class="shop-price"><span class="shop-coin-sym">⬡</span> 1,600</div><button class="btn-primary shop-buy" type="button" aria-label="Buy Ashen Spellstaff">Buy Now</button></div></div>
+
+      <div class="shop-item reveal" data-category="weapons" data-price="1600">
+        <div class="shop-art" style="position:relative;">
+          <div class="shop-art-inner" style="background:linear-gradient(150deg,rgba(80,70,50,.5) 0%,rgba(201,168,76,.15) 50%,rgba(13,12,20,1) 100%);"></div>
+          <button class="wishlist-btn" type="button" data-wl-id="ashen-spellstaff" aria-label="Add to wishlist">
+            <svg class="wishlist-icon" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </button>
+        </div>
+        <div class="shop-info"><div class="shop-type">Weapon Skin</div><div class="shop-name">Ashen Spellstaff</div><div class="shop-price-row"><div class="shop-price"><span class="shop-coin-sym">⬡</span> 1,600</div><button class="btn-primary shop-buy" type="button" data-add-to-cart="ashen-spellstaff" data-name="Ashen Spellstaff" data-price="1600" data-bg="background:linear-gradient(135deg,rgba(80,70,50,.5),rgba(13,12,20,1));">Add to Cart</button></div></div>
       </div>
-      <div class="shop-item reveal reveal-delay-1" data-category="mounts">
-        <div class="shop-art"><div class="shop-art-inner" style="background:linear-gradient(150deg,rgba(180,70,20,.5) 0%,rgba(139,26,26,.35) 45%,rgba(13,12,20,1) 100%);"></div><span class="shop-badge shop-badge-limited">Limited</span></div>
-        <div class="shop-info"><div class="shop-type">Mount</div><div class="shop-name">Emberveil Drake</div><div class="shop-price-row"><div class="shop-price"><span class="shop-coin-sym">⬡</span> 4,800</div><button class="btn-primary shop-buy" type="button" aria-label="Buy Emberveil Drake">Buy Now</button></div></div>
+
+      <div class="shop-item reveal reveal-delay-1" data-category="mounts" data-price="4800">
+        <div class="shop-art" style="position:relative;">
+          <div class="shop-art-inner" style="background:linear-gradient(150deg,rgba(180,70,20,.5) 0%,rgba(139,26,26,.35) 45%,rgba(13,12,20,1) 100%);"></div>
+          <span class="shop-badge shop-badge-limited">Limited</span>
+          <button class="wishlist-btn" type="button" data-wl-id="emberveil-drake" aria-label="Add to wishlist">
+            <svg class="wishlist-icon" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </button>
+        </div>
+        <div class="shop-info"><div class="shop-type">Mount</div><div class="shop-name">Emberveil Drake</div><div class="shop-price-row"><div class="shop-price"><span class="shop-coin-sym">⬡</span> 4,800</div><button class="btn-primary shop-buy" type="button" data-add-to-cart="emberveil-drake" data-name="Emberveil Drake" data-price="4800" data-bg="background:linear-gradient(135deg,rgba(180,70,20,.5),rgba(13,12,20,1));">Add to Cart</button></div></div>
       </div>
-      <div class="shop-item reveal reveal-delay-2" data-category="armor">
-        <div class="shop-art"><div class="shop-art-inner" style="background:linear-gradient(150deg,rgba(30,40,55,.65) 0%,rgba(100,120,150,.2) 50%,rgba(13,12,20,1) 100%);"></div></div>
-        <div class="shop-info"><div class="shop-type">Armor Set</div><div class="shop-name">Dreadmoors Iron Crest</div><div class="shop-price-row"><div class="shop-price"><span class="shop-coin-sym">⬡</span> 2,100</div><button class="btn-primary shop-buy" type="button" aria-label="Buy Dreadmoors Iron Crest">Buy Now</button></div></div>
+
+      <div class="shop-item reveal reveal-delay-2" data-category="armor" data-price="2100">
+        <div class="shop-art" style="position:relative;">
+          <div class="shop-art-inner" style="background:linear-gradient(150deg,rgba(30,40,55,.65) 0%,rgba(100,120,150,.2) 50%,rgba(13,12,20,1) 100%);"></div>
+          <button class="wishlist-btn" type="button" data-wl-id="dreadmoors-iron-crest" aria-label="Add to wishlist">
+            <svg class="wishlist-icon" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </button>
+        </div>
+        <div class="shop-info"><div class="shop-type">Armor Set</div><div class="shop-name">Dreadmoors Iron Crest</div><div class="shop-price-row"><div class="shop-price"><span class="shop-coin-sym">⬡</span> 2,100</div><button class="btn-primary shop-buy" type="button" data-add-to-cart="dreadmoors-iron-crest" data-name="Dreadmoors Iron Crest" data-price="2100" data-bg="background:linear-gradient(135deg,rgba(30,40,55,.6),rgba(13,12,20,1));">Add to Cart</button></div></div>
       </div>
-      <div class="shop-item reveal" data-category="mounts">
-        <div class="shop-art"><div class="shop-art-inner" style="background:linear-gradient(150deg,rgba(40,15,70,.65) 0%,rgba(20,120,140,.2) 50%,rgba(13,12,20,1) 100%);"></div><span class="shop-badge shop-badge-new">New</span></div>
-        <div class="shop-info"><div class="shop-type">Mount</div><div class="shop-name">Voidrift Shadow Steed</div><div class="shop-price-row"><div class="shop-price"><span class="shop-coin-sym">⬡</span> 3,600</div><button class="btn-primary shop-buy" type="button" aria-label="Buy Voidrift Shadow Steed">Buy Now</button></div></div>
+
+      <div class="shop-item reveal" data-category="mounts" data-price="3600">
+        <div class="shop-art" style="position:relative;">
+          <div class="shop-art-inner" style="background:linear-gradient(150deg,rgba(40,15,70,.65) 0%,rgba(20,120,140,.2) 50%,rgba(13,12,20,1) 100%);"></div>
+          <span class="shop-badge shop-badge-new">New</span>
+          <button class="wishlist-btn" type="button" data-wl-id="voidrift-shadow-steed" aria-label="Add to wishlist">
+            <svg class="wishlist-icon" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </button>
+        </div>
+        <div class="shop-info"><div class="shop-type">Mount</div><div class="shop-name">Voidrift Shadow Steed</div><div class="shop-price-row"><div class="shop-price"><span class="shop-coin-sym">⬡</span> 3,600</div><button class="btn-primary shop-buy" type="button" data-add-to-cart="voidrift-shadow-steed" data-name="Voidrift Shadow Steed" data-price="3600" data-bg="background:linear-gradient(135deg,rgba(40,15,70,.6),rgba(13,12,20,1));">Add to Cart</button></div></div>
       </div>
-      <div class="shop-item reveal reveal-delay-1" data-category="weapons">
-        <div class="shop-art"><div class="shop-art-inner" style="background:linear-gradient(150deg,rgba(20,70,40,.5) 0%,rgba(184,197,214,.15) 50%,rgba(13,12,20,1) 100%);"></div></div>
-        <div class="shop-info"><div class="shop-type">Weapon Skin</div><div class="shop-name">Warden's Eternal Shield</div><div class="shop-price-row"><div class="shop-price"><span class="shop-coin-sym">⬡</span> 2,800</div><button class="btn-primary shop-buy" type="button" aria-label="Buy Warden's Eternal Shield">Buy Now</button></div></div>
+
+      <div class="shop-item reveal reveal-delay-1" data-category="weapons" data-price="2800">
+        <div class="shop-art" style="position:relative;">
+          <div class="shop-art-inner" style="background:linear-gradient(150deg,rgba(20,70,40,.5) 0%,rgba(184,197,214,.15) 50%,rgba(13,12,20,1) 100%);"></div>
+          <button class="wishlist-btn" type="button" data-wl-id="wardens-eternal-shield" aria-label="Add to wishlist">
+            <svg class="wishlist-icon" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </button>
+        </div>
+        <div class="shop-info"><div class="shop-type">Weapon Skin</div><div class="shop-name">Warden's Eternal Shield</div><div class="shop-price-row"><div class="shop-price"><span class="shop-coin-sym">⬡</span> 2,800</div><button class="btn-primary shop-buy" type="button" data-add-to-cart="wardens-eternal-shield" data-name="Warden's Eternal Shield" data-price="2800" data-bg="background:linear-gradient(135deg,rgba(20,70,40,.5),rgba(13,12,20,1));">Add to Cart</button></div></div>
       </div>
+
     </div>
 
     <!-- ASHEN COINS BANNER -->
@@ -159,26 +248,3 @@ ldJsonRaw: |
   </div>
 </section>
 
-<script>
-(function () {
-  'use strict';
-  var filtersEl = document.getElementById('shopFilters');
-  if (!filtersEl) return;
-  var buttons = filtersEl.querySelectorAll('[data-filter]');
-  var items   = document.querySelectorAll('.shop-item[data-category]');
-  function setFilter(f) {
-    buttons.forEach(function (b) {
-      var active = b.getAttribute('data-filter') === f;
-      b.classList.toggle('btn-primary', active);
-      b.classList.toggle('btn-ghost',   !active);
-    });
-    items.forEach(function (item) {
-      item.style.display = (f === 'all' || item.getAttribute('data-category') === f) ? '' : 'none';
-    });
-  }
-  buttons.forEach(function (b) {
-    b.addEventListener('click', function () { setFilter(b.getAttribute('data-filter')); });
-  });
-  setFilter('all');
-}());
-</script>

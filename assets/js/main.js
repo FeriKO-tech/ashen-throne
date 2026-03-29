@@ -316,4 +316,299 @@
     setFilter('all');
   })();
 
+  /* ─── YOUTUBE LITE EMBED ──────────────────────────────────────────────────── */
+  (function initYTLite() {
+    document.querySelectorAll('.yt-lite[data-vid]').forEach(el => {
+      el.addEventListener('click', function handleYTClick() {
+        el.removeEventListener('click', handleYTClick);
+        const vid   = el.getAttribute('data-vid');
+        const start = el.getAttribute('data-start') || '0';
+        const iframe = document.createElement('iframe');
+        iframe.setAttribute('src',
+          `https://www.youtube-nocookie.com/embed/${vid}?autoplay=1&mute=1&rel=0&modestbranding=1&start=${start}`);
+        iframe.setAttribute('allow',
+          'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+        iframe.setAttribute('allowfullscreen', '');
+        iframe.setAttribute('title', el.getAttribute('data-title') || 'Trailer');
+        el.innerHTML = '';
+        el.appendChild(iframe);
+        el.style.cursor = 'default';
+      });
+    });
+  })();
+
+  /* ─── COUNTDOWN TIMER ─────────────────────────────────────────────────────── */
+  (function initCountdown() {
+    const root = document.getElementById('countdown');
+    if (!root) return;
+
+    const TARGET = new Date('2026-04-15T10:00:00Z').getTime();
+    const dEl = root.querySelector('[data-cd="d"]');
+    const hEl = root.querySelector('[data-cd="h"]');
+    const mEl = root.querySelector('[data-cd="m"]');
+    const sEl = root.querySelector('[data-cd="s"]');
+    const expEl = root.querySelector('.countdown-expired');
+    if (!dEl || !hEl || !mEl || !sEl) return;
+
+    function pad(n) { return String(n).padStart(2, '0'); }
+
+    function flip(el, val) {
+      const cur = el.textContent;
+      if (cur === val) return;
+      el.classList.add('flip');
+      setTimeout(() => { el.textContent = val; el.classList.remove('flip'); }, 150);
+    }
+
+    function tick() {
+      const now  = Date.now();
+      const diff = TARGET - now;
+
+      if (diff <= 0) {
+        dEl.textContent = '00'; hEl.textContent = '00';
+        mEl.textContent = '00'; sEl.textContent = '00';
+        if (expEl) expEl.style.display = 'block';
+        return;
+      }
+
+      const days  = Math.floor(diff / 86400000);
+      const hours = Math.floor((diff % 86400000) / 3600000);
+      const mins  = Math.floor((diff %  3600000) /   60000);
+      const secs  = Math.floor((diff %    60000) /    1000);
+
+      flip(dEl, pad(days));
+      flip(hEl, pad(hours));
+      flip(mEl, pad(mins));
+      flip(sEl, pad(secs));
+    }
+
+    tick();
+    setInterval(tick, 1000);
+  })();
+
+  /* ─── SHOP CART ───────────────────────────────────────────────────────────── */
+  (function initShopCart() {
+    const CART_KEY = 'ashenthrone_cart';
+    const panel    = document.getElementById('cartPanel');
+    const backdrop = document.getElementById('cartBackdrop');
+    const badge    = document.getElementById('cartBadge');
+    const trigger  = document.getElementById('cartTrigger');
+    const closeBtn = document.getElementById('cartClose');
+    const itemsEl  = document.getElementById('cartItems');
+    const totalEl  = document.getElementById('cartTotal');
+    if (!panel || !badge || !trigger) return;
+
+    /* ── state ─────── */
+    function loadCart() {
+      try { return JSON.parse(localStorage.getItem(CART_KEY)) || []; }
+      catch { return []; }
+    }
+    function saveCart(cart) {
+      localStorage.setItem(CART_KEY, JSON.stringify(cart));
+    }
+
+    let cart = loadCart();
+
+    /* ── badge ─────── */
+    function updateBadge() {
+      const count = cart.reduce((s, i) => s + i.qty, 0);
+      badge.textContent = count;
+      badge.classList.toggle('visible', count > 0);
+    }
+
+    /* ── render ────── */
+    function renderCart() {
+      if (!itemsEl) return;
+      if (cart.length === 0) {
+        itemsEl.innerHTML = `
+          <div class="cart-empty">
+            <div class="cart-empty-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+                <line x1="3" y1="6" x2="21" y2="6"/>
+                <path d="M16 10a4 4 0 01-8 0"/>
+              </svg>
+            </div>
+            <p class="cart-empty-text">Your war chest is empty.</p>
+          </div>`;
+        if (totalEl) totalEl.textContent = '0';
+        return;
+      }
+
+      let total = 0;
+      itemsEl.innerHTML = cart.map((item, idx) => {
+        total += item.price * item.qty;
+        return `<div class="cart-item" data-idx="${idx}">
+          <div class="cart-item-thumb">
+            <div style="width:100%;height:100%;${item.bg}"></div>
+          </div>
+          <div>
+            <div class="cart-item-name">${item.name}</div>
+            <div class="cart-item-price"><span class="cart-total-sym">&#x2B21;</span>${item.price.toLocaleString()}</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:0.4rem;">
+            <button class="cart-item-remove" data-remove="${idx}" aria-label="Remove">&times;</button>
+            <div class="cart-qty">
+              <button class="cart-qty-btn" data-dec="${idx}" aria-label="Decrease">&#8722;</button>
+              <span class="cart-qty-num">${item.qty}</span>
+              <button class="cart-qty-btn" data-inc="${idx}" aria-label="Increase">&#43;</button>
+            </div>
+          </div>
+        </div>`;
+      }).join('');
+
+      if (totalEl) totalEl.textContent = total.toLocaleString();
+
+      /* events */
+      itemsEl.querySelectorAll('[data-remove]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          cart.splice(Number(btn.getAttribute('data-remove')), 1);
+          saveCart(cart); updateBadge(); renderCart();
+        });
+      });
+      itemsEl.querySelectorAll('[data-dec]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const i = Number(btn.getAttribute('data-dec'));
+          if (cart[i].qty > 1) cart[i].qty--;
+          else cart.splice(i, 1);
+          saveCart(cart); updateBadge(); renderCart();
+        });
+      });
+      itemsEl.querySelectorAll('[data-inc]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const i = Number(btn.getAttribute('data-inc'));
+          cart[i].qty++;
+          saveCart(cart); updateBadge(); renderCart();
+        });
+      });
+    }
+
+    /* ── open / close ── */
+    function openCart() {
+      panel.classList.add('open');
+      if (backdrop) backdrop.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      renderCart();
+    }
+    function closeCart() {
+      panel.classList.remove('open');
+      if (backdrop) backdrop.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    trigger.addEventListener('click', openCart);
+    if (closeBtn) closeBtn.addEventListener('click', closeCart);
+    if (backdrop) backdrop.addEventListener('click', closeCart);
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && panel.classList.contains('open')) closeCart();
+    });
+
+    /* ── add-to-cart buttons ── */
+    document.querySelectorAll('[data-add-to-cart]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id    = btn.getAttribute('data-add-to-cart');
+        const name  = btn.getAttribute('data-name')  || 'Item';
+        const price = parseInt(btn.getAttribute('data-price') || '0', 10);
+        const bg    = btn.getAttribute('data-bg')    || 'background:#0f0e18;';
+
+        const existing = cart.find(i => i.id === id);
+        if (existing) {
+          existing.qty++;
+        } else {
+          cart.push({ id, name, price, qty: 1, bg });
+        }
+        saveCart(cart);
+        updateBadge();
+        badge.classList.add('bump');
+        setTimeout(() => badge.classList.remove('bump'), 350);
+      });
+    });
+
+    updateBadge();
+  })();
+
+  /* ─── SHOP WISHLIST ───────────────────────────────────────────────────────── */
+  (function initWishlist() {
+    const WL_KEY = 'ashenthrone_wishlist';
+    function loadWL() {
+      try { return new Set(JSON.parse(localStorage.getItem(WL_KEY)) || []); }
+      catch { return new Set(); }
+    }
+    function saveWL(set) {
+      localStorage.setItem(WL_KEY, JSON.stringify([...set]));
+    }
+
+    const wl = loadWL();
+
+    document.querySelectorAll('.wishlist-btn').forEach(btn => {
+      const id = btn.getAttribute('data-wl-id');
+      if (!id) return;
+
+      if (wl.has(id)) btn.classList.add('wishlisted');
+
+      btn.addEventListener('click', e => {
+        e.stopPropagation();
+        if (wl.has(id)) { wl.delete(id); btn.classList.remove('wishlisted'); }
+        else             { wl.add(id);    btn.classList.add('wishlisted');    }
+        saveWL(wl);
+      });
+    });
+  })();
+
+  /* ─── SHOP FILTERS (enhanced with price) ─────────────────────────────────── */
+  (function initShopFilters() {
+    const catFilters   = document.getElementById('shopFilters');
+    const priceFilters = document.getElementById('shopPriceFilters');
+    const grid         = document.getElementById('shopGrid');
+    if (!catFilters || !grid) return;
+
+    let activeCat   = 'all';
+    let activePriceMax = Infinity;
+
+    function applyFilters() {
+      const items = grid.querySelectorAll('.shop-item[data-category]');
+      items.forEach(item => {
+        const cat   = item.getAttribute('data-category');
+        const price = parseInt(item.getAttribute('data-price') || '0', 10);
+        const catOk   = activeCat === 'all' || cat === activeCat;
+        const priceOk = price <= activePriceMax;
+        const show    = catOk && priceOk;
+
+        /* CSS opacity+scale transition */
+        if (show) {
+          item.classList.remove('shop-hidden');
+          item.style.position = '';
+          item.style.visibility = '';
+        } else {
+          item.classList.add('shop-hidden');
+        }
+      });
+    }
+
+    /* category btns */
+    catFilters.querySelectorAll('[data-filter]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        activeCat = btn.getAttribute('data-filter');
+        catFilters.querySelectorAll('[data-filter]').forEach(b => {
+          b.classList.toggle('btn-primary', b === btn);
+          b.classList.toggle('btn-ghost',   b !== btn);
+        });
+        applyFilters();
+      });
+    });
+
+    /* price btns */
+    if (priceFilters) {
+      priceFilters.querySelectorAll('.price-range-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          priceFilters.querySelectorAll('.price-range-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          activePriceMax = parseInt(btn.getAttribute('data-max') || '999999', 10);
+          applyFilters();
+        });
+      });
+    }
+
+    applyFilters();
+  })();
+
 })();
