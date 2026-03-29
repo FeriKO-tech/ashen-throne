@@ -1,0 +1,147 @@
+---
+layout: base
+---
+{# ═══════════════════════════════════════════════════════════════════════════
+   ARTICLE LAYOUT — extends base.njk via layout chaining
+   Front matter available: title, date, category, description, heroImage,
+   excerpt, canonical, ogImage, schemaType, ldJsonRaw
+   ═══════════════════════════════════════════════════════════════════════════ #}
+
+{%- set _breadcrumbLabel = category if category else "News" -%}
+
+<section class="page-hero" style="min-height:40vh;padding-bottom:4rem;">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/index.html">Home</a>
+      <span class="sep">›</span>
+      <a href="/news.html">News</a>
+      <span class="sep">›</span>
+      <span class="current">{{ _breadcrumbLabel }}</span>
+    </nav>
+
+    <div class="page-hero-label">{{ (category | upper) if category else "NEWS" }}</div>
+    <h1 style="max-width:800px;">{{ title }}</h1>
+
+    {%- if date %}
+    <div style="display:flex;align-items:center;gap:1.25rem;margin-top:1.25rem;flex-wrap:wrap;">
+      <time datetime="{{ date | dateISO }}"
+            style="font-family:var(--font-ui);font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);">
+        {{ date | dateDisplay }}
+      </time>
+      {%- if category %}
+      <span class="news-badge{{ ' event' if category == 'Event' else (' patch' if category == 'Patch Notes' else '') }}">
+        {{ category }}
+      </span>
+      {%- endif %}
+    </div>
+    {%- endif %}
+
+    {%- if excerpt %}
+    <p style="max-width:680px;margin-top:1rem;font-family:var(--font-body);font-size:1.1rem;color:var(--text-muted);line-height:1.7;font-style:italic;">
+      {{ excerpt }}
+    </p>
+    {%- endif %}
+  </div>
+</section>
+
+<section class="news-page news-article-page" style="padding:4rem 0 6rem;">
+  <div class="news-page-bg"></div>
+  <div class="container">
+    <div class="news-layout">
+
+      <article class="news-article" id="main-content">
+        {%- if heroImage %}
+        <div class="news-article-hero" style="
+          height:320px;
+          background: linear-gradient(135deg, rgba(139,26,26,0.35), rgba(201,168,76,0.15), rgba(15,14,24,1));
+          margin-bottom:3rem;
+          display:flex;align-items:center;justify-content:center;">
+          <div style="opacity:0.3;">
+            <svg viewBox="0 0 400 320" fill="none" width="260">
+              <path d="M200 25 L218 80 L275 80 L228 115 L246 175 L200 140 L154 175 L172 115 L125 80 L182 80Z"
+                    stroke="#c9a84c" stroke-width="1.5" fill="none"/>
+              <circle cx="200" cy="160" r="110" stroke="rgba(201,168,76,0.4)" stroke-width="0.8" fill="none"/>
+            </svg>
+          </div>
+        </div>
+        {%- endif %}
+
+        <div class="article-prose">
+          {{ content | safe }}
+        </div>
+
+        <div style="margin-top:3rem;padding-top:2rem;border-top:1px solid rgba(201,168,76,0.1);">
+          <a href="/news.html" class="btn-ghost" style="font-size:0.6rem;letter-spacing:0.2em;">
+            &larr; Back to News
+          </a>
+        </div>
+      </article>
+
+      <aside class="nf-sidebar">
+
+        <div class="nf-side-card reveal">
+          <h4>Latest Patch</h4>
+          <div class="feat-number" style="font-size:2.8rem;">v2.4.1</div>
+          <div class="nf-date" style="margin-top:0.3rem;">Mar 12, 2026</div>
+          <ul class="nf-patch-list">
+            <li>Shadowblade Execute tuned (−8%)</li>
+            <li>Oathsinger Aegis 6s → 8s</li>
+            <li>Ironclad Juggernaut penalty fixed</li>
+            <li>Forge Colossus exploit resolved</li>
+            <li>43 bug fixes</li>
+          </ul>
+          <a class="nf-side-link" href="/news/patch-2-4-1.html">Full patch notes &rarr;</a>
+        </div>
+
+        {%- set _related = collections.news | excludeUrl(page.url) | limit(3) -%}
+        {%- if _related.length %}
+        <div class="nf-side-card reveal reveal-delay-1">
+          <h4>Recent Articles</h4>
+          {%- for post in _related -%}
+          {%- set post = post -%}
+          <div style="padding:0.85rem 0;border-bottom:1px solid rgba(201,168,76,0.07);">
+            <div class="nf-date" style="margin-bottom:0.3rem;">{{ post.date | dateDisplay }}</div>
+            <a href="{{ post.url }}"
+               style="font-family:var(--font-heading);font-size:0.85rem;color:var(--text-primary);line-height:1.4;display:block;">
+              {{ post.data.title }}
+            </a>
+          </div>
+          {%- endfor -%}
+          <a class="nf-side-link" style="margin-top:0.75rem;display:inline-block;" href="/news.html">All dispatches &rarr;</a>
+        </div>
+        {%- endif -%}
+
+        <div class="nf-side-card reveal reveal-delay-2">
+          <h4>Founder's Program</h4>
+          <p style="font-family:var(--font-body);font-size:0.9rem;color:var(--text-muted);line-height:1.5;margin-bottom:1rem;">
+            Three tiers. Exclusive cosmetics. Early access. Available while slots remain.
+          </p>
+          <a href="/news/founders-program.html"
+             style="font-family:var(--font-ui);font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;
+                    color:var(--accent-gold);border-bottom:1px solid rgba(201,168,76,0.3);padding-bottom:2px;">
+            Learn more &rarr;
+          </a>
+          <div style="margin-top:1rem;">
+            <a href="/account.html" class="btn-primary"
+               style="display:block;text-align:center;padding:0.75rem;font-size:0.6rem;">
+              Register — Free
+            </a>
+          </div>
+        </div>
+
+        <div class="nf-side-card reveal">
+          <h4>War Dispatches Newsletter</h4>
+          <p style="font-family:var(--font-body);font-size:0.9rem;color:var(--text-muted);margin-bottom:1rem;line-height:1.5;">
+            Get patch notes, event alerts, and announcements before they go public.
+          </p>
+          <div class="newsletter-form">
+            <input type="email" placeholder="warrior@realm.com" aria-label="Email">
+            <button type="submit">Join</button>
+          </div>
+        </div>
+
+      </aside>
+
+    </div>
+  </div>
+</section>

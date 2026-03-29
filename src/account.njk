@@ -1,0 +1,107 @@
+---
+layout: base
+permalink: /account.html
+title: "Account — Ashen Throne | Login & Register"
+description: "Create a free Ashen Throne account or log in to your existing warrior profile. Join the war, manage your characters, and claim your place in the Shattered Realm."
+keywords: "Ashen Throne login, MMORPG account, create account, free registration, Ironveil Studios account, warrior profile"
+canonical: "https://www.ashenthrone.com/account.html"
+ogType: website
+ogTitle: "Account — Ashen Throne | Forge Your Legend"
+ogDescription: "Create a free account and enter the Shattered Realm. Choose your war name. The battle is waiting."
+pageSlug: "account"
+changefreq: monthly
+priority: "0.7"
+robots: "noindex, follow"
+---
+
+<!-- ═══════ ACCOUNT PAGE ═══════ -->
+<main class="auth-section" id="main-content">
+  <div class="container">
+
+    <div class="auth-brand reveal">
+      <div class="hero-emblem">
+        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M50 5 L58 30 L85 30 L63 47 L72 75 L50 58 L28 75 L37 47 L15 30 L42 30Z" stroke="#c9a84c" stroke-width="1.5" fill="none" opacity="0.6"/>
+          <circle cx="50" cy="50" r="30" stroke="#c9a84c" stroke-width="0.8" fill="none" opacity="0.3"/>
+          <circle cx="50" cy="50" r="42" stroke="#c9a84c" stroke-width="0.5" fill="none" opacity="0.15"/>
+          <path d="M50 8 L50 20 M50 80 L50 92 M8 50 L20 50 M80 50 L92 50" stroke="#c9a84c" stroke-width="0.5" opacity="0.3"/>
+          <circle cx="50" cy="50" r="4" fill="#c9a84c" opacity="0.5"/>
+        </svg>
+      </div>
+      <div class="auth-title">Ashen Throne</div>
+    </div>
+
+    <div class="auth-card reveal reveal-delay-1" id="authCard">
+      <div class="auth-tabs">
+        <button class="auth-tab active" id="tabLogin"    type="button">Enter the Realm</button>
+        <button class="auth-tab"        id="tabRegister" type="button">Forge Your Legend</button>
+      </div>
+
+      <form id="loginForm" novalidate>
+        <div class="auth-field">
+          <label for="loginUser">Username</label>
+          <input class="auth-input" type="text" id="loginUser" placeholder="Your name in ash" autocomplete="username" required/>
+        </div>
+        <div class="auth-field">
+          <label for="loginPass">Password</label>
+          <div class="auth-pass-wrap">
+            <input class="auth-input" type="password" id="loginPass" placeholder="Your oath" autocomplete="current-password" required/>
+            <button class="auth-eye" type="button" data-eye="loginPass" aria-label="Toggle password visibility">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="auth-forgot"><a href="#">Forgot your oath?</a></div>
+        <button class="btn-primary auth-submit" type="submit" id="loginSubmit">Enter the Realm</button>
+        <div class="auth-cross">New to the war? <button type="button" id="toRegister">Forge your legend &rarr;</button></div>
+      </form>
+
+      <form id="registerForm" style="display:none;" novalidate>
+        <div class="auth-field">
+          <label for="regUser">Username</label>
+          <input class="auth-input" type="text" id="regUser" placeholder="Choose a war name" autocomplete="username" required minlength="3" maxlength="20"/>
+        </div>
+        <div class="auth-field">
+          <label for="regEmail">Email</label>
+          <input class="auth-input" type="email" id="regEmail" placeholder="warrior@realm.com" autocomplete="email" required/>
+        </div>
+        <div class="auth-field">
+          <label for="regPass">Password</label>
+          <div class="auth-pass-wrap">
+            <input class="auth-input" type="password" id="regPass" placeholder="A stronger oath" autocomplete="new-password" required minlength="8"/>
+            <button class="auth-eye" type="button" data-eye="regPass" aria-label="Toggle password visibility">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>
+            </button>
+          </div>
+          <div class="strength-wrap">
+            <div class="strength-bar" id="strengthBar">
+              <div class="strength-seg"></div><div class="strength-seg"></div>
+              <div class="strength-seg"></div><div class="strength-seg"></div>
+            </div>
+            <div class="strength-label" id="strengthLabel">Weak</div>
+          </div>
+        </div>
+        <div class="auth-field">
+          <label for="regConfirm">Confirm Password</label>
+          <div class="auth-pass-wrap">
+            <input class="auth-input" type="password" id="regConfirm" placeholder="Repeat the oath" autocomplete="new-password" required/>
+            <button class="auth-eye" type="button" data-eye="regConfirm" aria-label="Toggle password visibility">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>
+            </button>
+          </div>
+        </div>
+        <p style="font-family:var(--font-body);font-size:0.85rem;color:var(--text-dim);line-height:1.5;margin-bottom:0.25rem;">
+          By registering you agree to the <a href="/terms.html" style="color:var(--accent-gold);">Terms of Service</a> and <a href="/privacy.html" style="color:var(--accent-gold);">Privacy Policy</a>.
+        </p>
+        <button class="btn-primary auth-submit" type="submit" id="regSubmit">Forge Your Legend</button>
+        <div class="auth-cross">Already a warrior? <button type="button" id="toLogin">Enter the realm &rarr;</button></div>
+      </form>
+    </div>
+
+    <div class="reveal reveal-delay-2" style="text-align:center;margin-top:2rem;">
+      <p style="font-family:var(--font-body);font-size:0.9rem;font-style:italic;color:var(--text-dim);">
+        Need the launcher? <a href="/download.html" style="color:var(--accent-gold);">Download it here &rarr;</a>
+      </p>
+    </div>
+  </div>
+</main>

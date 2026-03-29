@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% include "partials/seo-head.njk" %}
+</head>
+<body class="page-loading{{ (' ' + bodyClass) if bodyClass else '' }}">
+
+<div id="cursor"></div>
+<div id="cursor-dot"></div>
+
+{% include "partials/nav.njk" %}
+
+{{ content | safe }}
+
+<div class="section-divider"></div>
+
+{% include "partials/footer.njk" %}
+
+<div id="page-transition"></div>
+<button id="back-to-top" aria-label="Back to top">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+       stroke-linecap="round" stroke-linejoin="round">
+    <path d="M18 15 L12 9 L6 15"/>
+  </svg>
+</button>
+
+<script src="/assets/js/main.js"></script>
+{%- if pageScripts %}
+{%- for src in pageScripts %}
+<script src="{{ src }}"></script>
+{%- endfor %}
+{%- endif %}
+{%- if inlineScript %}
+<script>{{ inlineScript | safe }}</script>
+{%- endif %}
+
+</body>
+</html>

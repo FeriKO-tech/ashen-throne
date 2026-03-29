@@ -1,0 +1,95 @@
+{# ═══════════════════════════════════════════════════════════════════════════
+   SEO HEAD PARTIAL
+   All variables fall back to site.* globals when not set per page.
+   Consumed by layouts/base.njk via {% include "partials/seo-head.njk" %}
+   ═══════════════════════════════════════════════════════════════════════════ #}
+
+{%- set _title       = title       if title       else site.name -%}
+{%- set _desc        = description if description else "" -%}
+{%- set _canonical   = canonical   if canonical   else (site.url + page.url) -%}
+{%- set _ogType      = ogType      if ogType      else "website" -%}
+{%- set _ogTitle     = ogTitle     if ogTitle     else _title -%}
+{%- set _ogDesc      = ogDescription if ogDescription else _desc -%}
+{%- set _ogImage     = ogImage     if ogImage     else site.ogImage -%}
+{%- set _ogImageAlt  = ogImageAlt  if ogImageAlt  else site.ogImageAlt -%}
+{%- set _twCard      = twitterCard if twitterCard else "summary_large_image" -%}
+{%- set _robots      = robots      if robots      else site.robots -%}
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<title>{{ _title }}</title>
+<meta name="description" content="{{ _desc }}">
+{%- if keywords %}
+<meta name="keywords" content="{{ keywords }}">
+{%- endif %}
+<meta name="author"      content="{{ site.author }}">
+<meta name="robots"      content="{{ _robots }}">
+<meta name="theme-color" content="{{ site.themeColor }}">
+
+<link rel="canonical" href="{{ _canonical }}">
+
+{# ── Open Graph ──────────────────────────────────────────────────────────── #}
+<meta property="og:type"        content="{{ _ogType }}">
+<meta property="og:site_name"   content="{{ site.name }}">
+<meta property="og:url"         content="{{ _canonical }}">
+<meta property="og:title"       content="{{ _ogTitle }}">
+<meta property="og:description" content="{{ _ogDesc }}">
+<meta property="og:image"       content="{{ _ogImage }}">
+<meta property="og:image:width"  content="1200">
+<meta property="og:image:height" content="630">
+{%- if _ogImageAlt %}
+<meta property="og:image:alt"   content="{{ _ogImageAlt }}">
+{%- endif %}
+{%- if ogPublishedTime %}
+<meta property="article:published_time" content="{{ ogPublishedTime }}">
+{%- endif %}
+{%- if ogSection %}
+<meta property="article:section" content="{{ ogSection }}">
+{%- endif %}
+
+{# ── Twitter Card ────────────────────────────────────────────────────────── #}
+<meta name="twitter:card"        content="{{ _twCard }}">
+<meta name="twitter:site"        content="{{ site.twitterHandle }}">
+{%- if site.twitterCreator %}
+<meta name="twitter:creator"     content="{{ site.twitterCreator }}">
+{%- endif %}
+<meta name="twitter:title"       content="{{ _ogTitle }}">
+<meta name="twitter:description" content="{{ _ogDesc }}">
+<meta name="twitter:image"       content="{{ _ogImage }}">
+
+{# ── Favicons & App Icons ────────────────────────────────────────────────── #}
+<link rel="icon"             href="/favicon.ico"         sizes="any">
+<link rel="icon"             href="/favicon.svg"         type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest"         href="{{ site.manifest }}">
+
+{# ── Structured Data (LD+JSON) ───────────────────────────────────────────── #}
+{%- if ldJsonRaw %}
+<script type="application/ld+json">{{ ldJsonRaw | safe }}</script>
+{%- endif %}
+
+{# ── Resource Hints & Fonts ──────────────────────────────────────────────── #}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style"
+  href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;500;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&display=swap"
+  onload="this.onload=null;this.rel='stylesheet'">
+<noscript>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;500;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&display=swap">
+</noscript>
+
+{# ── Per-page asset hints (e.g. hero image preload) ──────────────────────── #}
+{%- if preloadImage %}
+<link rel="preload" as="image" href="{{ preloadImage }}" fetchpriority="high">
+{%- endif %}
+
+{# ── Shared stylesheet ───────────────────────────────────────────────────── #}
+<link rel="stylesheet" href="/assets/css/style.css">
+
+{# ── Page-specific inline CSS ────────────────────────────────────────────── #}
+{%- if pageStyles %}
+<style>{{ pageStyles | safe }}</style>
+{%- endif %}

@@ -1,0 +1,31 @@
+{# ═══════════════════════════════════════════════════════════════════════════
+   NEWS CARD COMPONENT
+   Usage — set `post` before including:
+     {% set post = item %}
+     {% include "components/news-card.njk" %}
+
+   `post` is an Eleventy collection item (from collections.news).
+   Front matter keys used: title, date, category, excerpt
+   ═══════════════════════════════════════════════════════════════════════════ #}
+
+{%- set _cat = post.data.category | lower if post.data.category else "news" -%}
+{%- set _badgeClass = " event" if _cat == "event"
+    else " patch" if _cat == "patch notes"
+    else "" -%}
+
+<a href="{{ post.url }}" style="text-decoration:none;" data-category="{{ _cat }}">
+  <div class="nf-card reveal">
+    <div class="nf-image">
+      <div class="nf-image-inner" style="background:linear-gradient(135deg,rgba(139,26,26,0.32),rgba(201,168,76,0.15),rgba(15,14,24,1));"></div>
+    </div>
+    <div>
+      <div class="nf-meta">
+        <span class="nf-date">{{ post.date | dateDisplay }}</span>
+        <span class="news-badge{{ _badgeClass }}">{{ post.data.category if post.data.category else "News" }}</span>
+      </div>
+      <div class="nf-title">{{ post.data.title }}</div>
+      <div class="nf-excerpt">{{ post.data.excerpt if post.data.excerpt else post.data.description }}</div>
+      <div class="nf-read">Read full article &rarr;</div>
+    </div>
+  </div>
+</a>

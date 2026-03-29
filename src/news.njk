@@ -1,0 +1,227 @@
+---
+layout: base
+permalink: /news.html
+title: "News & Updates — Ashen Throne | War Dispatches"
+description: "The latest updates, patch notes, seasonal events, and developer announcements from Ashen Throne. Stay ahead of the war — the Shattered Realm never stops changing."
+keywords: "Ashen Throne news, MMORPG patch notes, game updates, seasonal events, developer notes, Ironveil Studios announcements, Founder's Program, Season of Embers"
+canonical: "https://www.ashenthrone.com/news.html"
+ogType: website
+ogTitle: "News & Updates — Ashen Throne | War Dispatches"
+ogDescription: "Patch notes, seasonal events, and developer dispatches from Ironveil Studios. The Shattered Realm never stops changing."
+pageSlug: "news"
+changefreq: daily
+priority: "0.8"
+ldJsonRaw: |
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": "https://www.ashenthrone.com/news.html",
+    "name": "News & Updates — Ashen Throne",
+    "url": "https://www.ashenthrone.com/news.html",
+    "description": "Latest patch notes, seasonal events, and developer announcements from Ashen Throne.",
+    "breadcrumb": {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.ashenthrone.com/" },
+        { "@type": "ListItem", "position": 2, "name": "News", "item": "https://www.ashenthrone.com/news.html" }
+      ]
+    },
+    "isPartOf": { "@type": "WebSite", "name": "Ashen Throne", "url": "https://www.ashenthrone.com/" }
+  }
+---
+
+<!-- ═══════ PAGE HERO ═══════ -->
+<section class="page-hero">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/index.html">Home</a>
+      <span class="sep">›</span>
+      <span class="current">News</span>
+    </nav>
+    <div class="page-hero-label">War Dispatches</div>
+    <h1>All News &amp; Updates</h1>
+    <p>The Shattered Realm never stops changing. Neither do we. Patch notes, events, expansions, and developer dispatches — all in one place.</p>
+  </div>
+</section>
+
+<!-- ═══════ NEWS FULL ═══════ -->
+<section class="news-page news-full" id="news-feed">
+  <div class="news-page-bg"></div>
+  <div class="container">
+
+    <!-- FEATURED ARTICLE (from collection, most recent) -->
+    {%- set featured = collections.news[0] if collections.news.length -%}
+    {%- if featured %}
+    <div class="reveal">
+      <div class="section-label" style="margin-bottom:1.25rem;">Featured</div>
+      <a href="{{ featured.url }}" style="text-decoration:none;display:block;">
+        <div class="news-featured">
+          <div class="news-featured-art">
+            <div class="news-featured-art-inner" style="background:linear-gradient(135deg,rgba(201,168,76,0.2) 0%,rgba(139,26,26,0.12) 40%,rgba(13,12,20,0.95) 100%);display:flex;align-items:center;justify-content:center;">
+              <svg viewBox="0 0 400 320" fill="none" width="65%" opacity="0.3">
+                <path d="M200 25 L218 80 L275 80 L228 115 L246 175 L200 140 L154 175 L172 115 L125 80 L182 80Z" stroke="#c9a84c" stroke-width="1.5" fill="none"/>
+                <circle cx="200" cy="160" r="110" stroke="rgba(201,168,76,0.4)" stroke-width="0.8" fill="none"/>
+                <circle cx="200" cy="160" r="140" stroke="rgba(201,168,76,0.2)" stroke-width="0.5" fill="none" stroke-dasharray="4 6"/>
+                <circle cx="200" cy="160" r="5" fill="#c9a84c" opacity="0.5"/>
+              </svg>
+            </div>
+          </div>
+          <div class="news-featured-body">
+            <div class="news-featured-label">{{ featured.data.category if featured.data.category else "Article" }} &nbsp;·&nbsp; {{ featured.date | dateDisplay }}</div>
+            <h2 class="news-featured-title">{{ featured.data.title }}</h2>
+            <p class="news-featured-excerpt">{{ featured.data.excerpt if featured.data.excerpt else featured.data.description }}</p>
+            <span class="news-featured-read">Read the full article &rarr;</span>
+          </div>
+        </div>
+      </a>
+    </div>
+    {%- endif %}
+
+    <!-- FILTERS + FEED -->
+    <div class="nf-filters reveal" id="nfFilters">
+      <button class="btn-primary"  type="button" data-filter="all">All</button>
+      <button class="btn-ghost"    type="button" data-filter="update">Updates</button>
+      <button class="btn-ghost"    type="button" data-filter="event">Events</button>
+      <button class="btn-ghost"    type="button" data-filter="patch">Patches</button>
+      <button class="btn-ghost"    type="button" data-filter="dev">Dev Notes</button>
+      <button class="btn-ghost"    type="button" data-filter="announcement">Announcements</button>
+    </div>
+
+    <div class="nf-layout">
+      <div class="nf-feed">
+
+        <!-- Dynamic articles from collections.news -->
+        {%- for item in collections.news -%}
+        {%- set post = item -%}
+        {% include "components/news-card.njk" %}
+        {%- endfor -%}
+
+        <!-- Static cards (no dedicated article page yet) -->
+        <div class="nf-card reveal" data-category="update">
+          <div class="nf-image"><div class="nf-image-inner" style="background:linear-gradient(135deg,rgba(139,26,26,0.35),rgba(201,168,76,0.15),rgba(15,14,24,1));"></div></div>
+          <div>
+            <div class="nf-meta"><span class="nf-date">Mar 25, 2026</span><span class="news-badge">Update</span></div>
+            <div class="nf-title">Crimson Siege: Chapter III</div>
+            <div class="nf-excerpt">Two new dungeons, expanded Ashfeld territories, and the long-awaited Dreadknight awakening arc. The war enters its bloodiest chapter yet.</div>
+            <div class="nf-read">Full dispatch coming soon</div>
+          </div>
+        </div>
+
+        <div class="nf-card reveal reveal-delay-1" data-category="dev">
+          <div class="nf-image"><div class="nf-image-inner" style="background:linear-gradient(135deg,rgba(201,168,76,0.12),rgba(60,20,80,0.2),rgba(15,14,24,1));"></div></div>
+          <div>
+            <div class="nf-meta"><span class="nf-date">Mar 05, 2026</span><span class="news-badge" style="color:var(--accent-steel);border-color:rgba(184,197,214,0.2);background:rgba(184,197,214,0.05);">Dev Note</span></div>
+            <div class="nf-title">Designing the Ashwalker — Developer Commentary</div>
+            <div class="nf-excerpt">Lead designer Kael Vorn discusses the design philosophy behind the Ashwalker class, from early prototypes to the final kit that shipped in Chapter II.</div>
+            <div class="nf-read">Full dispatch coming soon</div>
+          </div>
+        </div>
+
+        <div class="nf-card reveal reveal-delay-2" data-category="update">
+          <div class="nf-image"><div class="nf-image-inner" style="background:linear-gradient(135deg,rgba(60,20,80,0.25),rgba(201,168,76,0.12),rgba(15,14,24,1));"></div></div>
+          <div>
+            <div class="nf-meta"><span class="nf-date">Feb 28, 2026</span><span class="news-badge">Update</span></div>
+            <div class="nf-title">The Voidrift Expansion — Full Notes</div>
+            <div class="nf-excerpt">New island region opens for exploration. Voidcaller abilities rebalanced, new underwater dungeon added, and a new faction quest chain begins.</div>
+            <div class="nf-read">Full dispatch coming soon</div>
+          </div>
+        </div>
+
+        <div class="nf-card reveal" data-category="event">
+          <div class="nf-image"><div class="nf-image-inner" style="background:linear-gradient(135deg,rgba(139,26,26,0.28),rgba(80,40,120,0.18),rgba(15,14,24,1));"></div></div>
+          <div>
+            <div class="nf-meta"><span class="nf-date">Feb 14, 2026</span><span class="news-badge event">Event</span></div>
+            <div class="nf-title">Blood Moon PvP Tournament</div>
+            <div class="nf-excerpt">Server-wide siege event with exclusive champion rewards. The Blood Moon resets faction standings — every player enters as an equal. None remain that way.</div>
+            <div class="nf-read">Full dispatch coming soon</div>
+          </div>
+        </div>
+
+        <div class="nf-card reveal reveal-delay-1" data-category="patch">
+          <div class="nf-image"><div class="nf-image-inner" style="background:linear-gradient(135deg,rgba(184,197,214,0.14),rgba(139,26,26,0.12),rgba(15,14,24,1));"></div></div>
+          <div>
+            <div class="nf-meta"><span class="nf-date">Feb 03, 2026</span><span class="news-badge patch">Patch</span></div>
+            <div class="nf-title">Patch 2.3.0 — Engine Update</div>
+            <div class="nf-excerpt">Performance improvements across all server regions, UI scaling fixes for ultra-wide displays, new graphics options menu, and DirectX 12 stability.</div>
+            <div class="nf-read">Full dispatch coming soon</div>
+          </div>
+        </div>
+
+        <div class="nf-card reveal reveal-delay-2" data-category="dev">
+          <div class="nf-image"><div class="nf-image-inner" style="background:linear-gradient(135deg,rgba(201,168,76,0.1),rgba(80,40,120,0.15),rgba(15,14,24,1));"></div></div>
+          <div>
+            <div class="nf-meta"><span class="nf-date">Jan 22, 2026</span><span class="news-badge" style="color:var(--accent-steel);border-color:rgba(184,197,214,0.2);background:rgba(184,197,214,0.05);">Dev Note</span></div>
+            <div class="nf-title">Roadmap: The First Half of 2026</div>
+            <div class="nf-excerpt">A look at what Ironveil Studios has planned for the next six months: two major expansions, a new class, and a complete guild war system overhaul.</div>
+            <div class="nf-read">Full dispatch coming soon</div>
+          </div>
+        </div>
+
+      </div><!-- /nf-feed -->
+
+      <!-- SIDEBAR -->
+      <div class="nf-sidebar">
+        <div class="nf-side-card reveal">
+          <h4>Latest Patch</h4>
+          <div class="feat-number" style="font-size:2.8rem;">v2.4.1</div>
+          <div class="nf-date" style="margin-top:0.3rem;">Mar 12, 2026</div>
+          <ul class="nf-patch-list">
+            <li>Shadowblade Execute tuned (−8%)</li>
+            <li>Oathsinger Aegis 6s → 8s</li>
+            <li>Ironclad Juggernaut penalty fixed</li>
+            <li>Forge Colossus exploit resolved</li>
+            <li>43 bug fixes</li>
+          </ul>
+          <a class="nf-side-link" href="/news/patch-2-4-1.html">Full patch notes &rarr;</a>
+        </div>
+
+        <div class="nf-side-card reveal reveal-delay-1">
+          <h4>Coming Soon</h4>
+          <div class="nf-events">
+            <div class="nf-event-row"><span class="nf-event-date">Apr 01</span><span class="nf-event-name"><a href="/news/season-of-embers.html" style="color:inherit;border-bottom:1px solid rgba(201,168,76,0.2);">Season of Embers</a></span></div>
+            <div class="nf-event-row"><span class="nf-event-date">Apr 01</span><span class="nf-event-name">Guild Season Reset</span></div>
+            <div class="nf-event-row"><span class="nf-event-date">Apr 20</span><span class="nf-event-name">World Boss: Ashen Colossus</span></div>
+            <div class="nf-event-row"><span class="nf-event-date">May 01</span><span class="nf-event-name">Chapter IV Release</span></div>
+          </div>
+        </div>
+
+        <div class="nf-side-card reveal reveal-delay-2">
+          <h4>Founder's Program</h4>
+          <p style="font-family:var(--font-body);font-size:0.9rem;color:var(--text-muted);line-height:1.5;margin-bottom:1rem;">Three tiers. Exclusive cosmetics. Early access. Available now while slots remain.</p>
+          <a href="/news/founders-program.html" style="font-family:var(--font-ui);font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent-gold);border-bottom:1px solid rgba(201,168,76,0.3);padding-bottom:2px;">Learn more &rarr;</a>
+          <div style="margin-top:1rem;">
+            <a href="/account.html" class="btn-primary" style="display:block;text-align:center;padding:0.75rem;font-size:0.6rem;">Register — Free</a>
+          </div>
+        </div>
+
+        <div class="nf-side-card reveal" id="serverStatus">
+          <h4>Server Status</h4>
+          <div class="nf-servers">
+            <div class="nf-server-row">
+              <div class="nf-server-left"><span class="nf-dot" style="background:#2d8a4e;"></span><span class="nf-server-name">Ashfeld-EU</span></div>
+              <span class="nf-server-count">4,821 online</span>
+            </div>
+            <div class="nf-server-row">
+              <div class="nf-server-left"><span class="nf-dot" style="background:var(--accent-gold);"></span><span class="nf-server-name">Pyremark-US</span></div>
+              <span class="nf-server-count">maintenance</span>
+            </div>
+            <div class="nf-server-row">
+              <div class="nf-server-left"><span class="nf-dot" style="background:#2d8a4e;"></span><span class="nf-server-name">Voidrift-AS</span></div>
+              <span class="nf-server-count">3,104 online</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="nf-side-card reveal">
+          <h4>War Dispatches Newsletter</h4>
+          <p style="font-family:var(--font-body);font-size:0.9rem;color:var(--text-muted);margin-bottom:1rem;line-height:1.5;">Get patch notes, event alerts, and announcements before they go public.</p>
+          <div class="newsletter-form">
+            <input type="email" placeholder="warrior@realm.com" aria-label="Email">
+            <button type="submit">Join</button>
+          </div>
+        </div>
+      </div><!-- /nf-sidebar -->
+
+    </div><!-- /nf-layout -->
+  </div>
+</section>

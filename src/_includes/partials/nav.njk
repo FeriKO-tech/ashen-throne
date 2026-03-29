@@ -1,0 +1,43 @@
+{# ═══════════════════════════════════════════════════════════════════════════
+   NAV PARTIAL
+   - nav.js data drives the link list
+   - Active state: set `pageSlug` in page front matter matching a nav item slug
+   - News article pages: any URL under /news/* (excluding /news.html itself)
+     auto-highlights the News link without needing pageSlug set on each article
+   ═══════════════════════════════════════════════════════════════════════════ #}
+
+{%- set _isNewsArticle = ("/news/" in page.url) and (page.url != "/news.html") -%}
+
+<nav class="nav" id="nav" aria-label="Main navigation">
+  <a href="/index.html" class="nav-logo">Ashen Throne</a>
+
+  <ul class="nav-links">
+    {%- for item in nav -%}
+    {%- set _active = (item.slug == pageSlug) or (item.slug == "news" and _isNewsArticle) -%}
+    <li>
+      <a href="{{ item.href }}"{% if _active %} class="active"{% endif %}
+        {% if item.href == page.url %} aria-current="page"{% endif %}>
+        {{ item.label }}
+      </a>
+    </li>
+    {%- endfor -%}
+  </ul>
+
+  <a href="/download.html" class="nav-cta">Play Free</a>
+
+  <div class="hamburger" id="hamburger" role="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu" tabindex="0">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Mobile navigation" aria-hidden="true">
+  {%- for item in nav -%}
+  {%- set _active = (item.slug == pageSlug) or (item.slug == "news" and _isNewsArticle) -%}
+  <a href="{{ item.href }}"
+     {% if _active %} class="active"{% endif %}
+     onclick="closeMobile()">
+    {{ item.label }}
+  </a>
+  {%- endfor -%}
+  <a href="/account.html" style="color:var(--accent-gold);" onclick="closeMobile()">Login / Register</a>
+</div>

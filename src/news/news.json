@@ -1,0 +1,9 @@
+{
+  "layout": "article",
+  "tags":   "news",
+  "permalink": "/news/{{ page.fileSlug }}.html",
+  "pageSlug":  "news",
+  "ogType":    "article",
+  "changefreq": "weekly",
+  "priority":   "0.6"
+}

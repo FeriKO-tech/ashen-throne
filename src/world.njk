@@ -1,0 +1,236 @@
+---
+layout: base
+permalink: /world.html
+title: "World & Lore — Ashen Throne | The Shattered Realm"
+description: "Explore the Shattered Realm — a world unmade by war, ruled by ash, and haunted by the bones of fallen gods. Discover the factions, kingdoms, and ancient mythology of Ashen Throne."
+keywords: "Ashen Throne lore, Shattered Realm, dark fantasy world, MMORPG lore, game factions, Ironveil Studios world building, Ashfeld, Dreadmoors, Voidrift"
+canonical: "https://www.ashenthrone.com/world.html"
+ogType: website
+ogTitle: "World & Lore — Ashen Throne | The Shattered Realm"
+ogDescription: "A world unmade by war, ruled by ash, and haunted by fallen gods. Six contested regions. Three rival factions. One empty throne."
+pageSlug: "world"
+changefreq: monthly
+priority: "0.8"
+ldJsonRaw: |
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": "https://www.ashenthrone.com/world.html",
+    "name": "World & Lore — Ashen Throne | The Shattered Realm",
+    "url": "https://www.ashenthrone.com/world.html",
+    "description": "Explore the Shattered Realm — lore, factions, and regions of the Ashen Throne MMORPG.",
+    "breadcrumb": {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home",  "item": "https://www.ashenthrone.com/" },
+        { "@type": "ListItem", "position": 2, "name": "World", "item": "https://www.ashenthrone.com/world.html" }
+      ]
+    },
+    "isPartOf": { "@type": "WebSite", "name": "Ashen Throne", "url": "https://www.ashenthrone.com/" }
+  }
+---
+
+<!-- ═══════ PAGE HERO ═══════ -->
+<section class="page-hero">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/index.html">Home</a>
+      <span class="sep">›</span>
+      <span class="current">World</span>
+    </nav>
+    <div class="page-hero-label">Lore &amp; Setting</div>
+    <h1>The Shattered Realm</h1>
+    <p>A world unmade by war. Haunted by the bones of fallen gods. Ruled now only by whoever is strong enough to hold it — for a single night.</p>
+  </div>
+</section>
+
+<!-- ═══════ WORLD MAP ═══════ -->
+<section class="world-map" id="world-map">
+  <div class="container">
+    <div class="wm-header">
+      <div class="section-label reveal" style="justify-content:center;">The Known World</div>
+      <h2 class="reveal reveal-delay-1">Explore the Shattered Realm</h2>
+    </div>
+
+    <div class="wm-container reveal" id="wmContainer">
+      <div class="wm-tooltip" id="wmTooltip"></div>
+      <div class="wm-panel" id="wmPanel">
+        <button class="wm-close" id="wmClose" aria-label="Close">&times;</button>
+        <h3 id="wmName">Ashfeld</h3>
+        <span class="class-role" id="wmClass">Warden Territory</span>
+        <p id="wmLore"></p>
+        <a href="/classes.html" class="btn-primary" style="padding:0.75rem 1.1rem;font-size:0.65rem;display:inline-block;">Explore Classes &rarr;</a>
+      </div>
+
+      <svg class="wm-map" viewBox="0 0 1000 620" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="0" width="1000" height="620" fill="#050507"/>
+        <path d="M150,80 Q200,40 320,60 Q450,30 560,70 Q680,50 780,90 Q860,120 880,200 Q910,280 870,360 Q840,440 780,490 Q700,540 600,560 Q500,580 400,560 Q300,550 220,500 Q140,450 110,360 Q80,270 100,180 Z" fill="#0d0c18" stroke="rgba(201,168,76,0.15)" stroke-width="1.5"/>
+        <path d="M160,95 Q210,55 320,75 Q450,45 555,85 Q680,65 770,105 Q840,135 860,205 Q890,280 850,350 Q820,430 770,480 Q695,530 600,545 Q500,565 405,545 Q305,535 235,490 Q155,440 125,360 Q95,275 110,185 Z" fill="none" stroke="rgba(201,168,76,0.1)" stroke-width="1" stroke-dasharray="3 4"/>
+        <g opacity="0.9"><path d="M420 140 C460 160 520 220 520 300 C520 380 470 450 430 500" fill="none" stroke="rgba(100,140,180,0.3)" stroke-width="1"/></g>
+        <g fill="rgba(184,197,214,0.2)">
+          <path d="M470 120 L480 95 L490 120 Z"/><path d="M495 135 L505 110 L515 135 Z"/><path d="M520 120 L530 95 L540 120 Z"/>
+          <path d="M170 260 L180 235 L190 260 Z"/><path d="M195 275 L205 250 L215 275 Z"/>
+          <path d="M750 210 L760 185 L770 210 Z"/><path d="M775 225 L785 200 L795 225 Z"/>
+        </g>
+        <g fill="rgba(60,100,60,0.25)">
+          <circle cx="300" cy="140" r="4"/><circle cx="315" cy="155" r="4"/><circle cx="330" cy="145" r="4"/><circle cx="345" cy="160" r="4"/>
+          <circle cx="470" cy="420" r="4"/><circle cx="485" cy="435" r="4"/><circle cx="500" cy="425" r="4"/><circle cx="515" cy="440" r="4"/>
+        </g>
+        <path class="wm-region" data-region="dreadmoors"  d="M140 220 L260 150 L330 230 L260 310 L160 300 Z" fill="rgba(80,10,10,0.08)"/>
+        <path class="wm-region" data-region="ashfeld"     d="M330 120 L520 90 L640 170 L520 240 L350 200 Z" fill="rgba(139,26,26,0.08)"/>
+        <path class="wm-region" data-region="umbralCoast" d="M640 170 L820 190 L820 330 L680 360 L520 240 Z" fill="rgba(100,50,150,0.08)"/>
+        <path class="wm-region" data-region="veilhaven"   d="M330 230 L520 240 L680 360 L520 420 L340 360 Z" fill="rgba(184,197,214,0.08)"/>
+        <path class="wm-region" data-region="pyremark"    d="M260 310 L340 360 L520 420 L520 520 L380 520 L260 470 L220 390 Z" fill="rgba(201,168,76,0.08)"/>
+        <path class="wm-region" data-region="voidrift"    d="M860 120 L915 145 L905 195 L850 175 Z" fill="rgba(60,20,80,0.08)"/>
+        <text x="200" y="250" font-family="Cinzel,serif" font-size="10" fill="rgba(232,223,200,0.5)">DREADMOORS</text>
+        <text x="430" y="170" font-family="Cinzel,serif" font-size="10" fill="rgba(232,223,200,0.5)">ASHFELD</text>
+        <text x="685" y="270" font-family="Cinzel,serif" font-size="10" fill="rgba(232,223,200,0.5)">UMBRAL COAST</text>
+        <text x="435" y="340" font-family="Cinzel,serif" font-size="10" fill="rgba(232,223,200,0.5)">VEILHAVEN</text>
+        <text x="295" y="430" font-family="Cinzel,serif" font-size="10" fill="rgba(232,223,200,0.5)">PYREMARK</text>
+        <text x="858" y="162" font-family="Cinzel,serif" font-size="10" fill="rgba(232,223,200,0.5)">VOIDRIFT</text>
+        <g class="wm-marker" data-tooltip="PvP Zone — Territory wars ignite here" style="animation-delay:0s;" transform="translate(500 200)"><g fill="none" stroke="rgba(201,168,76,0.6)" stroke-width="2" stroke-linecap="round"><path d="M-6 -6 L6 6"/><path d="M6 -6 L-6 6"/></g></g>
+        <g class="wm-marker" data-tooltip="World Boss — The old gods still breathe" style="animation-delay:0.4s;" transform="translate(750 350)"><g fill="none" stroke="rgba(201,168,76,0.6)" stroke-width="1.6"><circle cx="0" cy="-2" r="6"/><path d="M-5 5 Q0 10 5 5"/></g></g>
+        <g class="wm-marker" data-tooltip="Guild Fort — Holds the line of conquest" style="animation-delay:0.8s;" transform="translate(250 300)"><g fill="none" stroke="rgba(201,168,76,0.6)" stroke-width="1.6" stroke-linejoin="round"><path d="M-7 8 V-6 H-4 V-2 H-1 V-6 H2 V-2 H5 V-6 H7 V8 Z"/></g></g>
+        <g class="wm-marker" data-tooltip="Dungeon — Ash and flame below" style="animation-delay:1.2s;" transform="translate(600 450)"><path d="M0 -8 Q6 -2 2 4 Q4 9 0 12 Q-4 9 -2 4 Q-6 -2 0 -8" fill="none" stroke="rgba(201,168,76,0.6)" stroke-width="1.6"/></g>
+        <g class="wm-marker" data-tooltip="World Boss — A second shadow stirs" style="animation-delay:1.6s;" transform="translate(180 200)"><g fill="none" stroke="rgba(201,168,76,0.6)" stroke-width="1.6"><circle cx="0" cy="-2" r="6"/><path d="M-5 5 Q0 10 5 5"/></g></g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ═══════ LORE: THE FALL ═══════ -->
+<section class="lore-section">
+  <div class="container">
+    <div class="lore-grid">
+      <div class="lore-text-block reveal">
+        <div class="section-label">The Beginning of the End</div>
+        <h2>The Fall of the First Gods</h2>
+        <p>Three thousand years before the current age, the gods of the Realm walked among mortals — not as distant spirits, but as flesh and consequence. They waged war on one another, and the world bore the cost.</p>
+        <p>The last god fell in what historians call the Ashen Collapse — a cataclysm so absolute that it split the continent into its current form. Where the divine once stood, only silence and ruin remain. The ash that now covers the lowlands is said to be their remains.</p>
+        <p>But silence is not absence. And not all ruins stay buried.</p>
+      </div>
+      <div class="lore-art reveal reveal-delay-1">
+        <div class="lore-art-inner" style="background:radial-gradient(ellipse at 40% 30%,rgba(139,26,26,0.2) 0%,rgba(201,168,76,0.05) 50%,rgba(5,5,7,0.95) 100%);">
+          <svg viewBox="0 0 400 300" fill="none" width="80%" opacity="0.6">
+            <path d="M200 20 L220 80 L280 80 L232 116 L250 180 L200 144 L150 180 L168 116 L120 80 L180 80Z" stroke="#c9a84c" stroke-width="1" fill="none" opacity="0.4"/>
+            <circle cx="200" cy="150" r="100" stroke="rgba(201,168,76,0.15)" stroke-width="1" fill="none"/>
+            <circle cx="200" cy="150" r="60"  stroke="rgba(201,168,76,0.1)" stroke-width="0.8" fill="none"/>
+            <path d="M200 50 L200 70 M200 230 L200 250 M100 150 L120 150 M280 150 L300 150" stroke="rgba(201,168,76,0.2)" stroke-width="0.8"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ LORE: THE REALM TODAY ═══════ -->
+<section class="lore-section">
+  <div class="container">
+    <div class="lore-grid reverse">
+      <div class="lore-text-block reveal">
+        <div class="section-label">Present Day</div>
+        <h2>A World Without Rulers</h2>
+        <p>In the absence of gods, the Realm fractured into rival kingdoms, each claiming divine inheritance and none possessing the strength to make that claim permanent. For three centuries, no empire has lasted longer than a generation.</p>
+        <p>The latest power vacuum was created by the fall of the Caldenmere Dynasty — consumed from within by betrayal and the awakening of something old beneath the Pyremark highlands. What remains is a continent-wide war fought by three distinct factions, and thousands of warriors willing to die for whoever promises them the most.</p>
+        <p>You are one of those warriors. Your reasons are your own.</p>
+      </div>
+      <div class="lore-art reveal reveal-delay-1">
+        <div class="lore-art-inner" style="background:linear-gradient(145deg,rgba(13,12,20,0.8),rgba(5,5,7,0.95));">
+          <svg viewBox="0 0 400 300" fill="none" width="80%" opacity="0.5">
+            <path d="M50 250 L50 100 L100 80 L150 110 L200 80 L250 100 L300 80 L350 100 L350 250Z" stroke="rgba(201,168,76,0.3)" stroke-width="1" fill="none"/>
+            <path d="M50 250 L350 250" stroke="rgba(201,168,76,0.2)" stroke-width="1"/>
+            <rect x="150" y="150" width="100" height="100" stroke="rgba(201,168,76,0.2)" stroke-width="0.8" fill="none"/>
+            <path d="M150 150 L200 120 L250 150" stroke="rgba(201,168,76,0.2)" stroke-width="0.8" fill="none"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ═══════ FACTIONS ═══════ -->
+<section class="lore-section">
+  <div class="container">
+    <div class="classes-header">
+      <div class="section-label reveal" style="justify-content:center;">Three Powers, One War</div>
+      <h2 class="reveal reveal-delay-1">The Factions of the Realm</h2>
+      <p class="reveal reveal-delay-2">Every warrior answers to one of three banners. Choose wisely. Loyalty has a price, and so does betrayal.</p>
+    </div>
+    <div class="faction-cards">
+      <div class="faction-card reveal">
+        <div class="class-role" style="margin-bottom:1rem;">Order of the Ash Throne</div>
+        <div class="faction-name">The Ashen Crown</div>
+        <p class="faction-desc">Descendants of the last dynasty, the Ashen Crown believes that rule is a divine birthright — and they will drown the Realm in blood to reclaim it. Disciplined, ruthless, and rich with ancient knowledge. Their symbol is the broken crown.</p>
+      </div>
+      <div class="faction-card reveal reveal-delay-1">
+        <div class="class-role" style="margin-bottom:1rem;color:var(--accent-steel);border-color:rgba(184,197,214,0.2);background:rgba(184,197,214,0.05);">The Free Cities Compact</div>
+        <div class="faction-name">The Iron Compact</div>
+        <p class="faction-desc">A coalition of merchant lords, guild-masters, and former mercenaries who believe the old order is dead and a new one must be built on trade and strength. No nobles, no gods — only contracts. Their symbol is the broken chain.</p>
+      </div>
+      <div class="faction-card reveal reveal-delay-2">
+        <div class="class-role" style="margin-bottom:1rem;color:var(--accent-blood-light);border-color:rgba(181,42,42,0.3);background:rgba(139,26,26,0.1);">Children of the Void</div>
+        <div class="faction-name">The Voidborn</div>
+        <p class="faction-desc">They say the gods did not die. They say they wait, broken, in the space between worlds. The Voidborn intend to bring them back — or something wearing their face. The most feared faction. The least understood. Their symbol is the open eye.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ═══════ REGIONS ═══════ -->
+<section class="lore-section">
+  <div class="container">
+    <div class="classes-header">
+      <div class="section-label reveal" style="justify-content:center;">The Known World</div>
+      <h2 class="reveal reveal-delay-1">Six Regions. Six Conflicts.</h2>
+      <p class="reveal reveal-delay-2">Each territory has its own history, its own dangers, and its own rewards for those bold enough to hold it.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.25rem;margin-top:3rem;">
+      <div class="feature-card reveal">
+        <h3>Ashfeld</h3>
+        <p>The heart of the old empire. Grand ruins, fertile land, and the most contested territory in the Realm. Three factions have fought for it for forty years. None have held it for longer than six months.</p>
+      </div>
+      <div class="feature-card reveal reveal-delay-1">
+        <h3>The Dreadmoors</h3>
+        <p>Perpetual fog, cursed battlefields, and something older than the factions that lives in the deep marshes. Warden strongholds and unmarked graves as far as the eye can see — which is not far.</p>
+      </div>
+      <div class="feature-card reveal reveal-delay-2">
+        <h3>Umbral Coast</h3>
+        <p>Salt-black cliffs, hidden ports, and enough smuggler tunnels to lose an army. The Iron Compact dominates trade here. Everyone else pays the toll — or disappears into the tides.</p>
+      </div>
+      <div class="feature-card reveal">
+        <h3>Veilhaven</h3>
+        <p>A city built on neutral ground, or so the charter says. In practice, every spy, assassin, and exiled noble in the Realm operates from its tangled streets. The only place where all factions meet without open war.</p>
+      </div>
+      <div class="feature-card reveal reveal-delay-1">
+        <h3>The Pyremark</h3>
+        <p>Active volcanic highlands where the earth still bleeds from the original Collapse. Rich in rare ore, home to the Dreadknight clans, and currently sitting atop something vast and ancient that is beginning to wake up.</p>
+      </div>
+      <div class="feature-card reveal reveal-delay-2">
+        <h3>Voidrift</h3>
+        <p>An island that appeared eight years ago, rising from the sea without explanation. The Voidborn claimed it immediately. No non-Voidborn who has ventured deeper than the shore has returned to describe what they found.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ═══════ FACTION CTA ═══════ -->
+<section style="padding:6rem 0;text-align:center;background:var(--bg-surface);position:relative;">
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 50%,rgba(139,26,26,0.08) 0%,transparent 60%);"></div>
+  <div class="container" style="position:relative;z-index:1;">
+    <div class="section-label reveal" style="justify-content:center;">Enter the Story</div>
+    <h2 class="reveal reveal-delay-1" style="font-family:var(--font-heading);font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:700;color:var(--text-primary);margin-bottom:1rem;">Choose Your Faction. Write Your Chapter.</h2>
+    <p class="reveal reveal-delay-2" style="font-family:var(--font-body);font-size:1.15rem;font-style:italic;color:var(--text-muted);max-width:520px;margin:0 auto 2.5rem;line-height:1.7;">The Realm does not care about your reasons. It only cares about your choices.</p>
+    <div class="reveal reveal-delay-3" style="display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap;">
+      <a href="/account.html" class="btn-primary">Join the War</a>
+      <a href="/classes.html" class="btn-ghost">Choose Your Class</a>
+    </div>
+  </div>
+</section>

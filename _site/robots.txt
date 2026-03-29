@@ -1,0 +1,28 @@
+# Ashen Throne — robots.txt
+# https://www.ashenthrone.com/
+# Ironveil Studios
+
+User-agent: *
+Allow: /
+
+# Error page — no indexing value
+Disallow: /404.html
+
+# Non-public infrastructure paths (precautionary)
+Disallow: /.git/
+Disallow: /node_modules/
+
+# Block known SEO-unfriendly scrapers
+User-agent: AhrefsBot
+Crawl-delay: 10
+
+User-agent: SemrushBot
+Crawl-delay: 10
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+Sitemap: https://www.ashenthrone.com/sitemap.xml

@@ -1,0 +1,184 @@
+---
+layout: base
+permalink: /shop.html
+title: "Shop — Ashen Throne | Ironveil Emporium"
+description: "Browse the Ironveil Emporium — exclusive armor sets, legendary weapons, and rare mounts for Ashen Throne. Purchase with Ashen Coins and stand apart on the battlefield."
+keywords: "Ashen Throne shop, MMORPG cosmetics, armor skins, weapon skins, mounts, Ashen Coins, Ironveil Emporium, Emberveil Drake, Eclipse Greatsword"
+canonical: "https://www.ashenthrone.com/shop.html"
+ogType: website
+ogTitle: "Shop — Ashen Throne | Ironveil Emporium"
+ogDescription: "Exclusive armor sets, legendary weapon skins, and rare mounts. Power is earned. Glory can be bought."
+pageSlug: "shop"
+changefreq: weekly
+priority: "0.8"
+pageStyles: |
+  .shop-filters{display:flex;gap:.75rem;flex-wrap:wrap;margin-bottom:2.75rem}
+  .shop-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+  @media(max-width:768px){.shop-grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:480px){.shop-grid{grid-template-columns:1fr}}
+  .shop-item{background:var(--bg-card);border:1px solid rgba(201,168,76,.06);overflow:hidden;transition:transform .4s cubic-bezier(.16,1,.3,1),border-color .4s,box-shadow .4s}
+  .shop-item:hover{transform:translateY(-4px);border-color:rgba(201,168,76,.28);box-shadow:0 24px 64px rgba(0,0,0,.45)}
+  .shop-art{position:relative;height:220px;overflow:hidden}
+  .shop-art-inner{width:100%;height:100%;transition:transform .6s cubic-bezier(.16,1,.3,1)}
+  .shop-item:hover .shop-art-inner{transform:scale(1.05)}
+  .shop-badge{position:absolute;top:.75rem;right:.75rem;font-family:var(--font-ui);font-size:.5rem;letter-spacing:.18em;text-transform:uppercase;padding:.3rem .65rem}
+  .shop-badge-new{color:var(--accent-gold);background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.3)}
+  .shop-badge-limited{color:#e05c5c;background:rgba(139,26,26,.18);border:1px solid rgba(139,26,26,.4)}
+  .shop-info{padding:1.25rem 1.25rem 1.5rem}
+  .shop-type{font-family:var(--font-ui);font-size:.52rem;letter-spacing:.22em;text-transform:uppercase;color:var(--text-dim);margin-bottom:.4rem}
+  .shop-name{font-family:var(--font-heading);font-size:1rem;font-weight:700;color:var(--text-primary);line-height:1.3;margin-bottom:1.1rem}
+  .shop-price-row{display:flex;align-items:center;justify-content:space-between;gap:.5rem}
+  .shop-price{display:flex;align-items:center;gap:.45rem;font-family:var(--font-heading);font-size:1.05rem;font-weight:700;color:var(--accent-gold);white-space:nowrap}
+  .shop-coin-sym{font-size:.85rem;opacity:.75}
+  .shop-buy{font-size:.55rem!important;padding:.55rem 1.1rem!important;letter-spacing:.15em;white-space:nowrap}
+  .coins-banner{display:flex;align-items:center;justify-content:space-between;gap:2.5rem;background:var(--bg-card);border:1px solid rgba(201,168,76,.12);padding:2.5rem 3rem;margin-top:4rem;flex-wrap:wrap}
+  .coins-banner-left{display:flex;align-items:center;gap:1.5rem}
+  .coins-banner-icon{font-size:3rem;color:var(--accent-gold);line-height:1;flex-shrink:0}
+  .coins-banner-title{font-family:var(--font-heading);font-size:1.3rem;font-weight:700;color:var(--text-primary);margin-bottom:.2rem}
+  .coins-banner-sub{font-family:var(--font-body);font-size:.95rem;color:var(--text-muted)}
+  .coins-bundles{display:flex;gap:1.25rem;flex-wrap:wrap;align-items:stretch}
+  .coin-bundle{background:rgba(255,255,255,.03);border:1px solid rgba(201,168,76,.1);padding:1.25rem 1.5rem;text-align:center;min-width:115px;display:flex;flex-direction:column;align-items:center;gap:.25rem;transition:border-color .3s,background .3s}
+  .coin-bundle:hover{border-color:rgba(201,168,76,.3);background:rgba(201,168,76,.04)}
+  .coin-bundle-amount{font-family:var(--font-heading);font-size:1.5rem;font-weight:700;color:var(--accent-gold)}
+  .coin-bundle-label{font-family:var(--font-ui);font-size:.5rem;letter-spacing:.18em;color:var(--text-dim);text-transform:uppercase;margin-bottom:.4rem}
+  .coin-bundle-usd{font-family:var(--font-heading);font-size:.85rem;color:var(--text-muted);margin:.2rem 0 .85rem}
+  .coin-bundle-btn{font-size:.5rem!important;padding:.5rem 1rem!important;width:100%;text-align:center;letter-spacing:.15em}
+  .coins-disclaimer{width:100%;margin-top:1.25rem;font-family:var(--font-body);font-size:.85rem;font-style:italic;color:var(--text-dim);text-align:center}
+  @media(max-width:900px){.coins-banner{flex-direction:column;align-items:flex-start}}
+ldJsonRaw: |
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "https://www.ashenthrone.com/shop.html",
+        "name": "Ironveil Emporium — Ashen Throne Shop",
+        "url": "https://www.ashenthrone.com/shop.html",
+        "description": "The official cosmetics store for Ashen Throne.",
+        "breadcrumb": { "@type": "BreadcrumbList", "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.ashenthrone.com/" },
+          { "@type": "ListItem", "position": 2, "name": "Shop", "item": "https://www.ashenthrone.com/shop.html" }
+        ]},
+        "isPartOf": { "@type": "WebSite", "name": "Ashen Throne", "url": "https://www.ashenthrone.com/" }
+      },
+      {
+        "@type": "ItemList",
+        "name": "Ashen Throne Cosmetics",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Crimson Siege Plate",     "url": "https://www.ashenthrone.com/shop.html" },
+          { "@type": "ListItem", "position": 2, "name": "Voidrift Shadow Shroud",  "url": "https://www.ashenthrone.com/shop.html" },
+          { "@type": "ListItem", "position": 3, "name": "Eclipse Greatsword",      "url": "https://www.ashenthrone.com/shop.html" },
+          { "@type": "ListItem", "position": 4, "name": "Ashen Spellstaff",        "url": "https://www.ashenthrone.com/shop.html" },
+          { "@type": "ListItem", "position": 5, "name": "Emberveil Drake",         "url": "https://www.ashenthrone.com/shop.html" },
+          { "@type": "ListItem", "position": 6, "name": "Dreadmoors Iron Crest",   "url": "https://www.ashenthrone.com/shop.html" },
+          { "@type": "ListItem", "position": 7, "name": "Voidrift Shadow Steed",   "url": "https://www.ashenthrone.com/shop.html" },
+          { "@type": "ListItem", "position": 8, "name": "Warden's Eternal Shield", "url": "https://www.ashenthrone.com/shop.html" }
+        ]
+      }
+    ]
+  }
+---
+
+<!-- ═══════ PAGE HERO ═══════ -->
+<section class="page-hero" style="min-height:50vh;">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/index.html">Home</a>
+      <span class="sep">›</span>
+      <span class="current">Shop</span>
+    </nav>
+    <div class="page-hero-label">Ironveil Emporium</div>
+    <h1>The War Chest</h1>
+    <p><em>Power is earned. Glory can be bought.</em></p>
+  </div>
+</section>
+
+<!-- ═══════ SHOP ═══════ -->
+<section class="news-page" style="padding:5rem 0 6rem;" id="main-content">
+  <div class="news-page-bg"></div>
+  <div class="container">
+
+    <!-- FILTERS -->
+    <div class="shop-filters reveal" id="shopFilters">
+      <button class="btn-primary" type="button" data-filter="all">All</button>
+      <button class="btn-ghost"   type="button" data-filter="armor">Armor Sets</button>
+      <button class="btn-ghost"   type="button" data-filter="weapons">Weapons</button>
+      <button class="btn-ghost"   type="button" data-filter="mounts">Mounts</button>
+    </div>
+
+    <!-- GRID -->
+    <div class="shop-grid" id="shopGrid">
+      <div class="shop-item reveal" data-category="armor">
+        <div class="shop-art"><div class="shop-art-inner" style="background:linear-gradient(150deg,rgba(139,26,26,.55) 0%,rgba(201,168,76,.22) 50%,rgba(13,12,20,1) 100%);"></div><span class="shop-badge shop-badge-new">New</span></div>
+        <div class="shop-info"><div class="shop-type">Armor Set</div><div class="shop-name">Crimson Siege Plate</div><div class="shop-price-row"><div class="shop-price"><span class="shop-coin-sym">⬡</span> 2,400</div><button class="btn-primary shop-buy" type="button" aria-label="Buy Crimson Siege Plate">Buy Now</button></div></div>
+      </div>
+      <div class="shop-item reveal reveal-delay-1" data-category="armor">
+        <div class="shop-art"><div class="shop-art-inner" style="background:linear-gradient(150deg,rgba(50,20,80,.65) 0%,rgba(100,40,160,.2) 50%,rgba(13,12,20,1) 100%);"></div></div>
+        <div class="shop-info"><div class="shop-type">Armor Set</div><div class="shop-name">Voidrift Shadow Shroud</div><div class="shop-price-row"><div class="shop-price"><span class="shop-coin-sym">⬡</span> 1,800</div><button class="btn-primary shop-buy" type="button" aria-label="Buy Voidrift Shadow Shroud">Buy Now</button></div></div>
+      </div>
+      <div class="shop-item reveal reveal-delay-2" data-category="weapons">
+        <div class="shop-art"><div class="shop-art-inner" style="background:linear-gradient(150deg,rgba(30,50,100,.55) 0%,rgba(184,197,214,.2) 50%,rgba(13,12,20,1) 100%);"></div><span class="shop-badge shop-badge-limited">Limited</span></div>
+        <div class="shop-info"><div class="shop-type">Weapon Skin</div><div class="shop-name">Eclipse Greatsword</div><div class="shop-price-row"><div class="shop-price"><span class="shop-coin-sym">⬡</span> 3,200</div><button class="btn-primary shop-buy" type="button" aria-label="Buy Eclipse Greatsword">Buy Now</button></div></div>
+      </div>
+      <div class="shop-item reveal" data-category="weapons">
+        <div class="shop-art"><div class="shop-art-inner" style="background:linear-gradient(150deg,rgba(80,70,50,.5) 0%,rgba(201,168,76,.15) 50%,rgba(13,12,20,1) 100%);"></div></div>
+        <div class="shop-info"><div class="shop-type">Weapon Skin</div><div class="shop-name">Ashen Spellstaff</div><div class="shop-price-row"><div class="shop-price"><span class="shop-coin-sym">⬡</span> 1,600</div><button class="btn-primary shop-buy" type="button" aria-label="Buy Ashen Spellstaff">Buy Now</button></div></div>
+      </div>
+      <div class="shop-item reveal reveal-delay-1" data-category="mounts">
+        <div class="shop-art"><div class="shop-art-inner" style="background:linear-gradient(150deg,rgba(180,70,20,.5) 0%,rgba(139,26,26,.35) 45%,rgba(13,12,20,1) 100%);"></div><span class="shop-badge shop-badge-limited">Limited</span></div>
+        <div class="shop-info"><div class="shop-type">Mount</div><div class="shop-name">Emberveil Drake</div><div class="shop-price-row"><div class="shop-price"><span class="shop-coin-sym">⬡</span> 4,800</div><button class="btn-primary shop-buy" type="button" aria-label="Buy Emberveil Drake">Buy Now</button></div></div>
+      </div>
+      <div class="shop-item reveal reveal-delay-2" data-category="armor">
+        <div class="shop-art"><div class="shop-art-inner" style="background:linear-gradient(150deg,rgba(30,40,55,.65) 0%,rgba(100,120,150,.2) 50%,rgba(13,12,20,1) 100%);"></div></div>
+        <div class="shop-info"><div class="shop-type">Armor Set</div><div class="shop-name">Dreadmoors Iron Crest</div><div class="shop-price-row"><div class="shop-price"><span class="shop-coin-sym">⬡</span> 2,100</div><button class="btn-primary shop-buy" type="button" aria-label="Buy Dreadmoors Iron Crest">Buy Now</button></div></div>
+      </div>
+      <div class="shop-item reveal" data-category="mounts">
+        <div class="shop-art"><div class="shop-art-inner" style="background:linear-gradient(150deg,rgba(40,15,70,.65) 0%,rgba(20,120,140,.2) 50%,rgba(13,12,20,1) 100%);"></div><span class="shop-badge shop-badge-new">New</span></div>
+        <div class="shop-info"><div class="shop-type">Mount</div><div class="shop-name">Voidrift Shadow Steed</div><div class="shop-price-row"><div class="shop-price"><span class="shop-coin-sym">⬡</span> 3,600</div><button class="btn-primary shop-buy" type="button" aria-label="Buy Voidrift Shadow Steed">Buy Now</button></div></div>
+      </div>
+      <div class="shop-item reveal reveal-delay-1" data-category="weapons">
+        <div class="shop-art"><div class="shop-art-inner" style="background:linear-gradient(150deg,rgba(20,70,40,.5) 0%,rgba(184,197,214,.15) 50%,rgba(13,12,20,1) 100%);"></div></div>
+        <div class="shop-info"><div class="shop-type">Weapon Skin</div><div class="shop-name">Warden's Eternal Shield</div><div class="shop-price-row"><div class="shop-price"><span class="shop-coin-sym">⬡</span> 2,800</div><button class="btn-primary shop-buy" type="button" aria-label="Buy Warden's Eternal Shield">Buy Now</button></div></div>
+      </div>
+    </div>
+
+    <!-- ASHEN COINS BANNER -->
+    <div class="coins-banner reveal">
+      <div class="coins-banner-left">
+        <div class="coins-banner-icon" aria-hidden="true">⬡</div>
+        <div><div class="coins-banner-title">Ashen Coins</div><div class="coins-banner-sub">The official premium currency of Ashen Throne</div></div>
+      </div>
+      <div class="coins-bundles">
+        <div class="coin-bundle"><div class="coin-bundle-amount">500</div><div class="coin-bundle-label">Coins</div><div class="coin-bundle-usd">$4.99</div><button class="btn-primary coin-bundle-btn" type="button">Buy</button></div>
+        <div class="coin-bundle"><div class="coin-bundle-amount">1,200</div><div class="coin-bundle-label">Coins</div><div class="coin-bundle-usd">$9.99</div><button class="btn-primary coin-bundle-btn" type="button">Buy</button></div>
+        <div class="coin-bundle"><div class="coin-bundle-amount">3,000</div><div class="coin-bundle-label">Coins</div><div class="coin-bundle-usd">$19.99</div><button class="btn-primary coin-bundle-btn" type="button">Buy</button></div>
+      </div>
+      <p class="coins-disclaimer">Virtual currency has no real-world value. All sales final. No refunds on purchased Ashen Coins.</p>
+    </div>
+
+  </div>
+</section>
+
+<script>
+(function () {
+  'use strict';
+  var filtersEl = document.getElementById('shopFilters');
+  if (!filtersEl) return;
+  var buttons = filtersEl.querySelectorAll('[data-filter]');
+  var items   = document.querySelectorAll('.shop-item[data-category]');
+  function setFilter(f) {
+    buttons.forEach(function (b) {
+      var active = b.getAttribute('data-filter') === f;
+      b.classList.toggle('btn-primary', active);
+      b.classList.toggle('btn-ghost',   !active);
+    });
+    items.forEach(function (item) {
+      item.style.display = (f === 'all' || item.getAttribute('data-category') === f) ? '' : 'none';
+    });
+  }
+  buttons.forEach(function (b) {
+    b.addEventListener('click', function () { setFilter(b.getAttribute('data-filter')); });
+  });
+  setFilter('all');
+}());
+</script>
