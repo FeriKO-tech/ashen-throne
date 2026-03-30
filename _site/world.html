@@ -79,6 +79,20 @@
 </head>
 <body class="page-loading">
 
+<div id="preloader" aria-hidden="true">
+  <div class="pl-emblem">
+    <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M50 5 L58 30 L85 30 L63 47 L72 75 L50 58 L28 75 L37 47 L15 30 L42 30Z" stroke="#c9a84c" stroke-width="1.5" fill="none" opacity="0.7"/>
+      <circle cx="50" cy="50" r="30" stroke="#c9a84c" stroke-width="0.8" fill="none" opacity="0.35"/>
+      <circle cx="50" cy="50" r="42" stroke="#c9a84c" stroke-width="0.5" fill="none" opacity="0.2"/>
+      <path d="M50 8 L50 20 M50 80 L50 92 M8 50 L20 50 M80 50 L92 50" stroke="#c9a84c" stroke-width="0.5" opacity="0.3"/>
+      <circle cx="50" cy="50" r="4" fill="#c9a84c" opacity="0.6"/>
+    </svg>
+  </div>
+  <p class="pl-studio">Ironveil Studios Presents</p>
+  <div class="pl-bar-wrap"><div class="pl-bar" id="plBar"></div></div>
+</div>
+
 <div id="cursor"></div>
 <div id="cursor-dot"></div>
 
@@ -242,12 +256,57 @@
         <text x="435" y="340" font-family="Cinzel,serif" font-size="10" fill="rgba(232,223,200,0.5)">VEILHAVEN</text>
         <text x="295" y="430" font-family="Cinzel,serif" font-size="10" fill="rgba(232,223,200,0.5)">PYREMARK</text>
         <text x="858" y="162" font-family="Cinzel,serif" font-size="10" fill="rgba(232,223,200,0.5)">VOIDRIFT</text>
+        <!-- Animated battle dots -->
+        <g class="wm-battle-group" style="animation-delay:0s">
+          <circle class="wm-battle-ring" cx="460" cy="190" r="5" stroke="#c0392b" style="animation-delay:0s"/>
+          <circle class="wm-battle-dot" cx="460" cy="190" r="4" fill="#e74c3c" style="animation-delay:0s"/>
+        </g>
+        <g class="wm-battle-group" style="animation-delay:0.3s">
+          <circle class="wm-battle-ring" cx="700" cy="290" r="5" stroke="#c0392b" style="animation-delay:0.3s"/>
+          <circle class="wm-battle-dot" cx="700" cy="290" r="4" fill="#e74c3c" style="animation-delay:0.3s"/>
+        </g>
+        <g class="wm-battle-group" style="animation-delay:0.6s">
+          <circle class="wm-battle-ring" cx="200" cy="250" r="5" stroke="#c0392b" style="animation-delay:0.6s"/>
+          <circle class="wm-battle-dot" cx="200" cy="250" r="4" fill="#e74c3c" style="animation-delay:0.6s"/>
+        </g>
+        <g class="wm-battle-group" style="animation-delay:0.9s">
+          <circle class="wm-battle-ring" cx="540" cy="380" r="5" stroke="#c0392b" style="animation-delay:0.9s"/>
+          <circle class="wm-battle-dot" cx="540" cy="380" r="4" fill="#e74c3c" style="animation-delay:0.9s"/>
+        </g>
+        <g class="wm-battle-group" style="animation-delay:1.2s">
+          <circle class="wm-battle-ring" cx="310" cy="170" r="5" stroke="#c0392b" style="animation-delay:1.2s"/>
+          <circle class="wm-battle-dot" cx="310" cy="170" r="4" fill="#e74c3c" style="animation-delay:1.2s"/>
+        </g>
+        <g class="wm-battle-group" style="animation-delay:1.5s">
+          <circle class="wm-battle-ring" cx="870" cy="155" r="5" stroke="#c0392b" style="animation-delay:1.5s"/>
+          <circle class="wm-battle-dot" cx="870" cy="155" r="4" fill="#e74c3c" style="animation-delay:1.5s"/>
+        </g>
         <g class="wm-marker" data-tooltip="PvP Zone — Territory wars ignite here" style="animation-delay:0s;" transform="translate(500 200)"><g fill="none" stroke="rgba(201,168,76,0.6)" stroke-width="2" stroke-linecap="round"><path d="M-6 -6 L6 6"/><path d="M6 -6 L-6 6"/></g></g>
         <g class="wm-marker" data-tooltip="World Boss — The old gods still breathe" style="animation-delay:0.4s;" transform="translate(750 350)"><g fill="none" stroke="rgba(201,168,76,0.6)" stroke-width="1.6"><circle cx="0" cy="-2" r="6"/><path d="M-5 5 Q0 10 5 5"/></g></g>
         <g class="wm-marker" data-tooltip="Guild Fort — Holds the line of conquest" style="animation-delay:0.8s;" transform="translate(250 300)"><g fill="none" stroke="rgba(201,168,76,0.6)" stroke-width="1.6" stroke-linejoin="round"><path d="M-7 8 V-6 H-4 V-2 H-1 V-6 H2 V-2 H5 V-6 H7 V8 Z"/></g></g>
         <g class="wm-marker" data-tooltip="Dungeon — Ash and flame below" style="animation-delay:1.2s;" transform="translate(600 450)"><path d="M0 -8 Q6 -2 2 4 Q4 9 0 12 Q-4 9 -2 4 Q-6 -2 0 -8" fill="none" stroke="rgba(201,168,76,0.6)" stroke-width="1.6"/></g>
         <g class="wm-marker" data-tooltip="World Boss — A second shadow stirs" style="animation-delay:1.6s;" transform="translate(180 200)"><g fill="none" stroke="rgba(201,168,76,0.6)" stroke-width="1.6"><circle cx="0" cy="-2" r="6"/><path d="M-5 5 Q0 10 5 5"/></g></g>
       </svg>
+    </div>
+
+    <!-- FACTION LEGEND -->
+    <div class="wm-faction-legend" role="list" aria-label="Faction map legend">
+      <div class="wm-legend-item" role="listitem">
+        <span class="wm-legend-swatch" style="background:#c9a84c;" aria-hidden="true"></span>
+        <span>Ashen Crown</span>
+      </div>
+      <div class="wm-legend-item" role="listitem">
+        <span class="wm-legend-swatch" style="background:#b8c5d6;" aria-hidden="true"></span>
+        <span>Iron Compact</span>
+      </div>
+      <div class="wm-legend-item" role="listitem">
+        <span class="wm-legend-swatch" style="background:#6c3483;" aria-hidden="true"></span>
+        <span>Voidborn</span>
+      </div>
+      <div class="wm-legend-item" role="listitem">
+        <span class="wm-legend-swatch" style="background:#e74c3c;" aria-hidden="true"></span>
+        <span>Active Battle</span>
+      </div>
     </div>
   </div>
 </section>
@@ -452,6 +511,14 @@
         <p class="newsletter-success" id="newsletterSuccess" role="status" style="display:none;">&#10003; You&#8217;re on the list.</p>
       </div>
 
+    </div>
+
+    <div class="footer-server-status">
+      <span class="srv-dot" aria-hidden="true"></span>
+      <span class="srv-label">Server Status:</span>
+      <span>All Servers Online</span>
+      <span class="srv-sep">&middot;</span>
+      <span class="srv-players"><span id="srvPlayers">1,247</span> Players Active</span>
     </div>
 
     <div class="footer-bottom">

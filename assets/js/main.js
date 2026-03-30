@@ -342,7 +342,7 @@
     const root = document.getElementById('countdown');
     if (!root) return;
 
-    const TARGET = new Date('2026-04-15T10:00:00Z').getTime();
+    const TARGET = new Date('2026-06-15T10:00:00Z').getTime();
     const dEl = root.querySelector('[data-cd="d"]');
     const hEl = root.querySelector('[data-cd="h"]');
     const mEl = root.querySelector('[data-cd="m"]');
@@ -612,6 +612,141 @@
     }
 
     applyFilters();
+  })();
+
+  /* ─── PRELOADER ──────────────────────────────────────────────────────────── */
+  (function initPreloader() {
+    const pl  = document.getElementById('preloader');
+    const bar = document.getElementById('plBar');
+    if (!pl) return;
+
+    if (sessionStorage.getItem('at_pl_shown')) {
+      pl.classList.add('pl-done');
+      return;
+    }
+
+    const DURATION = 2500;
+    const start    = performance.now();
+
+    function step(now) {
+      const pct = Math.min((now - start) / DURATION * 100, 100);
+      if (bar) bar.style.width = pct + '%';
+      if (pct < 100) {
+        requestAnimationFrame(step);
+      } else {
+        setTimeout(() => {
+          pl.classList.add('pl-done');
+          sessionStorage.setItem('at_pl_shown', '1');
+        }, 300);
+      }
+    }
+
+    requestAnimationFrame(step);
+  })();
+
+  /* ─── HERO PARALLAX ──────────────────────────────────────────────────────── */
+  (function initHeroParallax() {
+    const heroBg = document.querySelector('.hero .hero-bg');
+    if (!heroBg) return;
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const y = window.scrollY;
+          heroBg.style.transform = 'translateY(' + (y * 0.35) + 'px)';
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, { passive: true });
+  })();
+
+  /* ─── SERVER STATUS TICKER ────────────────────────────────────────────────── */
+  (function initServerStatus() {
+    const el = document.getElementById('srvPlayers');
+    if (!el) return;
+    let base = 1247;
+    function update() {
+      base = Math.max(800, Math.min(2000, base + Math.round((Math.random() - 0.5) * 100)));
+      el.textContent = base.toLocaleString();
+    }
+    setInterval(update, 8000);
+  })();
+
+  /* ─── SHOP FEATURED DEAL — 72 h COUNTDOWN ────────────────────────────────── */
+  (function initDealTimer() {
+    const el = document.getElementById('dealTimer');
+    if (!el) return;
+    const KEY    = 'at_deal_end';
+    const SECS72 = 72 * 3600;
+    let end = parseInt(sessionStorage.getItem(KEY) || '0', 10);
+    if (!end || end < Date.now() / 1000) {
+      end = Math.floor(Date.now() / 1000) + SECS72;
+      sessionStorage.setItem(KEY, String(end));
+    }
+    function pad2(n) { return String(n).padStart(2, '0'); }
+    function tick() {
+      const diff = end - Math.floor(Date.now() / 1000);
+      if (diff <= 0) { el.textContent = '00:00:00'; return; }
+      const h = Math.floor(diff / 3600);
+      const m = Math.floor((diff % 3600) / 60);
+      const s = diff % 60;
+      el.textContent = pad2(h) + ':' + pad2(m) + ':' + pad2(s);
+    }
+    tick();
+    setInterval(tick, 1000);
+  })();
+
+  /* ─── FLY-TO-CART ANIMATION ──────────────────────────────────────────────── */
+  (function initFlyToCart() {
+    const cartTrigger = document.getElementById('cartTrigger');
+    document.addEventListener('click', e => {
+      const btn = e.target.closest('[data-add-to-cart]');
+      if (!btn || !cartTrigger) return;
+
+      const btnRect  = btn.getBoundingClientRect();
+      const cartRect = cartTrigger.getBoundingClientRect();
+
+      const dot = document.createElement('div');
+      dot.className = 'fly-dot';
+      dot.style.cssText =
+        'left:' + (btnRect.left + btnRect.width / 2 - 7) + 'px;' +
+        'top:'  + (btnRect.top  + window.scrollY + btnRect.height / 2 - 7) + 'px;' +
+        'position:fixed;';
+      document.body.appendChild(dot);
+
+      const tx = cartRect.left + cartRect.width  / 2 - 7;
+      const ty = cartRect.top  + cartRect.height / 2 - 7;
+
+      requestAnimationFrame(() => {
+        dot.style.transition = 'left 0.55s cubic-bezier(0.25,0.46,0.45,0.94), top 0.55s cubic-bezier(0.25,0.46,0.45,0.94), opacity 0.55s, transform 0.55s';
+        dot.style.left      = tx + 'px';
+        dot.style.top       = ty + 'px';
+        dot.style.opacity   = '0';
+        dot.style.transform = 'scale(0.3)';
+      });
+
+      setTimeout(() => dot.remove(), 600);
+    });
+  })();
+
+  /* ─── STAT BARS ANIMATION ────────────────────────────────────────────────── */
+  (function initStatBars() {
+    const bars = document.querySelectorAll('.stat-bar-fill[data-pct]');
+    if (!bars.length) return;
+
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const el  = entry.target;
+          const pct = parseInt(el.getAttribute('data-pct') || '0', 10);
+          el.style.width = pct + '%';
+          obs.unobserve(el);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    bars.forEach(b => obs.observe(b));
   })();
 
   /* ─── NEWSLETTER VALIDATION ───────────────────────────────────────────────── */

@@ -97,6 +97,20 @@
 </head>
 <body class="page-loading">
 
+<div id="preloader" aria-hidden="true">
+  <div class="pl-emblem">
+    <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M50 5 L58 30 L85 30 L63 47 L72 75 L50 58 L28 75 L37 47 L15 30 L42 30Z" stroke="#c9a84c" stroke-width="1.5" fill="none" opacity="0.7"/>
+      <circle cx="50" cy="50" r="30" stroke="#c9a84c" stroke-width="0.8" fill="none" opacity="0.35"/>
+      <circle cx="50" cy="50" r="42" stroke="#c9a84c" stroke-width="0.5" fill="none" opacity="0.2"/>
+      <path d="M50 8 L50 20 M50 80 L50 92 M8 50 L20 50 M80 50 L92 50" stroke="#c9a84c" stroke-width="0.5" opacity="0.3"/>
+      <circle cx="50" cy="50" r="4" fill="#c9a84c" opacity="0.6"/>
+    </svg>
+  </div>
+  <p class="pl-studio">Ironveil Studios Presents</p>
+  <div class="pl-bar-wrap"><div class="pl-bar" id="plBar"></div></div>
+</div>
+
 <div id="cursor"></div>
 <div id="cursor-dot"></div>
 
@@ -247,6 +261,7 @@
             <span class="class-tag">Iron Will</span>
           </div>
           <p class="class-desc">An unbreakable bulwark of steel. The Warden holds the line when all others fall — and they have never once let it break.</p>
+          <div class="class-stats"><div class="stat-row"><span class="stat-lbl">Power</span><div class="stat-bar-bg"><div class="stat-bar-fill" data-pct="30"></div></div></div><div class="stat-row"><span class="stat-lbl">Defense</span><div class="stat-bar-bg"><div class="stat-bar-fill" data-pct="90"></div></div></div><div class="stat-row"><span class="stat-lbl">Speed</span><div class="stat-bar-bg"><div class="stat-bar-fill" data-pct="30"></div></div></div><div class="stat-row"><span class="stat-lbl">Magic</span><div class="stat-bar-bg"><div class="stat-bar-fill" data-pct="20"></div></div></div><div class="stat-row"><span class="stat-lbl">Utility</span><div class="stat-bar-bg"><div class="stat-bar-fill" data-pct="60"></div></div></div></div>
           <div class="radar-wrap" aria-hidden="true"><svg class="radar-svg" viewBox="0 0 200 185"><polygon class="radar-grid-ring" points="100,25 171,77 144,161 56,161 29,77"/><polygon class="radar-grid-ring" points="100,44 154,83 133,146 67,146 47,83"/><polygon class="radar-grid-ring" points="100,63 136,88 122,130 78,130 64,88"/><polygon class="radar-grid-ring" points="100,81 118,94 111,115 89,115 82,94"/><line class="radar-axis" x1="100" y1="100" x2="100" y2="25"/><line class="radar-axis" x1="100" y1="100" x2="171" y2="77"/><line class="radar-axis" x1="100" y1="100" x2="144" y2="161"/><line class="radar-axis" x1="100" y1="100" x2="56" y2="161"/><line class="radar-axis" x1="100" y1="100" x2="29" y2="77"/><polygon class="radar-shape" points="100,77.5 164,79 113,118 91,112 57,86"/><text class="radar-label" x="100" y="17">PWR</text><text class="radar-label" x="178" y="72" text-anchor="start">DEF</text><text class="radar-label" x="150" y="175" text-anchor="start">SPD</text><text class="radar-label" x="50" y="175" text-anchor="end">MAG</text><text class="radar-label" x="22" y="72" text-anchor="end">UTIL</text></svg></div>
         </div>
       </div>
@@ -275,6 +290,7 @@
             <span class="class-tag">Shadow Step</span>
           </div>
           <p class="class-desc">Death from the shadows. The Shadowblade strikes before you ever see the blade — and is gone before you can scream.</p>
+          <div class="class-stats"><div class="stat-row"><span class="stat-lbl">Power</span><div class="stat-bar-bg"><div class="stat-bar-fill" data-pct="80"></div></div></div><div class="stat-row"><span class="stat-lbl">Defense</span><div class="stat-bar-bg"><div class="stat-bar-fill" data-pct="30"></div></div></div><div class="stat-row"><span class="stat-lbl">Speed</span><div class="stat-bar-bg"><div class="stat-bar-fill" data-pct="90"></div></div></div><div class="stat-row"><span class="stat-lbl">Magic</span><div class="stat-bar-bg"><div class="stat-bar-fill" data-pct="20"></div></div></div><div class="stat-row"><span class="stat-lbl">Utility</span><div class="stat-bar-bg"><div class="stat-bar-fill" data-pct="40"></div></div></div></div>
           <div class="radar-wrap" aria-hidden="true"><svg class="radar-svg" viewBox="0 0 200 185"><polygon class="radar-grid-ring" points="100,25 171,77 144,161 56,161 29,77"/><polygon class="radar-grid-ring" points="100,44 154,83 133,146 67,146 47,83"/><polygon class="radar-grid-ring" points="100,63 136,88 122,130 78,130 64,88"/><polygon class="radar-grid-ring" points="100,81 118,94 111,115 89,115 82,94"/><line class="radar-axis" x1="100" y1="100" x2="100" y2="25"/><line class="radar-axis" x1="100" y1="100" x2="171" y2="77"/><line class="radar-axis" x1="100" y1="100" x2="144" y2="161"/><line class="radar-axis" x1="100" y1="100" x2="56" y2="161"/><line class="radar-axis" x1="100" y1="100" x2="29" y2="77"/><polygon class="radar-shape" points="100,40 121,93 140,155 91,112 72,91"/><text class="radar-label" x="100" y="17">PWR</text><text class="radar-label" x="178" y="72" text-anchor="start">DEF</text><text class="radar-label" x="150" y="175" text-anchor="start">SPD</text><text class="radar-label" x="50" y="175" text-anchor="end">MAG</text><text class="radar-label" x="22" y="72" text-anchor="end">UTIL</text></svg></div>
         </div>
       </div>
@@ -302,6 +318,7 @@
             <span class="class-tag">Bulwark</span>
           </div>
           <p class="class-desc">A living siege engine clad in plate. The Ironclad breaks formations that would stop lesser warriors cold.</p>
+          <div class="class-stats"><div class="stat-row"><span class="stat-lbl">Power</span><div class="stat-bar-bg"><div class="stat-bar-fill" data-pct="60"></div></div></div><div class="stat-row"><span class="stat-lbl">Defense</span><div class="stat-bar-bg"><div class="stat-bar-fill" data-pct="80"></div></div></div><div class="stat-row"><span class="stat-lbl">Speed</span><div class="stat-bar-bg"><div class="stat-bar-fill" data-pct="50"></div></div></div><div class="stat-row"><span class="stat-lbl">Magic</span><div class="stat-bar-bg"><div class="stat-bar-fill" data-pct="10"></div></div></div><div class="stat-row"><span class="stat-lbl">Utility</span><div class="stat-bar-bg"><div class="stat-bar-fill" data-pct="40"></div></div></div></div>
           <div class="radar-wrap" aria-hidden="true"><svg class="radar-svg" viewBox="0 0 200 185"><polygon class="radar-grid-ring" points="100,25 171,77 144,161 56,161 29,77"/><polygon class="radar-grid-ring" points="100,44 154,83 133,146 67,146 47,83"/><polygon class="radar-grid-ring" points="100,63 136,88 122,130 78,130 64,88"/><polygon class="radar-grid-ring" points="100,81 118,94 111,115 89,115 82,94"/><line class="radar-axis" x1="100" y1="100" x2="100" y2="25"/><line class="radar-axis" x1="100" y1="100" x2="171" y2="77"/><line class="radar-axis" x1="100" y1="100" x2="144" y2="161"/><line class="radar-axis" x1="100" y1="100" x2="56" y2="161"/><line class="radar-axis" x1="100" y1="100" x2="29" y2="77"/><polygon class="radar-shape" points="100,55 157,82 122,130 96,106 72,91"/><text class="radar-label" x="100" y="17">PWR</text><text class="radar-label" x="178" y="72" text-anchor="start">DEF</text><text class="radar-label" x="150" y="175" text-anchor="start">SPD</text><text class="radar-label" x="50" y="175" text-anchor="end">MAG</text><text class="radar-label" x="22" y="72" text-anchor="end">UTIL</text></svg></div>
         </div>
       </div>
@@ -330,6 +347,7 @@
             <span class="class-tag">Arcane Surge</span>
           </div>
           <p class="class-desc">Master of pure arcane force. The Arcanist bends the laws of physics and punishes anyone foolish enough to stand within range.</p>
+          <div class="class-stats"><div class="stat-row"><span class="stat-lbl">Power</span><div class="stat-bar-bg"><div class="stat-bar-fill" data-pct="90"></div></div></div><div class="stat-row"><span class="stat-lbl">Defense</span><div class="stat-bar-bg"><div class="stat-bar-fill" data-pct="20"></div></div></div><div class="stat-row"><span class="stat-lbl">Speed</span><div class="stat-bar-bg"><div class="stat-bar-fill" data-pct="50"></div></div></div><div class="stat-row"><span class="stat-lbl">Magic</span><div class="stat-bar-bg"><div class="stat-bar-fill" data-pct="90"></div></div></div><div class="stat-row"><span class="stat-lbl">Utility</span><div class="stat-bar-bg"><div class="stat-bar-fill" data-pct="30"></div></div></div></div>
           <div class="radar-wrap" aria-hidden="true"><svg class="radar-svg" viewBox="0 0 200 185"><polygon class="radar-grid-ring" points="100,25 171,77 144,161 56,161 29,77"/><polygon class="radar-grid-ring" points="100,44 154,83 133,146 67,146 47,83"/><polygon class="radar-grid-ring" points="100,63 136,88 122,130 78,130 64,88"/><polygon class="radar-grid-ring" points="100,81 118,94 111,115 89,115 82,94"/><line class="radar-axis" x1="100" y1="100" x2="100" y2="25"/><line class="radar-axis" x1="100" y1="100" x2="171" y2="77"/><line class="radar-axis" x1="100" y1="100" x2="144" y2="161"/><line class="radar-axis" x1="100" y1="100" x2="56" y2="161"/><line class="radar-axis" x1="100" y1="100" x2="29" y2="77"/><polygon class="radar-shape" points="100,33 114,95 122,130 60,155 79,93"/><text class="radar-label" x="100" y="17">PWR</text><text class="radar-label" x="178" y="72" text-anchor="start">DEF</text><text class="radar-label" x="150" y="175" text-anchor="start">SPD</text><text class="radar-label" x="50" y="175" text-anchor="end">MAG</text><text class="radar-label" x="22" y="72" text-anchor="end">UTIL</text></svg></div>
         </div>
       </div>
@@ -358,6 +376,7 @@
             <span class="class-tag">Undying</span>
           </div>
           <p class="class-desc">Born in blood, fueled by rage. The Dreadknight grows stronger as the battle grows desperate and deadlier as allies fall.</p>
+          <div class="class-stats"><div class="stat-row"><span class="stat-lbl">Power</span><div class="stat-bar-bg"><div class="stat-bar-fill" data-pct="90"></div></div></div><div class="stat-row"><span class="stat-lbl">Defense</span><div class="stat-bar-bg"><div class="stat-bar-fill" data-pct="40"></div></div></div><div class="stat-row"><span class="stat-lbl">Speed</span><div class="stat-bar-bg"><div class="stat-bar-fill" data-pct="60"></div></div></div><div class="stat-row"><span class="stat-lbl">Magic</span><div class="stat-bar-bg"><div class="stat-bar-fill" data-pct="20"></div></div></div><div class="stat-row"><span class="stat-lbl">Utility</span><div class="stat-bar-bg"><div class="stat-bar-fill" data-pct="30"></div></div></div></div>
           <div class="radar-wrap" aria-hidden="true"><svg class="radar-svg" viewBox="0 0 200 185"><polygon class="radar-grid-ring" points="100,25 171,77 144,161 56,161 29,77"/><polygon class="radar-grid-ring" points="100,44 154,83 133,146 67,146 47,83"/><polygon class="radar-grid-ring" points="100,63 136,88 122,130 78,130 64,88"/><polygon class="radar-grid-ring" points="100,81 118,94 111,115 89,115 82,94"/><line class="radar-axis" x1="100" y1="100" x2="100" y2="25"/><line class="radar-axis" x1="100" y1="100" x2="171" y2="77"/><line class="radar-axis" x1="100" y1="100" x2="144" y2="161"/><line class="radar-axis" x1="100" y1="100" x2="56" y2="161"/><line class="radar-axis" x1="100" y1="100" x2="29" y2="77"/><polygon class="radar-shape" points="100,33 129,91 127,136 91,112 79,93"/><text class="radar-label" x="100" y="17">PWR</text><text class="radar-label" x="178" y="72" text-anchor="start">DEF</text><text class="radar-label" x="150" y="175" text-anchor="start">SPD</text><text class="radar-label" x="50" y="175" text-anchor="end">MAG</text><text class="radar-label" x="22" y="72" text-anchor="end">UTIL</text></svg></div>
         </div>
       </div>
@@ -386,6 +405,7 @@
             <span class="class-tag">Resurrect</span>
           </div>
           <p class="class-desc">Ancient songs that mend bone and ward evil. The Oathsinger turns the tide of war without ever drawing steel.</p>
+          <div class="class-stats"><div class="stat-row"><span class="stat-lbl">Power</span><div class="stat-bar-bg"><div class="stat-bar-fill" data-pct="30"></div></div></div><div class="stat-row"><span class="stat-lbl">Defense</span><div class="stat-bar-bg"><div class="stat-bar-fill" data-pct="60"></div></div></div><div class="stat-row"><span class="stat-lbl">Speed</span><div class="stat-bar-bg"><div class="stat-bar-fill" data-pct="40"></div></div></div><div class="stat-row"><span class="stat-lbl">Magic</span><div class="stat-bar-bg"><div class="stat-bar-fill" data-pct="70"></div></div></div><div class="stat-row"><span class="stat-lbl">Utility</span><div class="stat-bar-bg"><div class="stat-bar-fill" data-pct="90"></div></div></div></div>
           <div class="radar-wrap" aria-hidden="true"><svg class="radar-svg" viewBox="0 0 200 185"><polygon class="radar-grid-ring" points="100,25 171,77 144,161 56,161 29,77"/><polygon class="radar-grid-ring" points="100,44 154,83 133,146 67,146 47,83"/><polygon class="radar-grid-ring" points="100,63 136,88 122,130 78,130 64,88"/><polygon class="radar-grid-ring" points="100,81 118,94 111,115 89,115 82,94"/><line class="radar-axis" x1="100" y1="100" x2="100" y2="25"/><line class="radar-axis" x1="100" y1="100" x2="171" y2="77"/><line class="radar-axis" x1="100" y1="100" x2="144" y2="161"/><line class="radar-axis" x1="100" y1="100" x2="56" y2="161"/><line class="radar-axis" x1="100" y1="100" x2="29" y2="77"/><polygon class="radar-shape" points="100,78 143,86 118,124 69,143 36,79"/><text class="radar-label" x="100" y="17">PWR</text><text class="radar-label" x="178" y="72" text-anchor="start">DEF</text><text class="radar-label" x="150" y="175" text-anchor="start">SPD</text><text class="radar-label" x="50" y="175" text-anchor="end">MAG</text><text class="radar-label" x="22" y="72" text-anchor="end">UTIL</text></svg></div>
         </div>
       </div>
@@ -414,6 +434,7 @@
             <span class="class-tag">Entropy</span>
           </div>
           <p class="class-desc">Tears holes in reality to unleash abominations from the space between worlds. Power without limit — and without mercy.</p>
+          <div class="class-stats"><div class="stat-row"><span class="stat-lbl">Power</span><div class="stat-bar-bg"><div class="stat-bar-fill" data-pct="70"></div></div></div><div class="stat-row"><span class="stat-lbl">Defense</span><div class="stat-bar-bg"><div class="stat-bar-fill" data-pct="20"></div></div></div><div class="stat-row"><span class="stat-lbl">Speed</span><div class="stat-bar-bg"><div class="stat-bar-fill" data-pct="50"></div></div></div><div class="stat-row"><span class="stat-lbl">Magic</span><div class="stat-bar-bg"><div class="stat-bar-fill" data-pct="80"></div></div></div><div class="stat-row"><span class="stat-lbl">Utility</span><div class="stat-bar-bg"><div class="stat-bar-fill" data-pct="70"></div></div></div></div>
           <div class="radar-wrap" aria-hidden="true"><svg class="radar-svg" viewBox="0 0 200 185"><polygon class="radar-grid-ring" points="100,25 171,77 144,161 56,161 29,77"/><polygon class="radar-grid-ring" points="100,44 154,83 133,146 67,146 47,83"/><polygon class="radar-grid-ring" points="100,63 136,88 122,130 78,130 64,88"/><polygon class="radar-grid-ring" points="100,81 118,94 111,115 89,115 82,94"/><line class="radar-axis" x1="100" y1="100" x2="100" y2="25"/><line class="radar-axis" x1="100" y1="100" x2="171" y2="77"/><line class="radar-axis" x1="100" y1="100" x2="144" y2="161"/><line class="radar-axis" x1="100" y1="100" x2="56" y2="161"/><line class="radar-axis" x1="100" y1="100" x2="29" y2="77"/><polygon class="radar-shape" points="100,48 114,95 122,130 65,149 50,84"/><text class="radar-label" x="100" y="17">PWR</text><text class="radar-label" x="178" y="72" text-anchor="start">DEF</text><text class="radar-label" x="150" y="175" text-anchor="start">SPD</text><text class="radar-label" x="50" y="175" text-anchor="end">MAG</text><text class="radar-label" x="22" y="72" text-anchor="end">UTIL</text></svg></div>
         </div>
       </div>
@@ -442,6 +463,7 @@
             <span class="class-tag">Ash Veil</span>
           </div>
           <p class="class-desc">Patient, precise, and invisible until the moment of the kill. The Ashwalker ends battles before they begin.</p>
+          <div class="class-stats"><div class="stat-row"><span class="stat-lbl">Power</span><div class="stat-bar-bg"><div class="stat-bar-fill" data-pct="60"></div></div></div><div class="stat-row"><span class="stat-lbl">Defense</span><div class="stat-bar-bg"><div class="stat-bar-fill" data-pct="30"></div></div></div><div class="stat-row"><span class="stat-lbl">Speed</span><div class="stat-bar-bg"><div class="stat-bar-fill" data-pct="80"></div></div></div><div class="stat-row"><span class="stat-lbl">Magic</span><div class="stat-bar-bg"><div class="stat-bar-fill" data-pct="20"></div></div></div><div class="stat-row"><span class="stat-lbl">Utility</span><div class="stat-bar-bg"><div class="stat-bar-fill" data-pct="50"></div></div></div></div>
           <div class="radar-wrap" aria-hidden="true"><svg class="radar-svg" viewBox="0 0 200 185"><polygon class="radar-grid-ring" points="100,25 171,77 144,161 56,161 29,77"/><polygon class="radar-grid-ring" points="100,44 154,83 133,146 67,146 47,83"/><polygon class="radar-grid-ring" points="100,63 136,88 122,130 78,130 64,88"/><polygon class="radar-grid-ring" points="100,81 118,94 111,115 89,115 82,94"/><line class="radar-axis" x1="100" y1="100" x2="100" y2="25"/><line class="radar-axis" x1="100" y1="100" x2="171" y2="77"/><line class="radar-axis" x1="100" y1="100" x2="144" y2="161"/><line class="radar-axis" x1="100" y1="100" x2="56" y2="161"/><line class="radar-axis" x1="100" y1="100" x2="29" y2="77"/><polygon class="radar-shape" points="100,55 121,93 135,149 91,112 64,88"/><text class="radar-label" x="100" y="17">PWR</text><text class="radar-label" x="178" y="72" text-anchor="start">DEF</text><text class="radar-label" x="150" y="175" text-anchor="start">SPD</text><text class="radar-label" x="50" y="175" text-anchor="end">MAG</text><text class="radar-label" x="22" y="72" text-anchor="end">UTIL</text></svg></div>
         </div>
       </div>
@@ -522,6 +544,14 @@
         <p class="newsletter-success" id="newsletterSuccess" role="status" style="display:none;">&#10003; You&#8217;re on the list.</p>
       </div>
 
+    </div>
+
+    <div class="footer-server-status">
+      <span class="srv-dot" aria-hidden="true"></span>
+      <span class="srv-label">Server Status:</span>
+      <span>All Servers Online</span>
+      <span class="srv-sep">&middot;</span>
+      <span class="srv-players"><span id="srvPlayers">1,247</span> Players Active</span>
     </div>
 
     <div class="footer-bottom">

@@ -128,6 +128,20 @@
 </head>
 <body class="page-loading">
 
+<div id="preloader" aria-hidden="true">
+  <div class="pl-emblem">
+    <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M50 5 L58 30 L85 30 L63 47 L72 75 L50 58 L28 75 L37 47 L15 30 L42 30Z" stroke="#c9a84c" stroke-width="1.5" fill="none" opacity="0.7"/>
+      <circle cx="50" cy="50" r="30" stroke="#c9a84c" stroke-width="0.8" fill="none" opacity="0.35"/>
+      <circle cx="50" cy="50" r="42" stroke="#c9a84c" stroke-width="0.5" fill="none" opacity="0.2"/>
+      <path d="M50 8 L50 20 M50 80 L50 92 M8 50 L20 50 M80 50 L92 50" stroke="#c9a84c" stroke-width="0.5" opacity="0.3"/>
+      <circle cx="50" cy="50" r="4" fill="#c9a84c" opacity="0.6"/>
+    </svg>
+  </div>
+  <p class="pl-studio">Ironveil Studios Presents</p>
+  <div class="pl-bar-wrap"><div class="pl-bar" id="plBar"></div></div>
+</div>
+
 <div id="cursor"></div>
 <div id="cursor-dot"></div>
 
@@ -252,6 +266,26 @@
   <div class="news-page-bg"></div>
   <div class="container">
 
+    <!-- FEATURED DEAL -->
+    <div class="featured-deal reveal">
+      <div class="fd-left">
+        <div class="fd-label">&#x2605; Featured Deal &mdash; Limited Time</div>
+        <div class="fd-name">Emberveil Drake Bundle</div>
+        <p class="fd-desc">The rarest mount in the Realm, now bundled with the Crimson Siege Plate armor set. Storm the battlefield from above — clad in fire and steel.</p>
+        <div class="fd-price-row">
+          <span class="fd-orig">&#x2B21; 7,200</span>
+          <span class="fd-price">&#x2B21; 5,760</span>
+          <span class="fd-save">Save 20%</span>
+          <button class="btn-primary" type="button" data-add-to-cart="emberveil-bundle" data-name="Emberveil Drake Bundle" data-price="5760" data-bg="background:linear-gradient(135deg,rgba(180,70,20,.5),rgba(13,12,20,1));">Add to Cart</button>
+        </div>
+      </div>
+      <div class="fd-timer">
+        <div class="fd-timer-label">Offer Ends In</div>
+        <span class="fd-timer-digits" id="dealTimer">71:59:59</span>
+        <div class="fd-timer-sub"><span>HRS</span><span>MIN</span><span>SEC</span></div>
+      </div>
+    </div>
+
     <!-- CATEGORY FILTERS -->
     <div class="shop-filters reveal" id="shopFilters">
       <button class="btn-primary" type="button" data-filter="all">All</button>
@@ -282,7 +316,7 @@
             <svg class="wishlist-icon" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
           </button>
         </div>
-        <div class="shop-info"><div class="shop-type">Armor Set</div><div class="shop-name">Crimson Siege Plate</div><div class="shop-price-row"><div class="shop-price"><span class="shop-coin-sym">⬡</span> 2,400</div><button class="btn-primary shop-buy" type="button" data-add-to-cart="crimson-siege-plate" data-name="Crimson Siege Plate" data-price="2400" data-bg="background:linear-gradient(135deg,rgba(139,26,26,.5),rgba(13,12,20,1));">Add to Cart</button></div></div>
+        <div class="shop-info"><div class="shop-type">Armor Set</div><div class="shop-name">Crimson Siege Plate</div><div class="shop-stars"><div class="shop-stars-icons"><svg viewBox="0 0 24 24" fill="#c9a84c"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="#c9a84c"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="#c9a84c"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="#c9a84c"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="rgba(201,168,76,0.3)"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><span class="shop-stars-score">4.0 (312)</span></div><div class="shop-price-row"><div class="shop-price"><span class="shop-coin-sym">⬡</span> 2,400</div><button class="btn-primary shop-buy" type="button" data-add-to-cart="crimson-siege-plate" data-name="Crimson Siege Plate" data-price="2400" data-bg="background:linear-gradient(135deg,rgba(139,26,26,.5),rgba(13,12,20,1));">Add to Cart</button></div></div>
       </div>
 
       <div class="shop-item reveal reveal-delay-1" data-category="armor" data-price="1800">
@@ -292,7 +326,7 @@
             <svg class="wishlist-icon" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
           </button>
         </div>
-        <div class="shop-info"><div class="shop-type">Armor Set</div><div class="shop-name">Voidrift Shadow Shroud</div><div class="shop-price-row"><div class="shop-price"><span class="shop-coin-sym">⬡</span> 1,800</div><button class="btn-primary shop-buy" type="button" data-add-to-cart="voidrift-shadow-shroud" data-name="Voidrift Shadow Shroud" data-price="1800" data-bg="background:linear-gradient(135deg,rgba(50,20,80,.6),rgba(13,12,20,1));">Add to Cart</button></div></div>
+        <div class="shop-info"><div class="shop-type">Armor Set</div><div class="shop-name">Voidrift Shadow Shroud</div><div class="shop-stars"><div class="shop-stars-icons"><svg viewBox="0 0 24 24" fill="#c9a84c"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="#c9a84c"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="#c9a84c"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="#c9a84c"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="rgba(201,168,76,0.3)"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><span class="shop-stars-score">4.2 (187)</span></div><div class="shop-price-row"><div class="shop-price"><span class="shop-coin-sym">⬡</span> 1,800</div><button class="btn-primary shop-buy" type="button" data-add-to-cart="voidrift-shadow-shroud" data-name="Voidrift Shadow Shroud" data-price="1800" data-bg="background:linear-gradient(135deg,rgba(50,20,80,.6),rgba(13,12,20,1));">Add to Cart</button></div></div>
       </div>
 
       <div class="shop-item reveal reveal-delay-2" data-category="weapons" data-price="3200">
@@ -303,7 +337,7 @@
             <svg class="wishlist-icon" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
           </button>
         </div>
-        <div class="shop-info"><div class="shop-type">Weapon Skin</div><div class="shop-name">Eclipse Greatsword</div><div class="shop-price-row"><div class="shop-price"><span class="shop-coin-sym">⬡</span> 3,200</div><button class="btn-primary shop-buy" type="button" data-add-to-cart="eclipse-greatsword" data-name="Eclipse Greatsword" data-price="3200" data-bg="background:linear-gradient(135deg,rgba(30,50,100,.5),rgba(13,12,20,1));">Add to Cart</button></div></div>
+        <div class="shop-info"><div class="shop-type">Weapon Skin</div><div class="shop-name">Eclipse Greatsword</div><div class="shop-stars"><div class="shop-stars-icons"><svg viewBox="0 0 24 24" fill="#c9a84c"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="#c9a84c"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="#c9a84c"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="#c9a84c"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="#c9a84c" style="clip-path:inset(0 50% 0 0)"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><span class="shop-stars-score">4.5 (523)</span></div><div class="shop-price-row"><div class="shop-price"><span class="shop-coin-sym">⬡</span> 3,200</div><button class="btn-primary shop-buy" type="button" data-add-to-cart="eclipse-greatsword" data-name="Eclipse Greatsword" data-price="3200" data-bg="background:linear-gradient(135deg,rgba(30,50,100,.5),rgba(13,12,20,1));">Add to Cart</button></div></div>
       </div>
 
       <div class="shop-item reveal" data-category="weapons" data-price="1600">
@@ -313,7 +347,7 @@
             <svg class="wishlist-icon" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
           </button>
         </div>
-        <div class="shop-info"><div class="shop-type">Weapon Skin</div><div class="shop-name">Ashen Spellstaff</div><div class="shop-price-row"><div class="shop-price"><span class="shop-coin-sym">⬡</span> 1,600</div><button class="btn-primary shop-buy" type="button" data-add-to-cart="ashen-spellstaff" data-name="Ashen Spellstaff" data-price="1600" data-bg="background:linear-gradient(135deg,rgba(80,70,50,.5),rgba(13,12,20,1));">Add to Cart</button></div></div>
+        <div class="shop-info"><div class="shop-type">Weapon Skin</div><div class="shop-name">Ashen Spellstaff</div><div class="shop-stars"><div class="shop-stars-icons"><svg viewBox="0 0 24 24" fill="#c9a84c"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="#c9a84c"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="#c9a84c"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="#c9a84c"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="rgba(201,168,76,0.3)"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><span class="shop-stars-score">4.1 (98)</span></div><div class="shop-price-row"><div class="shop-price"><span class="shop-coin-sym">⬡</span> 1,600</div><button class="btn-primary shop-buy" type="button" data-add-to-cart="ashen-spellstaff" data-name="Ashen Spellstaff" data-price="1600" data-bg="background:linear-gradient(135deg,rgba(80,70,50,.5),rgba(13,12,20,1));">Add to Cart</button></div></div>
       </div>
 
       <div class="shop-item reveal reveal-delay-1" data-category="mounts" data-price="4800">
@@ -324,7 +358,7 @@
             <svg class="wishlist-icon" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
           </button>
         </div>
-        <div class="shop-info"><div class="shop-type">Mount</div><div class="shop-name">Emberveil Drake</div><div class="shop-price-row"><div class="shop-price"><span class="shop-coin-sym">⬡</span> 4,800</div><button class="btn-primary shop-buy" type="button" data-add-to-cart="emberveil-drake" data-name="Emberveil Drake" data-price="4800" data-bg="background:linear-gradient(135deg,rgba(180,70,20,.5),rgba(13,12,20,1));">Add to Cart</button></div></div>
+        <div class="shop-info"><div class="shop-type">Mount</div><div class="shop-name">Emberveil Drake</div><div class="shop-stars"><div class="shop-stars-icons"><svg viewBox="0 0 24 24" fill="#c9a84c"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="#c9a84c"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="#c9a84c"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="#c9a84c"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="#c9a84c" style="clip-path:inset(0 50% 0 0)"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><span class="shop-stars-score">4.8 (1,204)</span></div><div class="shop-price-row"><div class="shop-price"><span class="shop-coin-sym">⬡</span> 4,800</div><button class="btn-primary shop-buy" type="button" data-add-to-cart="emberveil-drake" data-name="Emberveil Drake" data-price="4800" data-bg="background:linear-gradient(135deg,rgba(180,70,20,.5),rgba(13,12,20,1));">Add to Cart</button></div></div>
       </div>
 
       <div class="shop-item reveal reveal-delay-2" data-category="armor" data-price="2100">
@@ -334,7 +368,7 @@
             <svg class="wishlist-icon" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
           </button>
         </div>
-        <div class="shop-info"><div class="shop-type">Armor Set</div><div class="shop-name">Dreadmoors Iron Crest</div><div class="shop-price-row"><div class="shop-price"><span class="shop-coin-sym">⬡</span> 2,100</div><button class="btn-primary shop-buy" type="button" data-add-to-cart="dreadmoors-iron-crest" data-name="Dreadmoors Iron Crest" data-price="2100" data-bg="background:linear-gradient(135deg,rgba(30,40,55,.6),rgba(13,12,20,1));">Add to Cart</button></div></div>
+        <div class="shop-info"><div class="shop-type">Armor Set</div><div class="shop-name">Dreadmoors Iron Crest</div><div class="shop-stars"><div class="shop-stars-icons"><svg viewBox="0 0 24 24" fill="#c9a84c"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="#c9a84c"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="#c9a84c"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="#c9a84c"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="rgba(201,168,76,0.3)"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><span class="shop-stars-score">3.9 (256)</span></div><div class="shop-price-row"><div class="shop-price"><span class="shop-coin-sym">⬡</span> 2,100</div><button class="btn-primary shop-buy" type="button" data-add-to-cart="dreadmoors-iron-crest" data-name="Dreadmoors Iron Crest" data-price="2100" data-bg="background:linear-gradient(135deg,rgba(30,40,55,.6),rgba(13,12,20,1));">Add to Cart</button></div></div>
       </div>
 
       <div class="shop-item reveal" data-category="mounts" data-price="3600">
@@ -345,7 +379,7 @@
             <svg class="wishlist-icon" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
           </button>
         </div>
-        <div class="shop-info"><div class="shop-type">Mount</div><div class="shop-name">Voidrift Shadow Steed</div><div class="shop-price-row"><div class="shop-price"><span class="shop-coin-sym">⬡</span> 3,600</div><button class="btn-primary shop-buy" type="button" data-add-to-cart="voidrift-shadow-steed" data-name="Voidrift Shadow Steed" data-price="3600" data-bg="background:linear-gradient(135deg,rgba(40,15,70,.6),rgba(13,12,20,1));">Add to Cart</button></div></div>
+        <div class="shop-info"><div class="shop-type">Mount</div><div class="shop-name">Voidrift Shadow Steed</div><div class="shop-stars"><div class="shop-stars-icons"><svg viewBox="0 0 24 24" fill="#c9a84c"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="#c9a84c"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="#c9a84c"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="#c9a84c"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="#c9a84c" style="clip-path:inset(0 50% 0 0)"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><span class="shop-stars-score">4.6 (741)</span></div><div class="shop-price-row"><div class="shop-price"><span class="shop-coin-sym">⬡</span> 3,600</div><button class="btn-primary shop-buy" type="button" data-add-to-cart="voidrift-shadow-steed" data-name="Voidrift Shadow Steed" data-price="3600" data-bg="background:linear-gradient(135deg,rgba(40,15,70,.6),rgba(13,12,20,1));">Add to Cart</button></div></div>
       </div>
 
       <div class="shop-item reveal reveal-delay-1" data-category="weapons" data-price="2800">
@@ -355,7 +389,7 @@
             <svg class="wishlist-icon" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
           </button>
         </div>
-        <div class="shop-info"><div class="shop-type">Weapon Skin</div><div class="shop-name">Warden's Eternal Shield</div><div class="shop-price-row"><div class="shop-price"><span class="shop-coin-sym">⬡</span> 2,800</div><button class="btn-primary shop-buy" type="button" data-add-to-cart="wardens-eternal-shield" data-name="Warden's Eternal Shield" data-price="2800" data-bg="background:linear-gradient(135deg,rgba(20,70,40,.5),rgba(13,12,20,1));">Add to Cart</button></div></div>
+        <div class="shop-info"><div class="shop-type">Weapon Skin</div><div class="shop-name">Warden's Eternal Shield</div><div class="shop-stars"><div class="shop-stars-icons"><svg viewBox="0 0 24 24" fill="#c9a84c"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="#c9a84c"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="#c9a84c"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="#c9a84c"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="#c9a84c" style="clip-path:inset(0 50% 0 0)"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><span class="shop-stars-score">4.3 (389)</span></div><div class="shop-price-row"><div class="shop-price"><span class="shop-coin-sym">⬡</span> 2,800</div><button class="btn-primary shop-buy" type="button" data-add-to-cart="wardens-eternal-shield" data-name="Warden's Eternal Shield" data-price="2800" data-bg="background:linear-gradient(135deg,rgba(20,70,40,.5),rgba(13,12,20,1));">Add to Cart</button></div></div>
       </div>
 
     </div>
@@ -441,6 +475,14 @@
         <p class="newsletter-success" id="newsletterSuccess" role="status" style="display:none;">&#10003; You&#8217;re on the list.</p>
       </div>
 
+    </div>
+
+    <div class="footer-server-status">
+      <span class="srv-dot" aria-hidden="true"></span>
+      <span class="srv-label">Server Status:</span>
+      <span>All Servers Online</span>
+      <span class="srv-sep">&middot;</span>
+      <span class="srv-players"><span id="srvPlayers">1,247</span> Players Active</span>
     </div>
 
     <div class="footer-bottom">

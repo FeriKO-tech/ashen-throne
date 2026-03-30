@@ -74,6 +74,20 @@
 </head>
 <body class="page-loading">
 
+<div id="preloader" aria-hidden="true">
+  <div class="pl-emblem">
+    <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M50 5 L58 30 L85 30 L63 47 L72 75 L50 58 L28 75 L37 47 L15 30 L42 30Z" stroke="#c9a84c" stroke-width="1.5" fill="none" opacity="0.7"/>
+      <circle cx="50" cy="50" r="30" stroke="#c9a84c" stroke-width="0.8" fill="none" opacity="0.35"/>
+      <circle cx="50" cy="50" r="42" stroke="#c9a84c" stroke-width="0.5" fill="none" opacity="0.2"/>
+      <path d="M50 8 L50 20 M50 80 L50 92 M8 50 L20 50 M80 50 L92 50" stroke="#c9a84c" stroke-width="0.5" opacity="0.3"/>
+      <circle cx="50" cy="50" r="4" fill="#c9a84c" opacity="0.6"/>
+    </svg>
+  </div>
+  <p class="pl-studio">Ironveil Studios Presents</p>
+  <div class="pl-bar-wrap"><div class="pl-bar" id="plBar"></div></div>
+</div>
+
 <div id="cursor"></div>
 <div id="cursor-dot"></div>
 
@@ -491,6 +505,14 @@ We do not comment on future seasonal content plans. Assume this is your only opp
         <p class="newsletter-success" id="newsletterSuccess" role="status" style="display:none;">&#10003; You&#8217;re on the list.</p>
       </div>
 
+    </div>
+
+    <div class="footer-server-status">
+      <span class="srv-dot" aria-hidden="true"></span>
+      <span class="srv-label">Server Status:</span>
+      <span>All Servers Online</span>
+      <span class="srv-sep">&middot;</span>
+      <span class="srv-players"><span id="srvPlayers">1,247</span> Players Active</span>
     </div>
 
     <div class="footer-bottom">
