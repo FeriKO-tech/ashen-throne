@@ -5,12 +5,47 @@
 (function () {
   'use strict';
 
-  /* ─── PAGE LOAD ─────────────────────────────────────────────────────────── */
-  document.body.classList.add('page-loading');
-  setTimeout(() => {
-    document.body.classList.remove('page-loading');
-    document.body.classList.add('page-loaded');
-  }, 200);
+  /* ─── GLOBAL FLAGS ──────────────────────────────────────────────────────── */
+  const _prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ─── PAGE LOAD & PRELOADER ─────────────────────────────────────────────── */
+  (function initPageLoad() {
+    const plEl  = document.getElementById('preloader');
+    const plBar = document.getElementById('plBar');
+    const returnVisit = !!sessionStorage.getItem('at_pl_shown');
+
+    if (returnVisit) {
+      /* Second visit: hide preloader instantly, show nav without delay */
+      if (plEl) plEl.classList.add('pl-done');
+      document.body.classList.remove('page-loading');
+      document.body.classList.add('page-loaded', 'no-preloader');
+    } else {
+      /* First visit: run progress bar, dismiss after DURATION */
+      const DURATION = _prefersReducedMotion ? 400 : 2500;
+      const start    = performance.now();
+
+      setTimeout(() => {
+        document.body.classList.remove('page-loading');
+        document.body.classList.add('page-loaded');
+      }, 200);
+
+      if (plEl) {
+        function plStep(now) {
+          const pct = Math.min((now - start) / DURATION * 100, 100);
+          if (plBar) plBar.style.width = pct + '%';
+          if (pct < 100) {
+            requestAnimationFrame(plStep);
+          } else {
+            setTimeout(() => {
+              plEl.classList.add('pl-done');
+              sessionStorage.setItem('at_pl_shown', '1');
+            }, _prefersReducedMotion ? 0 : 300);
+          }
+        }
+        requestAnimationFrame(plStep);
+      }
+    }
+  })();
 
   /* ─── NAVIGATION ─────────────────────────────────────────────────────────── */
   const nav = document.getElementById('nav');
@@ -25,15 +60,23 @@
 
   if (hamburger && mobileMenu) {
     hamburger.addEventListener('click', () => {
-      hamburger.classList.toggle('active');
-      mobileMenu.classList.toggle('active');
-      document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+      const isOpen = mobileMenu.classList.toggle('active');
+      hamburger.classList.toggle('active', isOpen);
+      hamburger.setAttribute('aria-expanded', String(isOpen));
+      mobileMenu.setAttribute('aria-hidden',  String(!isOpen));
+      document.body.style.overflow = isOpen ? 'hidden' : '';
     });
   }
 
   window.closeMobile = function () {
-    if (hamburger) hamburger.classList.remove('active');
-    if (mobileMenu) mobileMenu.classList.remove('active');
+    if (hamburger) {
+      hamburger.classList.remove('active');
+      hamburger.setAttribute('aria-expanded', 'false');
+    }
+    if (mobileMenu) {
+      mobileMenu.classList.remove('active');
+      mobileMenu.setAttribute('aria-hidden', 'true');
+    }
     document.body.style.overflow = '';
   };
 
@@ -105,23 +148,7 @@
     });
   }
 
-  /* ─── NEWSLETTER FORM ────────────────────────────────────────────────────── */
-  document.querySelectorAll('.newsletter-form').forEach(form => {
-    const input = form.querySelector('input[type="email"]');
-    const btn = form.querySelector('button[type="submit"], button:not([type])');
-    if (!input || !btn) return;
-
-    form.addEventListener('submit', e => {
-      e.preventDefault();
-      const val = input.value.trim();
-      if (!val || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) {
-        input.classList.add('input-error');
-        input.addEventListener('animationend', () => input.classList.remove('input-error'), { once: true });
-        return;
-      }
-      form.innerHTML = '<span class="success-msg">&#9876; Dispatches incoming, warrior.</span>';
-    });
-  });
+  /* (Newsletter validation is handled by initNewsletter() below) */
 
   /* ─── BACK-TO-TOP ────────────────────────────────────────────────────────── */
   const backToTop = document.getElementById('back-to-top');
@@ -614,46 +641,16 @@
     applyFilters();
   })();
 
-  /* ─── PRELOADER ──────────────────────────────────────────────────────────── */
-  (function initPreloader() {
-    const pl  = document.getElementById('preloader');
-    const bar = document.getElementById('plBar');
-    if (!pl) return;
-
-    if (sessionStorage.getItem('at_pl_shown')) {
-      pl.classList.add('pl-done');
-      return;
-    }
-
-    const DURATION = 2500;
-    const start    = performance.now();
-
-    function step(now) {
-      const pct = Math.min((now - start) / DURATION * 100, 100);
-      if (bar) bar.style.width = pct + '%';
-      if (pct < 100) {
-        requestAnimationFrame(step);
-      } else {
-        setTimeout(() => {
-          pl.classList.add('pl-done');
-          sessionStorage.setItem('at_pl_shown', '1');
-        }, 300);
-      }
-    }
-
-    requestAnimationFrame(step);
-  })();
-
   /* ─── HERO PARALLAX ──────────────────────────────────────────────────────── */
   (function initHeroParallax() {
+    if (_prefersReducedMotion) return;
     const heroBg = document.querySelector('.hero .hero-bg');
     if (!heroBg) return;
     let ticking = false;
     window.addEventListener('scroll', () => {
       if (!ticking) {
         requestAnimationFrame(() => {
-          const y = window.scrollY;
-          heroBg.style.transform = 'translateY(' + (y * 0.35) + 'px)';
+          heroBg.style.transform = 'translateY(' + (window.scrollY * 0.35) + 'px)';
           ticking = false;
         });
         ticking = true;
@@ -711,7 +708,7 @@
       dot.className = 'fly-dot';
       dot.style.cssText =
         'left:' + (btnRect.left + btnRect.width / 2 - 7) + 'px;' +
-        'top:'  + (btnRect.top  + window.scrollY + btnRect.height / 2 - 7) + 'px;' +
+        'top:'  + (btnRect.top  + btnRect.height / 2 - 7) + 'px;' +
         'position:fixed;';
       document.body.appendChild(dot);
 
@@ -734,6 +731,14 @@
   (function initStatBars() {
     const bars = document.querySelectorAll('.stat-bar-fill[data-pct]');
     if (!bars.length) return;
+
+    if (_prefersReducedMotion) {
+      bars.forEach(b => {
+        b.style.transition = 'none';
+        b.style.width = (b.getAttribute('data-pct') || '0') + '%';
+      });
+      return;
+    }
 
     const obs = new IntersectionObserver(entries => {
       entries.forEach(entry => {

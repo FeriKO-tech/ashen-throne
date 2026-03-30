@@ -38,10 +38,10 @@
   </svg>
 </button>
 
-<script src="/assets/js/main.js"></script>
+<script src="/assets/js/main.js" defer></script>
 {%- if pageScripts %}
 {%- for src in pageScripts %}
-<script src="{{ src }}"></script>
+<script src="{{ src }}" defer></script>
 {%- endfor %}
 {%- endif %}
 {%- if inlineScript %}
