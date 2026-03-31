@@ -355,7 +355,21 @@
       loginForm.addEventListener('submit', e => { e.preventDefault(); });
     }
     if (registerForm) {
-      registerForm.addEventListener('submit', e => { e.preventDefault(); });
+      registerForm.addEventListener('submit', e => {
+        e.preventDefault();
+        const pass    = document.getElementById('regPass');
+        const confirm = document.getElementById('regConfirm');
+        if (pass && confirm && pass.value !== confirm.value) {
+          confirm.classList.add('newsletter-error');
+          confirm.focus();
+          return;
+        }
+        if (confirm) confirm.classList.remove('newsletter-error');
+      });
+    }
+    const regConfirmInput = document.getElementById('regConfirm');
+    if (regConfirmInput) {
+      regConfirmInput.addEventListener('input', () => regConfirmInput.classList.remove('newsletter-error'));
     }
   })();
 
@@ -809,7 +823,7 @@
     cards.forEach(card => obs.observe(card));
   })();
 
-  /* ─── NEWSLETTER VALIDATION ───────────────────────────────────────────────── */
+  /* ─── WORLD MAP ───────────────────────────────────────────────────────────── */
   (function initWorldMap() {
     const panel = document.getElementById('wmPanel');
     const tooltip = document.getElementById('wmTooltip');

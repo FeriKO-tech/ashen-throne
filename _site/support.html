@@ -424,6 +424,46 @@
       if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); scrollTo(); }
     });
   });
+
+  (function initSupportSearch() {
+    var input   = document.getElementById('supportSearchInput');
+    var button  = document.getElementById('supportSearchButton');
+    var emptyEl = document.getElementById('supportSearchEmpty');
+    if (!input) return;
+
+    function doSearch() {
+      var query = input.value.trim().toLowerCase();
+      if (!query) {
+        document.querySelectorAll('.faq-group').forEach(function (g) { g.hidden = false; });
+        document.querySelectorAll('.faq-item').forEach(function (i) { i.hidden = false; });
+        if (emptyEl) emptyEl.hidden = true;
+        return;
+      }
+
+      var anyVisible = false;
+      document.querySelectorAll('.faq-group').forEach(function (group) {
+        var groupVisible = false;
+        group.querySelectorAll('.faq-item').forEach(function (item) {
+          var qText = (item.querySelector('.faq-question-text') || {}).textContent || '';
+          var aText = (item.querySelector('.faq-answer-inner') || {}).textContent || '';
+          var match = qText.toLowerCase().indexOf(query) !== -1 || aText.toLowerCase().indexOf(query) !== -1;
+          item.hidden = !match;
+          if (match) { groupVisible = true; anyVisible = true; }
+        });
+        group.hidden = !groupVisible;
+      });
+
+      if (emptyEl) emptyEl.hidden = anyVisible;
+    }
+
+    button.addEventListener('click', doSearch);
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') { e.preventDefault(); doSearch(); }
+    });
+    input.addEventListener('input', function () {
+      if (input.value.trim() === '') doSearch();
+    });
+  }());
 }());
 </script>
 
