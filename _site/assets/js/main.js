@@ -391,16 +391,6 @@
       });
     }
 
-    /* ── social buttons (demo) ── */
-    document.querySelectorAll('.auth-social-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const name = btn.textContent.trim();
-        const fakeUser = { username: name + 'Warrior', method: name };
-        saveSession(fakeUser);
-        showDashboard(fakeUser);
-      });
-    });
-
     /* ── login submit ── */
     if (loginForm) {
       const userInp = document.getElementById('loginUser');
