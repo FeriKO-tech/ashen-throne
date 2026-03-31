@@ -285,91 +285,215 @@
     });
   });
 
-  /* ─── AUTH FORM (tabs, password toggle, strength) ────────────────────────── */
+  /* ─── AUTH FORM (tabs, validation, session, dashboard) ──────────────────── */
   (function initAuth() {
-    const tabLogin = document.getElementById('tabLogin');
-    const tabReg = document.getElementById('tabRegister');
-    const loginForm = document.getElementById('loginForm');
-    const registerForm = document.getElementById('registerForm');
-    const toRegister = document.getElementById('toRegister');
-    const toLogin = document.getElementById('toLogin');
+    const SESSION_KEY = 'at_session';
+    const tabLogin    = document.getElementById('tabLogin');
+    const tabReg      = document.getElementById('tabRegister');
+    const loginForm   = document.getElementById('loginForm');
+    const registerForm= document.getElementById('registerForm');
+    const authCard    = document.getElementById('authCard');
+    const dashboard   = document.getElementById('authDashboard');
+    const downloadHint= document.getElementById('authDownloadHint');
+    const toRegister  = document.getElementById('toRegister');
+    const toLogin     = document.getElementById('toLogin');
 
+    if (!authCard) return;
+
+    /* ── helpers ── */
+    function setErr(id, msg) {
+      const el = document.getElementById(id);
+      if (el) el.textContent = msg;
+    }
+    function clearErrs(...ids) { ids.forEach(id => setErr(id, '')); }
+    function markInvalid(input, show = true) {
+      if (!input) return;
+      input.classList.toggle('newsletter-error', show);
+    }
+
+    const RE_EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+    /* ── session ── */
+    function loadSession() {
+      try { return JSON.parse(localStorage.getItem(SESSION_KEY)); } catch { return null; }
+    }
+    function saveSession(data) { localStorage.setItem(SESSION_KEY, JSON.stringify(data)); }
+    function clearSession()    { localStorage.removeItem(SESSION_KEY); }
+
+    /* ── dashboard ── */
+    function showDashboard(user) {
+      authCard.style.display = 'none';
+      if (downloadHint) downloadHint.style.display = 'none';
+      if (dashboard) {
+        dashboard.style.display = '';
+        const nameEl   = document.getElementById('authDisplayName');
+        const avatarEl = document.getElementById('authAvatar');
+        if (nameEl)   nameEl.textContent   = user.username;
+        if (avatarEl) avatarEl.textContent  = user.username.charAt(0).toUpperCase();
+      }
+    }
+
+    function showAuthCard() {
+      authCard.style.display = '';
+      if (downloadHint) downloadHint.style.display = '';
+      if (dashboard) dashboard.style.display = 'none';
+    }
+
+    /* ── tabs ── */
     function showLogin() {
       if (!loginForm) return;
       tabLogin && tabLogin.classList.add('active');
-      tabReg && tabReg.classList.remove('active');
+      tabReg   && tabReg.classList.remove('active');
       loginForm.style.display = '';
       if (registerForm) registerForm.style.display = 'none';
     }
-
     function showRegister() {
       if (!registerForm) return;
-      tabReg && tabReg.classList.add('active');
+      tabReg   && tabReg.classList.add('active');
       tabLogin && tabLogin.classList.remove('active');
       registerForm.style.display = '';
       if (loginForm) loginForm.style.display = 'none';
     }
 
-    if (tabLogin) tabLogin.addEventListener('click', showLogin);
-    if (tabReg) tabReg.addEventListener('click', showRegister);
-    if (toRegister) toRegister.addEventListener('click', showRegister);
-    if (toLogin) toLogin.addEventListener('click', showLogin);
-    const authParams = new URLSearchParams(window.location.search);
-    const authTab = authParams.get('tab');
-    if (authTab === 'register') {
-      showRegister();
-    } else if (authTab === 'login') {
-      showLogin();
-    }
+    if (tabLogin)    tabLogin.addEventListener('click', showLogin);
+    if (tabReg)      tabReg.addEventListener('click', showRegister);
+    if (toRegister)  toRegister.addEventListener('click', showRegister);
+    if (toLogin)     toLogin.addEventListener('click', showLogin);
 
-    document.querySelectorAll('.auth-eye').forEach(eyeBtn => {
-      eyeBtn.addEventListener('click', () => {
-        const targetId = eyeBtn.getAttribute('data-eye');
-        const input = document.getElementById(targetId);
-        if (input) input.type = input.type === 'password' ? 'text' : 'password';
+    const authParams = new URLSearchParams(window.location.search);
+    if (authParams.get('tab') === 'register') showRegister();
+
+    /* ── password eye toggle ── */
+    document.querySelectorAll('.auth-eye').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const inp = document.getElementById(btn.getAttribute('data-eye'));
+        if (inp) inp.type = inp.type === 'password' ? 'text' : 'password';
       });
     });
 
-    const passInput = document.getElementById('regPass');
-    const strengthBar = document.getElementById('strengthBar');
-    const strengthLabel = document.getElementById('strengthLabel');
-
+    /* ── password strength ── */
+    const passInput    = document.getElementById('regPass');
+    const strengthBar  = document.getElementById('strengthBar');
+    const strengthLabel= document.getElementById('strengthLabel');
     if (passInput && strengthBar && strengthLabel) {
       passInput.addEventListener('input', () => {
         const v = passInput.value;
         let score = 0;
-        if (v.length >= 8) score++;
-        if (/[A-Z]/.test(v)) score++;
-        if (/[0-9]/.test(v)) score++;
-        if (/[^A-Za-z0-9]/.test(v)) score++;
-
-        const segs = strengthBar.querySelectorAll('.strength-seg');
-        const colors = ['#8b1a1a', '#c9601a', '#c9a84c', '#2d8a4e'];
-        const labels = ['Weak', 'Moderate', 'Strong', 'Unbreakable'];
-        segs.forEach((s, i) => { s.style.background = i < score ? colors[Math.min(score - 1, 3)] : 'rgba(255,255,255,0.08)'; });
-        strengthLabel.textContent = score > 0 ? labels[Math.min(score - 1, 3)] : 'Weak';
+        if (v.length >= 8)           score++;
+        if (/[A-Z]/.test(v))         score++;
+        if (/[0-9]/.test(v))         score++;
+        if (/[^A-Za-z0-9]/.test(v))  score++;
+        const segs   = strengthBar.querySelectorAll('.strength-seg');
+        const colors = ['#8b1a1a','#c9601a','#c9a84c','#2d8a4e'];
+        const labels = ['Weak','Moderate','Strong','Unbreakable'];
+        segs.forEach((s,i) => { s.style.background = i < score ? colors[Math.min(score-1,3)] : 'rgba(255,255,255,0.08)'; });
+        strengthLabel.textContent = score > 0 ? labels[Math.min(score-1,3)] : 'Weak';
       });
     }
 
+    /* ── social buttons (demo) ── */
+    document.querySelectorAll('.auth-social-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const name = btn.textContent.trim();
+        const fakeUser = { username: name + 'Warrior', method: name };
+        saveSession(fakeUser);
+        showDashboard(fakeUser);
+      });
+    });
+
+    /* ── login submit ── */
     if (loginForm) {
-      loginForm.addEventListener('submit', e => { e.preventDefault(); });
+      const userInp = document.getElementById('loginUser');
+      const passInp = document.getElementById('loginPass');
+      loginForm.addEventListener('submit', e => {
+        e.preventDefault();
+        clearErrs('loginUserErr','loginPassErr');
+        let valid = true;
+        if (!userInp || !userInp.value.trim()) {
+          setErr('loginUserErr', 'Enter your username or email.');
+          markInvalid(userInp);
+          valid = false;
+        } else { markInvalid(userInp, false); }
+        if (!passInp || !passInp.value) {
+          setErr('loginPassErr', 'Enter your password.');
+          markInvalid(passInp);
+          valid = false;
+        } else { markInvalid(passInp, false); }
+        if (!valid) return;
+
+        const user = { username: userInp.value.trim(), method: 'email' };
+        saveSession(user);
+        showDashboard(user);
+      });
+      [userInp, passInp].forEach(inp => {
+        if (inp) inp.addEventListener('input', () => {
+          markInvalid(inp, false);
+          clearErrs('loginUserErr','loginPassErr');
+        });
+      });
     }
+
+    /* ── register submit ── */
     if (registerForm) {
+      const regUser    = document.getElementById('regUser');
+      const regEmail   = document.getElementById('regEmail');
+      const regPass    = document.getElementById('regPass');
+      const regConfirm = document.getElementById('regConfirm');
+
       registerForm.addEventListener('submit', e => {
         e.preventDefault();
-        const pass    = document.getElementById('regPass');
-        const confirm = document.getElementById('regConfirm');
-        if (pass && confirm && pass.value !== confirm.value) {
-          confirm.classList.add('newsletter-error');
-          confirm.focus();
-          return;
-        }
-        if (confirm) confirm.classList.remove('newsletter-error');
+        clearErrs('regUserErr','regEmailErr','regPassErr','regConfirmErr');
+        let valid = true;
+
+        if (!regUser || regUser.value.trim().length < 3) {
+          setErr('regUserErr', 'Username must be at least 3 characters.');
+          markInvalid(regUser); valid = false;
+        } else { markInvalid(regUser, false); }
+
+        if (!regEmail || !RE_EMAIL.test(regEmail.value.trim())) {
+          setErr('regEmailErr', 'Enter a valid email address.');
+          markInvalid(regEmail); valid = false;
+        } else { markInvalid(regEmail, false); }
+
+        if (!regPass || regPass.value.length < 8) {
+          setErr('regPassErr', 'Password must be at least 8 characters.');
+          markInvalid(regPass); valid = false;
+        } else { markInvalid(regPass, false); }
+
+        if (regPass && regConfirm && regPass.value !== regConfirm.value) {
+          setErr('regConfirmErr', 'Passwords do not match.');
+          markInvalid(regConfirm); valid = false;
+        } else { markInvalid(regConfirm, false); }
+
+        if (!valid) return;
+
+        const user = { username: regUser.value.trim(), method: 'email' };
+        saveSession(user);
+        showDashboard(user);
+      });
+
+      [regUser, regEmail, regPass, regConfirm].forEach(inp => {
+        if (inp) inp.addEventListener('input', () => {
+          markInvalid(inp, false);
+          clearErrs('regUserErr','regEmailErr','regPassErr','regConfirmErr');
+        });
       });
     }
-    const regConfirmInput = document.getElementById('regConfirm');
-    if (regConfirmInput) {
-      regConfirmInput.addEventListener('input', () => regConfirmInput.classList.remove('newsletter-error'));
+
+    /* ── logout ── */
+    const logoutBtn = document.getElementById('authLogout');
+    if (logoutBtn) {
+      logoutBtn.addEventListener('click', () => {
+        clearSession();
+        showAuthCard();
+        showLogin();
+      });
+    }
+
+    /* ── init: restore session if exists ── */
+    const session = loadSession();
+    if (session && session.username) {
+      showDashboard(session);
     }
   })();
 
@@ -781,44 +905,60 @@
     });
   })();
 
-  /* ─── STAT BARS ANIMATION ────────────────────────────────────────────────── */
+  /* ─── STAT PIPS ──────────────────────────────────────────────────────────── */
   (function initStatBars() {
     const cards = document.querySelectorAll('.class-card-page[data-pwr][data-def][data-spd][data-mag][data-utl]');
     if (!cards.length) return;
 
-    const statKeys = ['pwr', 'def', 'spd', 'mag', 'utl'];
+    const statDefs = [
+      { key: 'pwr', color: '#e05c3a', glow: 'rgba(224,92,58,0.5)'  },
+      { key: 'def', color: '#5e8abf', glow: 'rgba(94,138,191,0.5)' },
+      { key: 'spd', color: '#4caf7d', glow: 'rgba(76,175,125,0.5)' },
+      { key: 'mag', color: '#9b6bc9', glow: 'rgba(155,107,201,0.5)'},
+      { key: 'utl', color: '#c9a84c', glow: 'rgba(201,168,76,0.5)' },
+    ];
 
-    function fillCard(card) {
+    function buildPips(card, animate) {
       if (card.dataset.statsAnimated === 'true') return;
-
-      statKeys.forEach(key => {
-        const fill = card.querySelector('.stat-fill[data-stat-key="' + key + '"]');
-        const raw = parseInt(card.dataset[key] || '0', 10);
-        const value = Math.max(0, Math.min(10, raw));
-        if (fill) fill.style.width = (value * 10) + '%';
-      });
-
       card.dataset.statsAnimated = 'true';
+
+      statDefs.forEach(({ key, color, glow }) => {
+        const container = card.querySelector('.stat-pips[data-stat-key="' + key + '"]');
+        if (!container) return;
+        const value = Math.max(0, Math.min(10, parseInt(card.dataset[key] || '0', 10)));
+        container.innerHTML = '';
+        for (let i = 0; i < 10; i++) {
+          const pip = document.createElement('span');
+          pip.className = 'stat-pip';
+          if (animate && i < value) {
+            setTimeout(() => {
+              pip.classList.add('filled');
+              pip.style.setProperty('--pip-color', color);
+              pip.style.setProperty('--pip-glow',  glow);
+            }, i * 40);
+          } else if (i < value) {
+            pip.classList.add('filled');
+            pip.style.setProperty('--pip-color', color);
+            pip.style.setProperty('--pip-glow',  glow);
+          }
+          container.appendChild(pip);
+        }
+      });
     }
 
     if (_prefersReducedMotion) {
-      cards.forEach(card => {
-        card.querySelectorAll('.stat-fill').forEach(fill => {
-          fill.style.transition = 'none';
-        });
-        fillCard(card);
-      });
+      cards.forEach(card => buildPips(card, false));
       return;
     }
 
     const obs = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          fillCard(entry.target);
+          buildPips(entry.target, true);
           obs.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.25 });
+    }, { threshold: 0.2 });
 
     cards.forEach(card => obs.observe(card));
   })();
