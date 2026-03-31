@@ -3,6 +3,9 @@
    Loaded via <script src="/assets/js/particles.js"> after main.js.  */
 (function () {
   'use strict';
+  var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var saveData = !!(navigator.connection && navigator.connection.saveData);
+  if (prefersReducedMotion || saveData) return;
   var canvas = document.getElementById('particle-canvas');
   if (!canvas) return;
   var ctx = canvas.getContext('2d'), particles = [], animFrame;
@@ -46,7 +49,8 @@
     ctx.beginPath(); ctx.arc(this.x, this.y, this.size * 3, 0, Math.PI * 2); ctx.fill();
   };
 
-  var count = Math.min(80, Math.floor(window.innerWidth / 15));
+  var lowPower = window.innerWidth < 768 || (navigator.deviceMemory && navigator.deviceMemory <= 4);
+  var count = Math.min(lowPower ? 48 : 80, Math.floor(window.innerWidth / (lowPower ? 22 : 15)));
   for (var i = 0; i < count; i++) {
     var p = new Particle();
     p.y = Math.random() * canvas.height;

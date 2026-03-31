@@ -14,9 +14,10 @@
   <ul class="nav-links">
     {%- for item in nav -%}
     {%- set _active = (item.slug == pageSlug) or (item.slug == "news" and _isNewsArticle) -%}
+    {%- set _current = _active or (item.href == page.url) -%}
     <li>
       <a href="{{ item.href }}"{% if _active %} class="active"{% endif %}
-        {% if item.href == page.url %} aria-current="page"{% endif %}>
+        {% if _current %} aria-current="page"{% endif %}>
         {{ item.label }}
       </a>
     </li>
@@ -55,8 +56,10 @@
 <div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Mobile navigation" aria-hidden="true">
   {%- for item in nav -%}
   {%- set _active = (item.slug == pageSlug) or (item.slug == "news" and _isNewsArticle) -%}
+  {%- set _current = _active or (item.href == page.url) -%}
   <a href="{{ item.href }}"
      {% if _active %} class="active"{% endif %}
+     {% if _current %} aria-current="page"{% endif %}
      onclick="closeMobile()">
     {{ item.label }}
   </a>

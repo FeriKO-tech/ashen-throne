@@ -50,19 +50,73 @@ ldJsonRaw: |
     <div class="wm-header">
       <div class="section-label reveal" style="justify-content:center;">The Known World</div>
       <h2 class="reveal reveal-delay-1">Explore the Shattered Realm</h2>
+      <p class="reveal reveal-delay-2">Select a region to surface its frontline status, faction pressure, and the prizes worth bleeding for.</p>
     </div>
 
     <div class="wm-container reveal" id="wmContainer">
       <div class="wm-tooltip" id="wmTooltip"></div>
-      <div class="wm-panel" id="wmPanel">
-        <button class="wm-close" id="wmClose" aria-label="Close">&times;</button>
-        <h3 id="wmName">Ashfeld</h3>
-        <span class="class-role" id="wmClass">Warden Territory</span>
-        <p id="wmLore"></p>
-        <a href="/classes.html" class="btn-primary" style="padding:0.75rem 1.1rem;font-size:0.65rem;display:inline-block;">Explore Classes &rarr;</a>
+      <div class="wm-panel active" id="wmPanel" aria-live="polite" aria-hidden="false" aria-labelledby="wmName" aria-describedby="wmLore">
+        <button class="wm-close" id="wmClose" type="button" aria-label="Close region briefing">&times;</button>
+        <div class="wm-panel-copy">
+          <div class="wm-kicker" id="wmKicker">Imperial heartland</div>
+          <h3 id="wmName">Ashfeld</h3>
+          <span class="class-role wm-faction-pill" id="wmClass">Ashen Crown Stronghold</span>
+          <div class="wm-status-line">
+            <span class="wm-status-dot" id="wmStatusDot" aria-hidden="true"></span>
+            <span id="wmStatus">Open War</span>
+          </div>
+          <p id="wmLore">The old empire's heart still smolders. Every faction wants its ruins, none can hold them, and every siege uncovers another relic worth killing over.</p>
+
+          <div class="wm-meters" aria-label="Region pressure meters">
+            <div class="wm-meter">
+              <span class="wm-meter-label">Danger</span>
+              <div class="wm-meter-track"><div class="wm-meter-fill" id="wmDangerBar"></div></div>
+              <strong class="wm-meter-value" id="wmDangerVal">8/10</strong>
+            </div>
+            <div class="wm-meter">
+              <span class="wm-meter-label">Faction Pressure</span>
+              <div class="wm-meter-track"><div class="wm-meter-fill" id="wmPressureBar"></div></div>
+              <strong class="wm-meter-value" id="wmPressureVal">9/10</strong>
+            </div>
+            <div class="wm-meter">
+              <span class="wm-meter-label">Resource Richness</span>
+              <div class="wm-meter-track"><div class="wm-meter-fill" id="wmRichesBar"></div></div>
+              <strong class="wm-meter-value" id="wmRichesVal">7/10</strong>
+            </div>
+          </div>
+
+          <div class="wm-facts">
+            <div class="wm-fact">
+              <span>Recommended Level</span>
+              <strong id="wmLevel">30-45</strong>
+            </div>
+            <div class="wm-fact">
+              <span>Dominant Force</span>
+              <strong id="wmControl">Ashen Crown</strong>
+            </div>
+            <div class="wm-fact">
+              <span>Prime Objective</span>
+              <strong id="wmObjective">Relic vault sieges</strong>
+            </div>
+            <div class="wm-fact">
+              <span>Signature Reward</span>
+              <strong id="wmReward">Throne shards</strong>
+            </div>
+          </div>
+
+          <div class="wm-tags" id="wmTags">
+            <span class="wm-tag">Siege warfare</span>
+            <span class="wm-tag">Relic vaults</span>
+            <span class="wm-tag">Guild lines</span>
+          </div>
+        </div>
+        <div class="wm-links">
+          <a href="/account.html?tab=register#authCard" class="btn-primary" id="wmPrimaryLink">Deploy to Ashfeld</a>
+          <a href="/lore.html" class="btn-ghost" id="wmSecondaryLink">Read the chronicles</a>
+        </div>
       </div>
 
-      <svg class="wm-map" viewBox="0 0 1000 620" xmlns="http://www.w3.org/2000/svg">
+      <svg class="wm-map" viewBox="60 40 880 540" xmlns="http://www.w3.org/2000/svg">
         <rect x="0" y="0" width="1000" height="620" fill="#050507"/>
         <path d="M150,80 Q200,40 320,60 Q450,30 560,70 Q680,50 780,90 Q860,120 880,200 Q910,280 870,360 Q840,440 780,490 Q700,540 600,560 Q500,580 400,560 Q300,550 220,500 Q140,450 110,360 Q80,270 100,180 Z" fill="#0d0c18" stroke="rgba(201,168,76,0.15)" stroke-width="1.5"/>
         <path d="M160,95 Q210,55 320,75 Q450,45 555,85 Q680,65 770,105 Q840,135 860,205 Q890,280 850,350 Q820,430 770,480 Q695,530 600,545 Q500,565 405,545 Q305,535 235,490 Q155,440 125,360 Q95,275 110,185 Z" fill="none" stroke="rgba(201,168,76,0.1)" stroke-width="1" stroke-dasharray="3 4"/>
@@ -76,40 +130,40 @@ ldJsonRaw: |
           <circle cx="300" cy="140" r="4"/><circle cx="315" cy="155" r="4"/><circle cx="330" cy="145" r="4"/><circle cx="345" cy="160" r="4"/>
           <circle cx="470" cy="420" r="4"/><circle cx="485" cy="435" r="4"/><circle cx="500" cy="425" r="4"/><circle cx="515" cy="440" r="4"/>
         </g>
-        <path class="wm-region" data-region="dreadmoors"  d="M140 220 L260 150 L330 230 L260 310 L160 300 Z" fill="rgba(80,10,10,0.08)"/>
-        <path class="wm-region" data-region="ashfeld"     d="M330 120 L520 90 L640 170 L520 240 L350 200 Z" fill="rgba(139,26,26,0.08)"/>
-        <path class="wm-region" data-region="umbralCoast" d="M640 170 L820 190 L820 330 L680 360 L520 240 Z" fill="rgba(100,50,150,0.08)"/>
-        <path class="wm-region" data-region="veilhaven"   d="M330 230 L520 240 L680 360 L520 420 L340 360 Z" fill="rgba(184,197,214,0.08)"/>
-        <path class="wm-region" data-region="pyremark"    d="M260 310 L340 360 L520 420 L520 520 L380 520 L260 470 L220 390 Z" fill="rgba(201,168,76,0.08)"/>
-        <path class="wm-region" data-region="voidrift"    d="M860 120 L915 145 L905 195 L850 175 Z" fill="rgba(60,20,80,0.08)"/>
-        <text x="200" y="250" font-family="Cinzel,serif" font-size="10" fill="rgba(232,223,200,0.5)">DREADMOORS</text>
-        <text x="430" y="170" font-family="Cinzel,serif" font-size="10" fill="rgba(232,223,200,0.5)">ASHFELD</text>
-        <text x="685" y="270" font-family="Cinzel,serif" font-size="10" fill="rgba(232,223,200,0.5)">UMBRAL COAST</text>
-        <text x="435" y="340" font-family="Cinzel,serif" font-size="10" fill="rgba(232,223,200,0.5)">VEILHAVEN</text>
-        <text x="295" y="430" font-family="Cinzel,serif" font-size="10" fill="rgba(232,223,200,0.5)">PYREMARK</text>
-        <text x="858" y="162" font-family="Cinzel,serif" font-size="10" fill="rgba(232,223,200,0.5)">VOIDRIFT</text>
+        <path class="wm-region" data-region="dreadmoors" tabindex="0" role="button" aria-pressed="false" aria-label="Open Dreadmoors region briefing" aria-controls="wmPanel" d="M140 220 L260 150 L330 230 L260 310 L160 300 Z" fill="rgba(80,10,10,0.08)"/>
+        <path class="wm-region" data-region="ashfeld" tabindex="0" role="button" aria-pressed="false" aria-label="Open Ashfeld region briefing" aria-controls="wmPanel" d="M330 120 L520 90 L640 170 L520 240 L350 200 Z" fill="rgba(139,26,26,0.08)"/>
+        <path class="wm-region" data-region="umbralCoast" tabindex="0" role="button" aria-pressed="false" aria-label="Open Umbral Coast region briefing" aria-controls="wmPanel" d="M640 170 L820 190 L820 330 L680 360 L520 240 Z" fill="rgba(100,50,150,0.08)"/>
+        <path class="wm-region" data-region="veilhaven" tabindex="0" role="button" aria-pressed="false" aria-label="Open Veilhaven region briefing" aria-controls="wmPanel" d="M330 230 L520 240 L680 360 L520 420 L340 360 Z" fill="rgba(184,197,214,0.08)"/>
+        <path class="wm-region" data-region="pyremark" tabindex="0" role="button" aria-pressed="false" aria-label="Open Pyremark region briefing" aria-controls="wmPanel" d="M260 310 L340 360 L520 420 L520 520 L380 520 L260 470 L220 390 Z" fill="rgba(201,168,76,0.08)"/>
+        <path class="wm-region" data-region="voidrift" tabindex="0" role="button" aria-pressed="false" aria-label="Open Voidrift region briefing" aria-controls="wmPanel" d="M860 120 L915 145 L905 195 L850 175 Z" fill="rgba(60,20,80,0.08)"/>
+        <text class="wm-map-label" data-region-label="dreadmoors" x="200" y="250" font-family="Cinzel,serif" font-size="10" fill="rgba(232,223,200,0.5)">DREADMOORS</text>
+        <text class="wm-map-label" data-region-label="ashfeld" x="430" y="170" font-family="Cinzel,serif" font-size="10" fill="rgba(232,223,200,0.5)">ASHFELD</text>
+        <text class="wm-map-label" data-region-label="umbralCoast" x="685" y="270" font-family="Cinzel,serif" font-size="10" fill="rgba(232,223,200,0.5)">UMBRAL COAST</text>
+        <text class="wm-map-label" data-region-label="veilhaven" x="435" y="340" font-family="Cinzel,serif" font-size="10" fill="rgba(232,223,200,0.5)">VEILHAVEN</text>
+        <text class="wm-map-label" data-region-label="pyremark" x="295" y="430" font-family="Cinzel,serif" font-size="10" fill="rgba(232,223,200,0.5)">PYREMARK</text>
+        <text class="wm-map-label" data-region-label="voidrift" x="858" y="162" font-family="Cinzel,serif" font-size="10" fill="rgba(232,223,200,0.5)">VOIDRIFT</text>
         <!-- Animated battle dots -->
-        <g class="wm-battle-group" style="animation-delay:0s">
+        <g class="wm-battle-group" data-region="ashfeld" style="animation-delay:0s">
           <circle class="wm-battle-ring" cx="460" cy="190" r="5" stroke="#c0392b" style="animation-delay:0s"/>
           <circle class="wm-battle-dot" cx="460" cy="190" r="4" fill="#e74c3c" style="animation-delay:0s"/>
         </g>
-        <g class="wm-battle-group" style="animation-delay:0.3s">
+        <g class="wm-battle-group" data-region="umbralCoast" style="animation-delay:0.3s">
           <circle class="wm-battle-ring" cx="700" cy="290" r="5" stroke="#c0392b" style="animation-delay:0.3s"/>
           <circle class="wm-battle-dot" cx="700" cy="290" r="4" fill="#e74c3c" style="animation-delay:0.3s"/>
         </g>
-        <g class="wm-battle-group" style="animation-delay:0.6s">
+        <g class="wm-battle-group" data-region="dreadmoors" style="animation-delay:0.6s">
           <circle class="wm-battle-ring" cx="200" cy="250" r="5" stroke="#c0392b" style="animation-delay:0.6s"/>
           <circle class="wm-battle-dot" cx="200" cy="250" r="4" fill="#e74c3c" style="animation-delay:0.6s"/>
         </g>
-        <g class="wm-battle-group" style="animation-delay:0.9s">
+        <g class="wm-battle-group" data-region="pyremark" style="animation-delay:0.9s">
           <circle class="wm-battle-ring" cx="540" cy="380" r="5" stroke="#c0392b" style="animation-delay:0.9s"/>
           <circle class="wm-battle-dot" cx="540" cy="380" r="4" fill="#e74c3c" style="animation-delay:0.9s"/>
         </g>
-        <g class="wm-battle-group" style="animation-delay:1.2s">
+        <g class="wm-battle-group" data-region="ashfeld" style="animation-delay:1.2s">
           <circle class="wm-battle-ring" cx="310" cy="170" r="5" stroke="#c0392b" style="animation-delay:1.2s"/>
           <circle class="wm-battle-dot" cx="310" cy="170" r="4" fill="#e74c3c" style="animation-delay:1.2s"/>
         </g>
-        <g class="wm-battle-group" style="animation-delay:1.5s">
+        <g class="wm-battle-group" data-region="voidrift" style="animation-delay:1.5s">
           <circle class="wm-battle-ring" cx="870" cy="155" r="5" stroke="#c0392b" style="animation-delay:1.5s"/>
           <circle class="wm-battle-dot" cx="870" cy="155" r="4" fill="#e74c3c" style="animation-delay:1.5s"/>
         </g>
@@ -118,6 +172,11 @@ ldJsonRaw: |
         <g class="wm-marker" data-tooltip="Guild Fort — Holds the line of conquest" style="animation-delay:0.8s;" transform="translate(250 300)"><g fill="none" stroke="rgba(201,168,76,0.6)" stroke-width="1.6" stroke-linejoin="round"><path d="M-7 8 V-6 H-4 V-2 H-1 V-6 H2 V-2 H5 V-6 H7 V8 Z"/></g></g>
         <g class="wm-marker" data-tooltip="Dungeon — Ash and flame below" style="animation-delay:1.2s;" transform="translate(600 450)"><path d="M0 -8 Q6 -2 2 4 Q4 9 0 12 Q-4 9 -2 4 Q-6 -2 0 -8" fill="none" stroke="rgba(201,168,76,0.6)" stroke-width="1.6"/></g>
         <g class="wm-marker" data-tooltip="World Boss — A second shadow stirs" style="animation-delay:1.6s;" transform="translate(180 200)"><g fill="none" stroke="rgba(201,168,76,0.6)" stroke-width="1.6"><circle cx="0" cy="-2" r="6"/><path d="M-5 5 Q0 10 5 5"/></g></g>
+        <g class="wm-marker" data-region="ashfeld" data-tooltip="Ashfeld flashpoint - Imperial siege lines collapse and reform nightly" style="animation-delay:0s;" transform="translate(500 200)"><g fill="none" stroke="rgba(201,168,76,0.6)" stroke-width="2" stroke-linecap="round"><path d="M-6 -6 L6 6"/><path d="M6 -6 L-6 6"/></g></g>
+        <g class="wm-marker" data-region="umbralCoast" data-tooltip="Umbral Coast world boss - Tidebound leviathan route" style="animation-delay:0.4s;" transform="translate(750 350)"><g fill="none" stroke="rgba(201,168,76,0.6)" stroke-width="1.6"><circle cx="0" cy="-2" r="6"/><path d="M-5 5 Q0 10 5 5"/></g></g>
+        <g class="wm-marker" data-region="dreadmoors" data-tooltip="Dreadmoors guild fort - Fog line breach under pressure" style="animation-delay:0.8s;" transform="translate(250 300)"><g fill="none" stroke="rgba(201,168,76,0.6)" stroke-width="1.6" stroke-linejoin="round"><path d="M-7 8 V-6 H-4 V-2 H-1 V-6 H2 V-2 H5 V-6 H7 V8 Z"/></g></g>
+        <g class="wm-marker" data-region="pyremark" data-tooltip="Pyremark dungeon - Magma vein descent is open" style="animation-delay:1.2s;" transform="translate(600 450)"><path d="M0 -8 Q6 -2 2 4 Q4 9 0 12 Q-4 9 -2 4 Q-6 -2 0 -8" fill="none" stroke="rgba(201,168,76,0.6)" stroke-width="1.6"/></g>
+        <g class="wm-marker" data-region="voidrift" data-tooltip="Voidrift anomaly - A second shadow stirs offshore" style="animation-delay:1.6s;" transform="translate(180 200)"><g fill="none" stroke="rgba(201,168,76,0.6)" stroke-width="1.6"><circle cx="0" cy="-2" r="6"/><path d="M-5 5 Q0 10 5 5"/></g></g>
       </svg>
     </div>
 
@@ -139,6 +198,39 @@ ldJsonRaw: |
         <span class="wm-legend-swatch" style="background:#e74c3c;" aria-hidden="true"></span>
         <span>Active Battle</span>
       </div>
+    </div>
+
+    <div class="wm-region-rail" id="wmRegionRail" role="list" aria-label="Regional command board">
+      <button class="wm-rail-card reveal" type="button" role="listitem" data-region-target="ashfeld">
+        <span class="wm-rail-code">AF-01</span>
+        <span class="wm-rail-name">Ashfeld</span>
+        <span class="wm-rail-meta">Open War - relic vault sieges</span>
+      </button>
+      <button class="wm-rail-card reveal reveal-delay-1" type="button" role="listitem" data-region-target="dreadmoors">
+        <span class="wm-rail-code">DM-02</span>
+        <span class="wm-rail-name">Dreadmoors</span>
+        <span class="wm-rail-meta">Cursed fog - Warden pressure</span>
+      </button>
+      <button class="wm-rail-card reveal reveal-delay-2" type="button" role="listitem" data-region-target="umbralCoast">
+        <span class="wm-rail-code">UC-03</span>
+        <span class="wm-rail-name">Umbral Coast</span>
+        <span class="wm-rail-meta">Smuggler ports - trade interdiction</span>
+      </button>
+      <button class="wm-rail-card reveal" type="button" role="listitem" data-region-target="veilhaven">
+        <span class="wm-rail-code">VH-04</span>
+        <span class="wm-rail-name">Veilhaven</span>
+        <span class="wm-rail-meta">Neutral city - contracts and spies</span>
+      </button>
+      <button class="wm-rail-card reveal reveal-delay-1" type="button" role="listitem" data-region-target="pyremark">
+        <span class="wm-rail-code">PR-05</span>
+        <span class="wm-rail-name">Pyremark</span>
+        <span class="wm-rail-meta">Magma front - ancient awakenings</span>
+      </button>
+      <button class="wm-rail-card reveal reveal-delay-2" type="button" role="listitem" data-region-target="voidrift">
+        <span class="wm-rail-code">VR-06</span>
+        <span class="wm-rail-name">Voidrift</span>
+        <span class="wm-rail-meta">Anomalies - voidborn dominion</span>
+      </button>
     </div>
   </div>
 </section>

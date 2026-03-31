@@ -4,10 +4,9 @@
   {% include "partials/seo-head.njk" %}
 </head>
 <body class="page-loading{{ (' ' + bodyClass) if bodyClass else '' }}">
-
 <div id="preloader" aria-hidden="true">
   <div class="pl-emblem">
-    <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width="90" height="90" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M50 5 L58 30 L85 30 L63 47 L72 75 L50 58 L28 75 L37 47 L15 30 L42 30Z" stroke="#c9a84c" stroke-width="1.5" fill="none" opacity="0.7"/>
       <circle cx="50" cy="50" r="30" stroke="#c9a84c" stroke-width="0.8" fill="none" opacity="0.35"/>
       <circle cx="50" cy="50" r="42" stroke="#c9a84c" stroke-width="0.5" fill="none" opacity="0.2"/>
@@ -24,7 +23,9 @@
 
 {% include "partials/nav.njk" %}
 
+<main id="main-content" tabindex="-1">
 {{ content | safe }}
+</main>
 
 <div class="section-divider"></div>
 

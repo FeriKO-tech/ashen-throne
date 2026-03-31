@@ -7,6 +7,18 @@
 
   /* ─── GLOBAL FLAGS ──────────────────────────────────────────────────────── */
   const _prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const _scrollBehavior = _prefersReducedMotion ? 'auto' : 'smooth';
+  function scrollToTarget(target) {
+    if (!target) return;
+    target.scrollIntoView({ behavior: _scrollBehavior, block: 'start' });
+  }
+  function shouldSkipPageTransition(link, href) {
+    if (!href || _prefersReducedMotion) return true;
+    if (href.startsWith('http') || href.startsWith('//') || href.startsWith('mailto:') || href.startsWith('tel:')) return true;
+    if (href.startsWith('#')) return true;
+    if (link.hasAttribute('target') || link.hasAttribute('download') || link.hasAttribute('data-no-transition')) return true;
+    return false;
+  }
 
   /* ─── PAGE LOAD & PRELOADER ─────────────────────────────────────────────── */
   (function initPageLoad() {
@@ -30,19 +42,30 @@
       }, 200);
 
       if (plEl) {
+        let preloaderFinished = false;
+
+        function finishPreloader() {
+          if (preloaderFinished) return;
+          preloaderFinished = true;
+          if (plBar) plBar.style.width = '100%';
+          setTimeout(() => {
+            plEl.classList.add('pl-done');
+            sessionStorage.setItem('at_pl_shown', '1');
+          }, _prefersReducedMotion ? 0 : 300);
+        }
+
         function plStep(now) {
+          if (preloaderFinished) return;
           const pct = Math.min((now - start) / DURATION * 100, 100);
           if (plBar) plBar.style.width = pct + '%';
           if (pct < 100) {
             requestAnimationFrame(plStep);
           } else {
-            setTimeout(() => {
-              plEl.classList.add('pl-done');
-              sessionStorage.setItem('at_pl_shown', '1');
-            }, _prefersReducedMotion ? 0 : 300);
+            finishPreloader();
           }
         }
         requestAnimationFrame(plStep);
+        setTimeout(finishPreloader, DURATION + (_prefersReducedMotion ? 50 : 1200));
       }
     }
   })();
@@ -58,26 +81,36 @@
     }, { passive: true });
   }
 
-  if (hamburger && mobileMenu) {
-    hamburger.addEventListener('click', () => {
-      const isOpen = mobileMenu.classList.toggle('active');
+  function setMobileMenuState(isOpen) {
+    if (hamburger) {
       hamburger.classList.toggle('active', isOpen);
       hamburger.setAttribute('aria-expanded', String(isOpen));
-      mobileMenu.setAttribute('aria-hidden',  String(!isOpen));
-      document.body.style.overflow = isOpen ? 'hidden' : '';
+      hamburger.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+    }
+    if (mobileMenu) {
+      mobileMenu.classList.toggle('active', isOpen);
+      mobileMenu.setAttribute('aria-hidden', String(!isOpen));
+    }
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  }
+
+  function toggleMobileMenu() {
+    if (!mobileMenu) return;
+    setMobileMenuState(!mobileMenu.classList.contains('active'));
+  }
+
+  if (hamburger && mobileMenu) {
+    hamburger.addEventListener('click', toggleMobileMenu);
+    hamburger.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggleMobileMenu();
+      }
     });
   }
 
   window.closeMobile = function () {
-    if (hamburger) {
-      hamburger.classList.remove('active');
-      hamburger.setAttribute('aria-expanded', 'false');
-    }
-    if (mobileMenu) {
-      mobileMenu.classList.remove('active');
-      mobileMenu.setAttribute('aria-hidden', 'true');
-    }
-    document.body.style.overflow = '';
+    setMobileMenuState(false);
   };
 
   /* ─── NAV ACTIVE PAGE STATE ──────────────────────────────────────────────── */
@@ -102,7 +135,7 @@
   const cursorEl = document.getElementById('cursor');
   const cursorDot = document.getElementById('cursor-dot');
 
-  if (cursorEl && cursorDot && window.matchMedia('(hover: hover)').matches) {
+  if (!_prefersReducedMotion && cursorEl && cursorDot && window.matchMedia('(hover: hover)').matches) {
     document.body.classList.add('has-custom-cursor');
     let cx = 0, cy = 0, tx = 0, ty = 0;
 
@@ -164,7 +197,7 @@
       }
     }, { passive: true });
 
-    backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: _scrollBehavior }));
   }
 
   /* ─── TRAILER MODAL ──────────────────────────────────────────────────────── */
@@ -198,27 +231,27 @@
   function scrollToSection(selector) {
     const target = document.querySelector(selector);
     if (!target) return;
-    if (pageTrans) {
+    if (pageTrans && !_prefersReducedMotion) {
       pageTrans.style.opacity = '0.6';
       pageTrans.style.pointerEvents = 'auto';
       setTimeout(() => {
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        scrollToTarget(target);
         setTimeout(() => {
           pageTrans.style.opacity = '0';
           pageTrans.style.pointerEvents = 'none';
         }, 300);
       }, 200);
     } else {
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      scrollToTarget(target);
     }
   }
 
   /* ─── PAGE NAVIGATION (cross-page links with blink) ─────────────────────── */
-  document.querySelectorAll('a[href]:not([href^="#"]):not([href^="mailto"]):not([href^="tel"])').forEach(link => {
+  document.querySelectorAll('a[href]').forEach(link => {
     const href = link.getAttribute('href');
-    if (!href || href.startsWith('http') || href.startsWith('//')) return;
     link.addEventListener('click', e => {
-      if (e.metaKey || e.ctrlKey || e.shiftKey) return;
+      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      if (shouldSkipPageTransition(link, href)) return;
       e.preventDefault();
       if (pageTrans) {
         pageTrans.style.opacity = '0.5';
@@ -281,6 +314,13 @@
     if (tabReg) tabReg.addEventListener('click', showRegister);
     if (toRegister) toRegister.addEventListener('click', showRegister);
     if (toLogin) toLogin.addEventListener('click', showLogin);
+    const authParams = new URLSearchParams(window.location.search);
+    const authTab = authParams.get('tab');
+    if (authTab === 'register') {
+      showRegister();
+    } else if (authTab === 'login') {
+      showLogin();
+    }
 
     document.querySelectorAll('.auth-eye').forEach(eyeBtn => {
       eyeBtn.addEventListener('click', () => {
@@ -660,14 +700,13 @@
 
   /* ─── SERVER STATUS TICKER ────────────────────────────────────────────────── */
   (function initServerStatus() {
-    const el = document.getElementById('srvPlayers');
+    const el = document.getElementById('playersCount');
     if (!el) return;
-    let base = 1247;
-    function update() {
-      base = Math.max(800, Math.min(2000, base + Math.round((Math.random() - 0.5) * 100)));
-      el.textContent = base.toLocaleString();
-    }
-    setInterval(update, 8000);
+    const base = 1247;
+    setInterval(() => {
+      const delta = Math.floor(Math.random() * 61) - 30;
+      el.textContent = (base + delta).toLocaleString();
+    }, 8000);
   })();
 
   /* ─── SHOP FEATURED DEAL — 72 h COUNTDOWN ────────────────────────────────── */
@@ -696,6 +735,7 @@
 
   /* ─── FLY-TO-CART ANIMATION ──────────────────────────────────────────────── */
   (function initFlyToCart() {
+    if (_prefersReducedMotion) return;
     const cartTrigger = document.getElementById('cartTrigger');
     document.addEventListener('click', e => {
       const btn = e.target.closest('[data-add-to-cart]');
@@ -729,13 +769,30 @@
 
   /* ─── STAT BARS ANIMATION ────────────────────────────────────────────────── */
   (function initStatBars() {
-    const bars = document.querySelectorAll('.stat-bar-fill[data-pct]');
-    if (!bars.length) return;
+    const cards = document.querySelectorAll('.class-card-page[data-pwr][data-def][data-spd][data-mag][data-utl]');
+    if (!cards.length) return;
+
+    const statKeys = ['pwr', 'def', 'spd', 'mag', 'utl'];
+
+    function fillCard(card) {
+      if (card.dataset.statsAnimated === 'true') return;
+
+      statKeys.forEach(key => {
+        const fill = card.querySelector('.stat-fill[data-stat-key="' + key + '"]');
+        const raw = parseInt(card.dataset[key] || '0', 10);
+        const value = Math.max(0, Math.min(10, raw));
+        if (fill) fill.style.width = (value * 10) + '%';
+      });
+
+      card.dataset.statsAnimated = 'true';
+    }
 
     if (_prefersReducedMotion) {
-      bars.forEach(b => {
-        b.style.transition = 'none';
-        b.style.width = (b.getAttribute('data-pct') || '0') + '%';
+      cards.forEach(card => {
+        card.querySelectorAll('.stat-fill').forEach(fill => {
+          fill.style.transition = 'none';
+        });
+        fillCard(card);
       });
       return;
     }
@@ -743,18 +800,383 @@
     const obs = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          const el  = entry.target;
-          const pct = parseInt(el.getAttribute('data-pct') || '0', 10);
-          el.style.width = pct + '%';
-          obs.unobserve(el);
+          fillCard(entry.target);
+          obs.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.1 });
+    }, { threshold: 0.25 });
 
-    bars.forEach(b => obs.observe(b));
+    cards.forEach(card => obs.observe(card));
   })();
 
   /* ─── NEWSLETTER VALIDATION ───────────────────────────────────────────────── */
+  (function initWorldMap() {
+    const panel = document.getElementById('wmPanel');
+    const tooltip = document.getElementById('wmTooltip');
+    const container = document.getElementById('wmContainer');
+    const closeBtn = document.getElementById('wmClose');
+    if (!panel || !container) return;
+
+    const regions = Array.from(document.querySelectorAll('.wm-region[data-region]'));
+    const markers = Array.from(document.querySelectorAll('.wm-marker[data-region]'));
+    const battles = Array.from(document.querySelectorAll('.wm-battle-group[data-region]'));
+    const labels = Array.from(document.querySelectorAll('.wm-map-label[data-region-label]'));
+    const railCards = Array.from(document.querySelectorAll('.wm-rail-card[data-region-target]'));
+
+    const panelEls = {
+      kicker: document.getElementById('wmKicker'),
+      name: document.getElementById('wmName'),
+      faction: document.getElementById('wmClass'),
+      status: document.getElementById('wmStatus'),
+      statusDot: document.getElementById('wmStatusDot'),
+      lore: document.getElementById('wmLore'),
+      dangerBar: document.getElementById('wmDangerBar'),
+      dangerVal: document.getElementById('wmDangerVal'),
+      pressureBar: document.getElementById('wmPressureBar'),
+      pressureVal: document.getElementById('wmPressureVal'),
+      richesBar: document.getElementById('wmRichesBar'),
+      richesVal: document.getElementById('wmRichesVal'),
+      level: document.getElementById('wmLevel'),
+      control: document.getElementById('wmControl'),
+      objective: document.getElementById('wmObjective'),
+      reward: document.getElementById('wmReward'),
+      tags: document.getElementById('wmTags'),
+      primaryLink: document.getElementById('wmPrimaryLink'),
+      secondaryLink: document.getElementById('wmSecondaryLink')
+    };
+
+    const regionData = {
+      ashfeld: {
+        name: 'Ashfeld',
+        kicker: 'Imperial heartland',
+        faction: 'Ashen Crown Stronghold',
+        status: 'Open War',
+        statusColor: '#c9a84c',
+        lore: 'The empire died here but its vaults still breathe. Every siege uncovers old machinery, broken relics, and another reason for guilds to burn the field again before dawn.',
+        danger: 8,
+        pressure: 9,
+        riches: 7,
+        level: '30-45',
+        control: 'Ashen Crown',
+        objective: 'Relic vault sieges',
+        reward: 'Throne shards',
+        tags: ['Siege warfare', 'Relic vaults', 'Guild lines'],
+        primaryText: 'Deploy to Ashfeld',
+        primaryHref: '/account.html?tab=register#authCard',
+        secondaryText: 'Read the chronicles',
+        secondaryHref: '/lore.html',
+        tooltip: 'Ashfeld front - Imperial siege lines collapse and reform nightly'
+      },
+      dreadmoors: {
+        name: 'Dreadmoors',
+        kicker: 'Fog-choked borderland',
+        faction: 'Warden Orders',
+        status: 'Containment Breaking',
+        statusColor: '#7b8a69',
+        lore: 'Wardens still hold the old marsh roads, but the curse in the reeds is learning new names. Patrols vanish, forts sink, and every retreat leaves the fog stronger.',
+        danger: 7,
+        pressure: 6,
+        riches: 5,
+        level: '20-35',
+        control: 'Warden orders',
+        objective: 'Hold the fog line',
+        reward: 'Cursed marrow',
+        tags: ['Fort defense', 'Hexed beasts', 'Warden patrols'],
+        primaryText: 'Scout the marsh lines',
+        primaryHref: '/classes.html',
+        secondaryText: 'Track frontline updates',
+        secondaryHref: '/news.html',
+        tooltip: 'Dreadmoors breach - Fog line defenses are under pressure'
+      },
+      umbralCoast: {
+        name: 'Umbral Coast',
+        kicker: 'Black-salt shoreline',
+        faction: 'Iron Compact Armada',
+        status: 'Trade War',
+        statusColor: '#b8c5d6',
+        lore: 'Smuggler fleets and contracted warbands trade cannon fire under drowned moonlight. Whoever controls these harbors decides which faction eats, arms, and survives the next campaign.',
+        danger: 6,
+        pressure: 8,
+        riches: 8,
+        level: '28-42',
+        control: 'Iron Compact',
+        objective: 'Break the smuggler toll',
+        reward: 'Black-salt cargo',
+        tags: ['Harbor raids', 'Leviathan hunts', 'Naval routes'],
+        primaryText: 'View naval classes',
+        primaryHref: '/classes.html',
+        secondaryText: 'Read war dispatches',
+        secondaryHref: '/news.html',
+        tooltip: 'Umbral Coast raid - Tidebound leviathan routes are active'
+      },
+      veilhaven: {
+        name: 'Veilhaven',
+        kicker: 'Neutral city of knives',
+        faction: 'Neutral Charter',
+        status: 'Contract Season',
+        statusColor: '#d1d7de',
+        lore: 'Veilhaven sells shelter, information, and betrayal in equal measure. Assassins, quartermasters, and exiles all meet under its lanterns because no faction can afford to lose the city outright.',
+        danger: 5,
+        pressure: 7,
+        riches: 9,
+        level: '18-40',
+        control: 'Neutral charter',
+        objective: 'Broker contracts',
+        reward: 'Spyglass contracts',
+        tags: ['Espionage', 'Merchant webs', 'Faction diplomacy'],
+        primaryText: 'Enter the black market',
+        primaryHref: '/shop.html',
+        secondaryText: 'Study the lore',
+        secondaryHref: '/lore.html',
+        tooltip: 'Veilhaven network - Contracts shift power without open war'
+      },
+      pyremark: {
+        name: 'Pyremark',
+        kicker: 'Magma frontier',
+        faction: 'Dreadknight Clans',
+        status: 'Cataclysm Rising',
+        statusColor: '#d77d38',
+        lore: 'The mountain range is waking up. Dreadknight clans mine its veins, cults descend into its furnaces, and every eruption reveals another dungeon no sane scout wanted found.',
+        danger: 9,
+        pressure: 7,
+        riches: 9,
+        level: '35-50',
+        control: 'Dreadknight clans',
+        objective: 'Descend the magma veins',
+        reward: 'Volcanic ore',
+        tags: ['Dungeon delves', 'Forge raids', 'Magma storms'],
+        primaryText: 'Prepare your build',
+        primaryHref: '/download.html#system-requirements',
+        secondaryText: 'Study Pyremark lore',
+        secondaryHref: '/lore.html',
+        tooltip: 'Pyremark descent - Magma vein access is open'
+      },
+      voidrift: {
+        name: 'Voidrift',
+        kicker: 'Anomaly horizon',
+        faction: 'Voidborn Dominion',
+        status: 'Reality Failing',
+        statusColor: '#8f6bda',
+        lore: 'Nothing in Voidrift stays finished. Shorelines peel away into shadow, beasts arrive from the wrong stars, and every expedition returns with fewer answers than bodies.',
+        danger: 10,
+        pressure: 8,
+        riches: 6,
+        level: '40-60',
+        control: 'Voidborn',
+        objective: 'Survive the anomaly line',
+        reward: 'Fractured void sigils',
+        tags: ['Anomaly storms', 'Void incursions', 'Endgame hunts'],
+        primaryText: 'Register for the war',
+        primaryHref: '/account.html?tab=register#authCard',
+        secondaryText: 'Open support briefings',
+        secondaryHref: '/support.html',
+        tooltip: 'Voidrift anomaly - A second shadow stirs offshore'
+      }
+    };
+
+    panel.setAttribute('tabindex', '-1');
+    let activeRegion = '';
+    let lastActivator = null;
+
+    function isCompactWorldMap() {
+      return window.innerWidth <= 900;
+    }
+
+    function syncPanelMode() {
+      if (!isCompactWorldMap()) {
+        panel.classList.add('active');
+        panel.setAttribute('aria-hidden', 'false');
+      }
+    }
+
+    function setMeter(fillEl, valueEl, rawValue) {
+      const value = Math.max(0, Math.min(10, Number(rawValue) || 0));
+      if (fillEl) fillEl.style.width = value * 10 + '%';
+      if (valueEl) valueEl.textContent = value + '/10';
+    }
+
+    function renderTags(tags) {
+      if (!panelEls.tags) return;
+      panelEls.tags.innerHTML = '';
+      tags.forEach(tag => {
+        const pill = document.createElement('span');
+        pill.className = 'wm-tag';
+        pill.textContent = tag;
+        panelEls.tags.appendChild(pill);
+      });
+    }
+
+    function updateHash(key) {
+      if (!window.history || !window.history.replaceState) return;
+      window.history.replaceState(null, '', window.location.pathname + window.location.search + '#' + key);
+    }
+
+    function setTooltipPosition(event) {
+      if (!tooltip || typeof event.clientX !== 'number' || typeof event.clientY !== 'number') return;
+      const rect = container.getBoundingClientRect();
+      tooltip.style.left = event.clientX - rect.left + 'px';
+      tooltip.style.top = event.clientY - rect.top - 12 + 'px';
+    }
+
+    function showTooltip(text, event) {
+      if (!tooltip || !text) return;
+      tooltip.textContent = text;
+      tooltip.classList.add('visible');
+      if (event) setTooltipPosition(event);
+    }
+
+    function hideTooltip() {
+      if (tooltip) tooltip.classList.remove('visible');
+    }
+
+    function activateRegion(key, shouldFocusPanel, shouldSyncHash) {
+      const resolvedKey = regionData[key] ? key : 'ashfeld';
+      const data = regionData[resolvedKey];
+      activeRegion = resolvedKey;
+
+      panel.classList.add('active');
+      panel.setAttribute('aria-hidden', 'false');
+      panel.style.setProperty('--wm-accent', data.statusColor || '#c9a84c');
+
+      if (panelEls.kicker) panelEls.kicker.textContent = data.kicker;
+      if (panelEls.name) panelEls.name.textContent = data.name;
+      if (panelEls.faction) panelEls.faction.textContent = data.faction;
+      if (panelEls.status) panelEls.status.textContent = data.status;
+      if (panelEls.statusDot) panelEls.statusDot.style.background = data.statusColor || '#c9a84c';
+      if (panelEls.lore) panelEls.lore.textContent = data.lore;
+      if (panelEls.level) panelEls.level.textContent = data.level;
+      if (panelEls.control) panelEls.control.textContent = data.control;
+      if (panelEls.objective) panelEls.objective.textContent = data.objective;
+      if (panelEls.reward) panelEls.reward.textContent = data.reward;
+      if (panelEls.primaryLink) {
+        panelEls.primaryLink.textContent = data.primaryText;
+        panelEls.primaryLink.setAttribute('href', data.primaryHref);
+      }
+      if (panelEls.secondaryLink) {
+        panelEls.secondaryLink.textContent = data.secondaryText;
+        panelEls.secondaryLink.setAttribute('href', data.secondaryHref);
+      }
+
+      setMeter(panelEls.dangerBar, panelEls.dangerVal, data.danger);
+      setMeter(panelEls.pressureBar, panelEls.pressureVal, data.pressure);
+      setMeter(panelEls.richesBar, panelEls.richesVal, data.riches);
+      renderTags(data.tags || []);
+
+      regions.forEach(region => {
+        const isActive = region.dataset.region === resolvedKey;
+        region.classList.toggle('wm-active', isActive);
+        region.setAttribute('aria-pressed', String(isActive));
+      });
+
+      markers.forEach(marker => {
+        marker.classList.toggle('wm-marker-active', marker.dataset.region === resolvedKey);
+      });
+
+      battles.forEach(group => {
+        group.classList.toggle('wm-battle-group-active', group.dataset.region === resolvedKey);
+      });
+
+      labels.forEach(label => {
+        label.classList.toggle('active', label.dataset.regionLabel === resolvedKey);
+      });
+
+      railCards.forEach(card => {
+        const isActive = card.dataset.regionTarget === resolvedKey;
+        card.classList.toggle('active', isActive);
+        card.setAttribute('aria-pressed', String(isActive));
+      });
+
+      if (shouldSyncHash !== false) updateHash(resolvedKey);
+
+      if (shouldFocusPanel) {
+        if (isCompactWorldMap()) scrollToTarget(panel);
+        if (typeof panel.focus === 'function') {
+          try {
+            panel.focus({ preventScroll: true });
+          } catch (error) {
+            panel.focus();
+          }
+        }
+      }
+    }
+
+    regions.forEach(region => {
+      const key = region.dataset.region;
+      const data = regionData[key];
+
+      region.addEventListener('click', () => {
+        lastActivator = region;
+        activateRegion(key, true, true);
+      });
+      region.addEventListener('keydown', event => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          lastActivator = region;
+          activateRegion(key, true, true);
+        }
+      });
+      region.addEventListener('mouseenter', event => showTooltip(data && data.tooltip, event));
+      region.addEventListener('mousemove', setTooltipPosition);
+      region.addEventListener('mouseleave', hideTooltip);
+      region.addEventListener('focus', () => activateRegion(key, false, false));
+    });
+
+    markers.forEach(marker => {
+      const key = marker.dataset.region;
+      marker.addEventListener('click', () => {
+        lastActivator = marker;
+        activateRegion(key, true, true);
+      });
+      marker.addEventListener('mouseenter', event => showTooltip(marker.dataset.tooltip || (regionData[key] && regionData[key].tooltip), event));
+      marker.addEventListener('mousemove', setTooltipPosition);
+      marker.addEventListener('mouseleave', hideTooltip);
+    });
+
+    railCards.forEach(card => {
+      card.setAttribute('aria-pressed', 'false');
+      card.setAttribute('aria-controls', 'wmPanel');
+      card.addEventListener('click', () => {
+        lastActivator = card;
+        activateRegion(card.dataset.regionTarget, true, true);
+      });
+    });
+
+    if (closeBtn) {
+      closeBtn.addEventListener('click', () => {
+        if (!isCompactWorldMap()) return;
+        panel.classList.remove('active');
+        panel.setAttribute('aria-hidden', 'true');
+        hideTooltip();
+        if (lastActivator && typeof lastActivator.focus === 'function') {
+          lastActivator.focus();
+        }
+      });
+    }
+
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && activeRegion && panel.classList.contains('active')) {
+        if (!isCompactWorldMap()) return;
+        panel.classList.remove('active');
+        panel.setAttribute('aria-hidden', 'true');
+        hideTooltip();
+        if (lastActivator && typeof lastActivator.focus === 'function') {
+          lastActivator.focus();
+        }
+      }
+    });
+
+    window.addEventListener('hashchange', () => {
+      const hashKey = window.location.hash.replace('#', '');
+      if (regionData[hashKey]) activateRegion(hashKey, false, false);
+    });
+
+    window.addEventListener('resize', syncPanelMode);
+
+    const initialHash = window.location.hash.replace('#', '');
+    syncPanelMode();
+    activateRegion(regionData[initialHash] ? initialHash : 'ashfeld', false, false);
+  })();
+
   (function initNewsletter() {
     const form    = document.getElementById('newsletterForm');
     const input   = document.getElementById('newsletterEmail');
