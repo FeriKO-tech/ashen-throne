@@ -5,22 +5,22 @@
 
 /* ─── VARIABLES & RESET ─────────────────────────────────────────────────── */
 :root {
-  --bg-void: #050507;
-  --bg-surface: #0d0c14;
-  --bg-card: #0f0e18;
-  --bg-section-alt: #0e0d1a;
-  --bg-card-hover: #161525;
+  --bg-void: #0d0c18;
+  --bg-surface: #161428;
+  --bg-card: #1c1a2e;
+  --bg-section-alt: #17162a;
+  --bg-card-hover: #211f35;
   --accent-gold: #c9a84c;
   --accent-gold-light: #e4c96a;
   --accent-blood: #8b1a1a;
   --accent-blood-light: #b52a2a;
   --accent-steel: #b8c5d6;
-  --glow-gold: rgba(201,168,76,0.4);
+  --glow-gold: rgba(201,168,76,0.45);
   --glow-blood: rgba(139,26,26,0.4);
-  --border-glow: rgba(201,168,76,0.25);
-  --text-primary: #e8dfc8;
-  --text-muted: #9a9088;
-  --text-dim: #6a6560;
+  --border-glow: rgba(201,168,76,0.3);
+  --text-primary: #ede4cc;
+  --text-muted: #b0a898;
+  --text-dim: #857e78;
   --font-display: 'Cinzel Decorative', 'Cinzel', serif;
   --font-heading: 'Cinzel', serif;
   --font-body: 'Cormorant Garamond', serif;
@@ -68,7 +68,7 @@ img { max-width: 100%; display: block; }
 }
 
 .nav.scrolled {
-  background: rgba(8,7,18,0.92);
+  background: rgba(14,13,26,0.94);
   backdrop-filter: blur(20px) saturate(1.5);
   -webkit-backdrop-filter: blur(20px) saturate(1.5);
   padding: 0.75rem 2rem;
@@ -2553,33 +2553,27 @@ button:focus-visible,
   margin-bottom: 0;
 }
 .stat-label {
-  font-family: var(--font-ui);
-  font-size: 0.5rem;
-  letter-spacing: 0.12em;
-  color: var(--text-dim);
-  width: 52px;
-  flex-shrink: 0;
-  text-transform: uppercase;
+  display: none;
 }
 .stat-pips {
   display: flex;
-  gap: 3px;
+  gap: 4px;
   align-items: center;
   flex: 1;
 }
 .stat-pip {
-  width: 7px;
-  height: 7px;
+  width: 9px;
+  height: 9px;
   transform: rotate(45deg);
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(201,168,76,0.1);
+  border: 1px solid rgba(201,168,76,0.22);
   flex-shrink: 0;
   transition: background 0.35s, border-color 0.35s, box-shadow 0.35s;
 }
 .stat-pip.filled {
   background: var(--pip-color, #c9a84c);
   border-color: var(--pip-color, #c9a84c);
-  box-shadow: 0 0 5px var(--pip-glow, rgba(201,168,76,0.45));
+  box-shadow: 0 0 7px var(--pip-glow, rgba(201,168,76,0.55));
 }
 
 /* Per-class accent colours via data attribute */
