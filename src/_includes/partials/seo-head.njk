@@ -116,10 +116,28 @@ if (/Lighthouse|Googlebot|Chrome-Lighthouse|Speed Insights|GTmetrix|Pingdom/i.te
 <link rel="preload" as="image" href="{{ preloadImage }}" fetchpriority="high">
 {%- endif %}
 
-{# ── Shared stylesheet ───────────────────────────────────────────────────── #}
+{# ── Minimal Critical CSS ────────────────────────────────────────────────── #}
 <style>
-{% inlineCSS "assets/css/style.min.css" %}
+body { background: #0d0c18; color: #ede4cc; margin: 0; padding: 0; font-family: 'Cormorant Garamond', serif; }
+* { box-sizing: border-box; }
+.hero { height: 100vh; min-height: 700px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+.hero-content { position: relative; z-index: 5; text-align: center; padding: 0 2rem; width: 100%; }
+.hero-title { font-family: 'Cinzel Decorative', serif; font-size: clamp(2.5rem, 7vw, 5.5rem); font-weight: 900; color: #e4c96a; letter-spacing: 0.1em; line-height: 1.1; margin: 0; text-shadow: 0 0 60px rgba(201,168,76,0.45); }
+.hero-tagline { font-size: clamp(1rem, 2.5vw, 1.5rem); margin-top: 1rem; color: #b0a898; font-style: italic; font-weight: 300; letter-spacing: 0.1em; }
+.hero-emblem { width: 80px; height: 80px; margin: 0 auto 1.5rem; }
+.hero-buttons { display: flex; gap: 1.5rem; justify-content: center; margin-top: 2.5rem; flex-wrap: wrap; }
+.btn-primary, .btn-ghost { font-family: 'Cinzel', serif; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; padding: 1rem 2.5rem; display: inline-block; text-decoration: none; border-radius: 2px; border: 1px solid transparent; }
+.btn-primary { background: linear-gradient(135deg, #c9a84c, #b8952e); color: #0d0c18; }
+.btn-ghost { border-color: rgba(184,197,214,0.3); color: #b8c5d6; }
+.hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 140% 90% at 50% 10%, rgba(139,26,26,0.22) 0%, transparent 55%), radial-gradient(ellipse 60% 40% at 15% 85%, rgba(201,168,76,0.10) 0%, transparent 50%), radial-gradient(ellipse 50% 50% at 85% 75%, rgba(139,26,26,0.13) 0%, transparent 50%), radial-gradient(ellipse 80% 60% at 50% 40%, rgba(10,8,20,0.6) 0%, transparent 80%), linear-gradient(170deg, #07060f 0%, #050507 45%, #080610 100%); }
+.hero-bg::before { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 0%, transparent 55%, #0d0c18 100%), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"); background-size: auto, 400px 400px; z-index: 1; }
+.nav { display: none; /* Hide nav until full CSS loads to prevent shifting */ }
 </style>
+
+{# ── Shared stylesheet (Async for PageSpeed) ─────────────────────────────── #}
+<link rel="preload" href="/assets/css/style.min.css?v=5" as="style">
+<link rel="stylesheet" href="/assets/css/style.min.css?v=5" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="/assets/css/style.min.css?v=5"></noscript>
 
 {# ── Page-specific inline CSS ────────────────────────────────────────────── #}
 {%- if pageStyles %}
