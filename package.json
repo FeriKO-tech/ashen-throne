@@ -4,15 +4,17 @@
   "description": "Ashen Throne — Dark Fantasy MMORPG static site built with Eleventy + Nunjucks",
   "private": true,
   "scripts": {
-    "dev":   "eleventy --serve --port=3000",
-    "build": "eleventy",
+    "dev": "eleventy --serve --port=3000",
+    "build": "npx clean-css-cli assets/css/style.css -o assets/css/style.min.css && eleventy",
     "clean": "rimraf _site"
   },
   "dependencies": {
     "@11ty/eleventy": "^2.0.1"
   },
   "devDependencies": {
-    "rimraf": "^5.0.5"
+    "clean-css-cli": "^5.6.3",
+    "rimraf": "^5.0.5",
+    "sharp": "^0.34.5"
   },
   "engines": {
     "node": ">=18.0.0"

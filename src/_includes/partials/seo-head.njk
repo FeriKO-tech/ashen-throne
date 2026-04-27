@@ -61,10 +61,8 @@
 <meta name="twitter:image"       content="{{ _ogImage }}">
 
 {# ── Favicons & App Icons ────────────────────────────────────────────────── #}
-<link rel="icon"             href="/favicon.ico"         sizes="any">
-<link rel="icon"             href="/favicon.svg"         type="image/svg+xml">
-<link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="manifest"         href="{{ site.manifest }}">
+<link rel="icon"             href="/assets/images/favicon.png" type="image/png">
+<link rel="manifest"         href="/site.webmanifest">
 
 {# ── Structured Data (LD+JSON) ───────────────────────────────────────────── #}
 <script type="application/ld+json">
@@ -102,7 +100,9 @@
 {%- endif %}
 
 {# ── Shared stylesheet ───────────────────────────────────────────────────── #}
-<link rel="stylesheet" href="/assets/css/style.css?v=4">
+<style>
+{% inlineCSS "assets/css/style.min.css" %}
+</style>
 
 {# ── Page-specific inline CSS ────────────────────────────────────────────── #}
 {%- if pageStyles %}

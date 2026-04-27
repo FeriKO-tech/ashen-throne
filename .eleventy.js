@@ -55,6 +55,17 @@ module.exports = function (eleventyConfig) {
   // {% year %} → current year (for footer copyright)
   eleventyConfig.addShortcode("year", () => String(new Date().getFullYear()));
 
+  // Inline CSS
+  const fs = require("fs");
+  eleventyConfig.addShortcode("inlineCSS", function(path) {
+    try {
+      return fs.readFileSync(path, "utf8");
+    } catch(e) {
+      console.error("Error reading inline CSS", e);
+      return "";
+    }
+  });
+
   /* ── Eleventy configuration ─────────────────────────────────── */
   return {
     dir: {

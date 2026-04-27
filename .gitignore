@@ -1,1 +1,3 @@
-_site/\nnode_modules/
+_site/
+node_modules/
+.firebase/

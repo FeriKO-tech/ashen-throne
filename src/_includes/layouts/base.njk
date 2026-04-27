@@ -21,6 +21,7 @@
 <div id="cursor"></div>
 <div id="cursor-dot"></div>
 
+<a href="#main-content" class="skip-link">Skip to main content</a>
 {% include "partials/nav.njk" %}
 
 <main id="main-content" tabindex="-1">
@@ -39,7 +40,7 @@
   </svg>
 </button>
 
-<script src="/assets/js/main.js" defer></script>
+<script src="/assets/js/main.min.js" defer></script>
 {%- if pageScripts %}
 {%- for src in pageScripts %}
 <script src="{{ src }}" defer></script>

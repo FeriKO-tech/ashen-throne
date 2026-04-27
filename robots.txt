@@ -1,5 +1,5 @@
 # Ashen Throne — robots.txt
-# https://www.ashenthrone.com/
+# https://ashen-throne.web.app/
 # Ironveil Studios
 
 User-agent: *
@@ -25,4 +25,4 @@ Disallow: /
 User-agent: DotBot
 Disallow: /
 
-Sitemap: https://www.ashenthrone.com/sitemap.xml
+Sitemap: https://ashen-throne.web.app/sitemap.xml

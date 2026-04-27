@@ -1,8 +1,8 @@
 module.exports = {
   name:         "Ashen Throne",
   tagline:      "Forge Your Legend in a World of War and Ash",
-  url:          "https://www.ashenthrone.com",
-  ogImage:      "https://www.ashenthrone.com/assets/og-cover.jpg",
+  url:          "https://ashen-throne.web.app",
+  ogImage:      "https://ashen-throne.web.app/assets/og-cover.png",
   ogImageAlt:   "Ashen Throne — Dark Fantasy MMORPG by Ironveil Studios",
   twitterHandle:"@AshenThroneMMO",
   twitterCreator:"@IronveilStudios",

@@ -1,0 +1,16 @@
+{
+  "name": "Ashen Throne",
+  "short_name": "Ashen Throne",
+  "description": "Dark Fantasy MMORPG — Forge Your Legend in a World of War and Ash",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#050507",
+  "background_color": "#050507",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "any"
+    }
+  ]
+}

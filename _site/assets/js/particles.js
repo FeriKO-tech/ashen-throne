@@ -57,23 +57,33 @@
     particles.push(p);
   }
 
-  function animate() {
+  var lastTime = 0;
+  function animate(time) {
+    animFrame = requestAnimationFrame(animate);
+    // Cap framerate at ~30fps to reduce main thread work
+    if (time - lastTime < 33) return;
+    lastTime = time;
+    
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     particles.forEach(function (p) { p.update(); p.draw(); });
     ctx.globalAlpha = 1;
-    animFrame = requestAnimationFrame(animate);
   }
-  animate();
+  animFrame = requestAnimationFrame(animate);
 
   var hero = document.getElementById('hero');
   if (hero) {
     new IntersectionObserver(function (entries) {
       entries.forEach(function (en) {
         if (en.isIntersecting) {
-          if (!animFrame) animate();
+          if (!animFrame) {
+            lastTime = performance.now();
+            animFrame = requestAnimationFrame(animate);
+          }
         } else {
-          cancelAnimationFrame(animFrame);
-          animFrame = null;
+          if (animFrame) {
+            cancelAnimationFrame(animFrame);
+            animFrame = null;
+          }
         }
       });
     }, { threshold: 0.1 }).observe(hero);

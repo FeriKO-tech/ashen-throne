@@ -4,10 +4,10 @@ date: 2026-01-15
 category: Announcement
 description: "Three tiers. Cosmetics that will never return. Early server access. Reserved names. The Founder's Program is your mark on the Shattered Realm before the war begins."
 excerpt: "Three tiers. Cosmetics that will never return. Early server access. Reserved names. The Founder's Program closes without notice."
-canonical: "https://www.ashenthrone.com/news/founders-program.html"
+canonical: "https://ashen-throne.web.app/news/founders-program.html"
 ogTitle: "Ashen Throne Founder's Program — Now Open"
 ogDescription: "Three tiers of permanent, exclusive cosmetics. Early server access. Name reservation. Your mark on the Shattered Realm before the war begins."
-ogImage: "https://www.ashenthrone.com/assets/og-cover.jpg"
+ogImage: "https://ashen-throne.web.app/assets/og-cover.png"
 heroImage: true
 changefreq: monthly
 priority: "0.6"
@@ -19,10 +19,10 @@ ldJsonRaw: |
     "datePublished": "2026-01-15",
     "dateModified":  "2026-01-15",
     "author": { "@type": "Organization", "name": "Ironveil Studios" },
-    "publisher": { "@type": "Organization", "name": "Ironveil Studios", "url": "https://www.ashenthrone.com/" },
+    "publisher": { "@type": "Organization", "name": "Ironveil Studios", "url": "https://ashen-throne.web.app/" },
     "description": "Ashen Throne Founder's Program announcement — three tiers with exclusive cosmetics, early access, and name reservation.",
-    "url": "https://www.ashenthrone.com/news/founders-program.html",
-    "image": "https://www.ashenthrone.com/assets/og-cover.jpg",
+    "url": "https://ashen-throne.web.app/news/founders-program.html",
+    "image": "https://ashen-throne.web.app/assets/og-cover.png",
     "articleSection": "Announcement"
   }
 ---

@@ -4,7 +4,7 @@ permalink: /account.html
 title: "Account — Ashen Throne | Login & Register"
 description: "Create a free Ashen Throne account or log in to your existing warrior profile. Join the war, manage your characters, and claim your place in the Shattered Realm."
 keywords: "Ashen Throne login, MMORPG account, create account, free registration, Ironveil Studios account, warrior profile"
-canonical: "https://www.ashenthrone.com/account.html"
+canonical: "https://ashen-throne.web.app/account.html"
 ogType: website
 ogTitle: "Account — Ashen Throne | Forge Your Legend"
 ogDescription: "Create a free account and enter the Shattered Realm. Choose your war name. The battle is waiting."
@@ -53,7 +53,7 @@ robots: "noindex, follow"
           </div>
           <span class="auth-error" id="loginPassErr"></span>
         </div>
-        <div class="auth-forgot"><a href="/support.html#faq-account">Forgot your oath?</a></div>
+        <!-- <div class="auth-forgot"><a href="/support.html#faq-account">Forgot your oath?</a></div> -->
         <button class="btn-primary auth-submit" type="submit" id="loginSubmit">Enter the Realm</button>
         <div class="auth-cross">New to the war? <button type="button" id="toRegister">Forge your legend &rarr;</button></div>
       </form>
@@ -111,12 +111,12 @@ robots: "noindex, follow"
         <div class="auth-dashboard-name" id="authDisplayName">Warrior</div>
         <div class="auth-dashboard-sub">The Shattered Realm awaits your command.</div>
         <div class="auth-warrior-stats">
-          <div class="auth-wstat"><span class="auth-wstat-val" id="authLevel">1</span><span class="auth-wstat-label">Level</span></div>
-          <div class="auth-wstat"><span class="auth-wstat-val" id="authServer">EU</span><span class="auth-wstat-label">Server</span></div>
-          <div class="auth-wstat"><span class="auth-wstat-val">0</span><span class="auth-wstat-label">Victories</span></div>
+          <div class="auth-wstat"><span class="auth-wstat-val">✓</span><span class="auth-wstat-label">Registered</span></div>
+          <div class="auth-wstat"><span class="auth-wstat-val">—</span><span class="auth-wstat-label">Awaiting Launcher</span></div>
+          <div class="auth-wstat"><span class="auth-wstat-val">Free</span><span class="auth-wstat-label">Tier</span></div>
         </div>
         <div class="auth-dashboard-actions">
-          <a href="/download.html" class="btn-primary">Launch Game</a>
+          <button class="btn-primary" disabled style="opacity:0.8; cursor:not-allowed;">Launcher Coming Soon</button>
           <a href="/classes.html" class="btn-ghost">Choose Class</a>
         </div>
         <button type="button" class="auth-logout" id="authLogout">Sign Out</button>
@@ -124,7 +124,7 @@ robots: "noindex, follow"
     </div>
 
     <div class="auth-footer-note reveal reveal-delay-2" id="authDownloadHint">
-      <p>Need the launcher? <a href="/download.html">Download it here &rarr;</a></p>
+      <p>Awaiting the game client? <a href="/download.html">Check release status &rarr;</a></p>
     </div>
   </div>
 </section>

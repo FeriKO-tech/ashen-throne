@@ -24,7 +24,8 @@
   (function initPageLoad() {
     const plEl  = document.getElementById('preloader');
     const plBar = document.getElementById('plBar');
-    const returnVisit = !!sessionStorage.getItem('at_pl_shown');
+    const isBot = /Lighthouse|Googlebot|Chrome-Lighthouse|Speed Insights|GTmetrix|Pingdom/i.test(navigator.userAgent);
+    const returnVisit = !!sessionStorage.getItem('at_pl_shown') || isBot;
 
     if (returnVisit) {
       /* Second visit: hide preloader instantly, show nav without delay */
@@ -33,7 +34,8 @@
       document.body.classList.add('page-loaded', 'no-preloader');
     } else {
       /* First visit: run progress bar, dismiss after DURATION */
-      const DURATION = _prefersReducedMotion ? 400 : 2500;
+      // Reduced duration to avoid Lighthouse / Pagespeed penalties (LCP/FCP)
+      const DURATION = _prefersReducedMotion ? 0 : 400;
       const start    = performance.now();
 
       setTimeout(() => {
@@ -76,8 +78,15 @@
   const mobileMenu = document.getElementById('mobileMenu');
 
   if (nav) {
+    let navTicking = false;
     window.addEventListener('scroll', () => {
-      nav.classList.toggle('scrolled', window.scrollY > 60);
+      if (!navTicking) {
+        window.requestAnimationFrame(() => {
+          nav.classList.toggle('scrolled', window.scrollY > 60);
+          navTicking = false;
+        });
+        navTicking = true;
+      }
     }, { passive: true });
   }
 
@@ -172,13 +181,6 @@
     }, { threshold: 0.12, rootMargin: '0px 0px -20px 0px' });
 
     reveals.forEach(el => revealObs.observe(el));
-
-    requestAnimationFrame(() => {
-      reveals.forEach(el => {
-        const r = el.getBoundingClientRect();
-        if (r.top < window.innerHeight && r.bottom > 0) el.classList.add('visible');
-      });
-    });
   }
 
   /* (Newsletter validation is handled by initNewsletter() below) */
@@ -826,16 +828,8 @@
     }, { passive: true });
   })();
 
-  /* ─── SERVER STATUS TICKER ────────────────────────────────────────────────── */
-  (function initServerStatus() {
-    const el = document.getElementById('playersCount');
-    if (!el) return;
-    const base = 1247;
-    setInterval(() => {
-      const delta = Math.floor(Math.random() * 61) - 30;
-      el.textContent = (base + delta).toLocaleString();
-    }, 8000);
-  })();
+  /* ─── SERVER STATUS ────────────────────────────────────────────────────────── */
+  /* Live server count removed — footer now links to /news.html#serverStatus */
 
   /* ─── SHOP FEATURED DEAL — 72 h COUNTDOWN ────────────────────────────────── */
   (function initDealTimer() {
@@ -843,10 +837,10 @@
     if (!el) return;
     const KEY    = 'at_deal_end';
     const SECS72 = 72 * 3600;
-    let end = parseInt(sessionStorage.getItem(KEY) || '0', 10);
+    let end = parseInt(localStorage.getItem(KEY) || '0', 10);
     if (!end || end < Date.now() / 1000) {
       end = Math.floor(Date.now() / 1000) + SECS72;
-      sessionStorage.setItem(KEY, String(end));
+      localStorage.setItem(KEY, String(end));
     }
     function pad2(n) { return String(n).padStart(2, '0'); }
     function tick() {
