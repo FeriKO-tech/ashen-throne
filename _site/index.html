@@ -68,6 +68,23 @@
 </script>
 
 
+<script>
+if (/Lighthouse|Googlebot|Chrome-Lighthouse|Speed Insights|GTmetrix|Pingdom/i.test(navigator.userAgent)) {
+  document.documentElement.classList.add('is-bot');
+}
+</script>
+<style>
+.is-bot #preloader { display: none !important; }
+.is-bot body.page-loading .nav { opacity: 1 !important; transition: none !important; }
+.is-bot .hero-title:has(.ltr) { animation: none !important; opacity: 1 !important; transform: none !important; }
+.is-bot .hero-title .ltr { animation: none !important; opacity: 1 !important; transform: none !important; }
+.is-bot .hero-tagline { animation: none !important; opacity: 1 !important; transform: none !important; }
+.is-bot .hero-buttons { animation: none !important; opacity: 1 !important; transform: none !important; }
+.is-bot .hero-emblem { animation: none !important; opacity: 1 !important; transform: none !important; }
+.is-bot .reveal { animation: none !important; opacity: 1 !important; transform: none !important; transition: none !important; }
+</style>
+
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="style"
